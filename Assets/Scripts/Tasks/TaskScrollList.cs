@@ -17,6 +17,7 @@ namespace Application{
 		
 		public void RefreshDisplay()
 		{
+			RemoveTaskButtons ();
 			AddTaskButtons ();
 		}
 
