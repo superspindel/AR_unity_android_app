@@ -24,7 +24,7 @@ public class ListingSpecificTask : MonoBehaviour {
 
 		foreach (GameObject g in subTaskList) {
 			g.transform.SetParent(transform);
-			g.transform.FindChild ("Toggle/Label").GetComponent<Text>().text = "Testar subTasks" + c;
+			g.transform.FindChild ("Name").GetComponent<Text>().text = "Sub Task [" + c + "]";
 			c++;
 		}
 
