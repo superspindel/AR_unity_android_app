@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   achText: {fileID: 114598442212169968}
+  buttonComponent: {fileID: 114602962922415832}
 --- !u!114 &114598442212169968
 MonoBehaviour:
   m_ObjectHideFlags: 1

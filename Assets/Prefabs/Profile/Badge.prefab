@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   badgeIcon: {fileID: 114142334955455678}
+  buttonComponent: {fileID: 114306952740154638}
+  badges: {fileID: 0}
+  id: 0
 --- !u!222 &222407227292467704
 CanvasRenderer:
   m_ObjectHideFlags: 1

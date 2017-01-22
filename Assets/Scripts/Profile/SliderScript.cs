@@ -25,6 +25,10 @@ public class SliderScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+	}
+
+	void continousUpdate()
+	{
 		xp = xp + 1;
 		if (xp == maxXp) 
 		{
@@ -43,4 +47,21 @@ public class SliderScript : MonoBehaviour {
 		LevelSlider.value = xp;
 		LevelSlider.maxValue = maxXp;
 	}
+
+	public void setxp (int addXP) 
+	{
+		xp = xp + addXP;
+		if (xp >= maxXp) 
+		{
+			xp = xp - maxXp;
+			maxXp = maxXp * 2;
+
+		}
+	}
+
+	private void addLevel()
+	{
+		level = level + 1;
+	}
+		
 }
