@@ -207,7 +207,7 @@ Prefab:
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
@@ -217,7 +217,7 @@ Prefab:
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
@@ -339,7 +339,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 2
+  m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
