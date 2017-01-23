@@ -25,11 +25,11 @@ namespace Application{
 		{
 			for (int i = 0; i < taskList.Count; i++)
 			{
-					Task task = taskList [i];
-					GameObject newButton = buttonObjectPool.GetObject ();
-					newButton.transform.SetParent (contentPanel);
-					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript>();
-					taskButton.Setup (task, this);
+				Task task = taskList [i];
+				GameObject newButton = buttonObjectPool.GetObject ();
+				newButton.transform.SetParent (contentPanel);
+				TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript>();
+				taskButton.Setup (task, this);
 			}
 				
 		}

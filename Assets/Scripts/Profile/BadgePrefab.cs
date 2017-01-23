@@ -15,6 +15,7 @@ public class BadgePrefab : MonoBehaviour {
 		badgeIcon.sprite = badge.iconImage;
 		id = badge.id;
 		badges = badgeInstance;
+		badgeIcon.color = badge.color;
 	}
 
 	void Start()

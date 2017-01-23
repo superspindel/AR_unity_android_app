@@ -8,6 +8,7 @@ public class BadgeObject
 {
 	public int id;
 	public Sprite iconImage;
+	public Color color;
 }
 
 

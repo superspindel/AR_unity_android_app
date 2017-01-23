@@ -15,7 +15,7 @@ public class ListingSpecificTask : MonoBehaviour {
 	void Start () {
 		subTaskList = new List<GameObject> ();
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 20; i++) {
 			subTask = (GameObject) Instantiate (subTaskPrefab);
 			subTaskList.Add (subTask);
 		}
