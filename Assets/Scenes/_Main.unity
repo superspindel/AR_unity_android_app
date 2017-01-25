@@ -1368,26 +1368,6 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: profileList.Array.data[0].name
-      value: Virre Pirre
-      objectReference: {fileID: 0}
-    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: profileList.Array.data[0].dailyScore
-      value: 149
-      objectReference: {fileID: 0}
-    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: profileList.Array.data[0].TotalScore
-      value: 385
-      objectReference: {fileID: 0}
-    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: profileList.Array.data[0].totalLevel
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0f12360fdcb34de8a1443637b68a52a, type: 2}
   m_IsPrefabParent: 0
