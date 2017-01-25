@@ -1123,11 +1123,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 224423975924129768, guid: a0f12360fdcb34de8a1443637b68a52a,
+    - target: {fileID: 114017405377130218, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.45549738
-      objectReference: {fileID: 0}
+      propertyPath: achievementObjectPool
+      value: 
+      objectReference: {fileID: 2110732542}
+    - target: {fileID: 114769461189327244, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: BadgePool
+      value: 
+      objectReference: {fileID: 1971005464}
     - target: {fileID: 224423975924129768, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
       propertyPath: m_AnchorMax.y
@@ -1238,51 +1243,6 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: 240
       objectReference: {fileID: 0}
-    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 245
-      objectReference: {fileID: 0}
-    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -125
-      objectReference: {fileID: 0}
-    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 480
-      objectReference: {fileID: 0}
-    - target: {fileID: 224701328248366086, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 232
-      objectReference: {fileID: 0}
-    - target: {fileID: 224927619128105390, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224595461734834482, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 224080121891987354, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 224956992480774482, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
       propertyPath: m_AnchorMin.y
@@ -1343,6 +1303,31 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 245
+      objectReference: {fileID: 0}
+    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -125
+      objectReference: {fileID: 0}
+    - target: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 480
+      objectReference: {fileID: 0}
     - target: {fileID: 224927619128105390, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
       propertyPath: m_AnchorMin.y
@@ -1383,102 +1368,32 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 114017405377130218, guid: a0f12360fdcb34de8a1443637b68a52a,
+    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
-      propertyPath: achievementObjectPool
-      value: 
-      objectReference: {fileID: 2110732542}
-    - target: {fileID: 114017405377130218, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: achievementGroup
-      value: 
-      objectReference: {fileID: 803223152}
-    - target: {fileID: 114769461189327244, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: BadgePool
-      value: 
-      objectReference: {fileID: 1971005464}
-    - target: {fileID: 1398073432099686, guid: a0f12360fdcb34de8a1443637b68a52a, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: profileList.Array.data[0].name
+      value: Virre Pirre
       objectReference: {fileID: 0}
-    - target: {fileID: 224859619396839538, guid: a0f12360fdcb34de8a1443637b68a52a,
+    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.45549738
+      propertyPath: profileList.Array.data[0].dailyScore
+      value: 149
       objectReference: {fileID: 0}
-    - target: {fileID: 224859619396839538, guid: a0f12360fdcb34de8a1443637b68a52a,
+    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.45549738
+      propertyPath: profileList.Array.data[0].TotalScore
+      value: 385
       objectReference: {fileID: 0}
-    - target: {fileID: 224859619396839538, guid: a0f12360fdcb34de8a1443637b68a52a,
+    - target: {fileID: 114863958186664614, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
+      propertyPath: profileList.Array.data[0].totalLevel
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0f12360fdcb34de8a1443637b68a52a, type: 2}
   m_IsPrefabParent: 0
---- !u!224 &743573004 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224080121891987354, guid: a0f12360fdcb34de8a1443637b68a52a,
-    type: 2}
-  m_PrefabInternal: {fileID: 743573003}
---- !u!224 &743573005 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224927619128105390, guid: a0f12360fdcb34de8a1443637b68a52a,
-    type: 2}
-  m_PrefabInternal: {fileID: 743573003}
---- !u!224 &743573006 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-    type: 2}
-  m_PrefabInternal: {fileID: 743573003}
 --- !u!1 &743573007 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1398073432099686, guid: a0f12360fdcb34de8a1443637b68a52a,
-    type: 2}
-  m_PrefabInternal: {fileID: 743573003}
---- !u!114 &743573008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 743573007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e29ef3be12254c9fac54aeac349d8e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  achievementBox: {fileID: 743573005}
-  profileInfo: {fileID: 743573006}
-  BadgesBox: {fileID: 743573004}
-  achievementObjectList:
-  - id: 1
-    achievementText: hfodshjfkjdshfjkds
-  - id: 2
-    achievementText: ohafhfkjdashfjkdsa
-  - id: 3
-    achievementText: dsadashjdhsakj
-  - id: 0
-    achievementText: dsfhkafhgkdsjfa
-  badgeObjectList:
-  - id: 1
-    iconImage: {fileID: 21300000, guid: f9e30604603bdce458e0af50dbbd7a9e, type: 3}
-    color: {r: 1, g: 0, b: 0, a: 1}
-  - id: 2
-    iconImage: {fileID: 21300000, guid: cc04b68180e23a24790d8c0285183685, type: 3}
-    color: {r: 0.4699796, g: 0.42647058, b: 1, a: 1}
-  - id: 3
-    iconImage: {fileID: 21300000, guid: e7798bb80eccf694295e0813fd9ceec8, type: 3}
-    color: {r: 0.16290008, g: 0.9632353, b: 0.30088893, a: 1}
-  - id: 4
-    iconImage: {fileID: 21300000, guid: 4147dced12149a2449ac5593c47ee789, type: 3}
-    color: {r: 0.9705882, g: 0.2640571, b: 0.74644744, a: 1}
---- !u!1 &803223152 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1662166195100414, guid: a0f12360fdcb34de8a1443637b68a52a,
     type: 2}
   m_PrefabInternal: {fileID: 743573003}
 --- !u!1001 &859713874

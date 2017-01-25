@@ -12,57 +12,47 @@ public class SliderScript : MonoBehaviour {
 
 	private int xp;
 	private int maxXp;
-	private int level;
+	private int userLevel;
 
-	// Use this for initialization
-	void Start () {
-		xp = 0;
-		maxXp = 10;
-		level = 1;
+	public void setSlider(Profile playerProf)
+	{
+		setData (playerProf.getLevel (), playerProf.getTotalScore ());
 		updateDisplay ();
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		continousUpdate ();
-	}
 
-	void continousUpdate()
+	private void setData(int level, int totalXp)
 	{
-		xp = xp + 1;
-		if (xp == maxXp) 
-		{
-			maxXp = maxXp * 2;
-			xp = 0;
-			level = level + 1;
-		}
-		updateDisplay ();
+		int bottom = (10 * ((int)Mathf.Pow ((float)1.2, (float)(level - 1))));
+		int top = (10 * ((int)Mathf.Pow ((float)1.2, (float)level)));
+		maxXp = top - bottom;
+		xp = totalXp - bottom;
+		userLevel = level;
 	}
+		
 
 	private void updateDisplay()
 	{
 		XpNow.text = xp.ToString ();
 		XpLevel.text = maxXp.ToString ();
-		LevelText.text = "Level:\n"+level.ToString ();
-		LevelSlider.value = xp;
+		LevelText.text = "Level:\n"+userLevel.ToString ();
 		LevelSlider.maxValue = maxXp;
+		LevelSlider.value = xp;
 	}
 
 	public void setxp (int addXP) 
 	{
-		xp = xp + addXP;
+		xp += addXP;
 		if (xp >= maxXp) 
 		{
 			xp = xp - maxXp;
-			maxXp = maxXp * 2;
-
+			maxXp = (int)(maxXp * 1.2);
 		}
+		addLevel ();
 	}
 
 	private void addLevel()
 	{
-		level = level + 1;
+		userLevel += 1;
 	}
 		
 }
