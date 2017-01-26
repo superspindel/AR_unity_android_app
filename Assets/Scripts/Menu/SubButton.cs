@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class SubButton : MonoBehaviour {
 	public Text textField;
 	private Transform target;
-	private ButtonGroup parentGroup;
+	private subButtonGroup parentGroup;
 
-	public void Setup(string title, Transform target, ButtonGroup parent)
+	public void Setup(string title, Transform target, subButtonGroup parent)
 	{
 		this.textField.text = title;
 		this.target = target;

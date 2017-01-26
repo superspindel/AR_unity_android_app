@@ -59,6 +59,9 @@ public class SetupMenu : MonoBehaviour {
 
 	public List<MenuGroups> menuGroupList;
 	public SimpleObjectPool buttonGroupPool;
+	public SimpleObjectPool subButtonPool;
+	public SimpleObjectPool mainButtonPool;
+	public SimpleObjectPool subButtonGroupPool;
 
 
 	public void createMenu()
@@ -71,5 +74,10 @@ public class SetupMenu : MonoBehaviour {
 			ButtonGroup btngrp = menuGroupPrefab.GetComponent<ButtonGroup> ();
 			btngrp.Setup (menuGroup.getSubMenus(), menuGroup.getTitle(), menuGroup.getIcon(), this);
 		}
+	}
+
+	public void Start()
+	{
+		createMenu ();
 	}
 }

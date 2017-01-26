@@ -3,23 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonGroup : MonoBehaviour {
-	public Text TextField;
-	public Image icon;
-	public List<subMenus> lstsub;
-	private SetupMenu setMenu;
-	public SimpleObjectPool subButtonPool;
+public class subButtonGroup : MonoBehaviour {
 
-	public void Setup(List<subMenus> lstsub, string title, Sprite icon, SetupMenu setMenu)
+	public void Setup(List<subMenus> lst, SimpleObjectPool subButtonPool)
 	{
-		this.lstsub = lstsub;
-		this.TextField.text = title;
-		this.icon.sprite = icon;
-		this.setMenu = setMenu;
-		addSubMenus ();
+		addSubMenus (lst, subButtonPool);
 	}
 
-	private void addSubMenus()
+
+	private void addSubMenus(List<subMenus> lstsub, SimpleObjectPool subButtonPool)
 	{
 		for (int i = 0; i < lstsub.Count; i++)
 		{
