@@ -8,9 +8,11 @@ namespace Application{
 		public List<Task> taskList;
 		public Transform contentPanel;
 		public SimpleObjectPool buttonObjectPool;
-
+		public AddTaskButtonScript addTaskButton;
 		// Use this for initialization
-		
+		private List<Task> checkedList;
+		private int checkedCount = 0;
+
 		void Start () {
 				RefreshDisplay ();
 		}
@@ -25,13 +27,15 @@ namespace Application{
 		{
 			for (int i = 0; i < taskList.Count; i++)
 			{
-				Task task = taskList [i];
-				GameObject newButton = buttonObjectPool.GetObject ();
-				newButton.transform.SetParent (contentPanel);
-				TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript>();
-				taskButton.Setup (task, this);
+				if (taskList [i].available) {
+					Task task = taskList [i];
+					GameObject newButton = buttonObjectPool.GetObject ();
+					newButton.transform.SetParent (contentPanel);
+					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
+					taskButton.Setup (task, this);
+
+				}
 			}
-				
 		}
 
 		private void RemoveTaskButtons ()
@@ -41,8 +45,9 @@ namespace Application{
 				GameObject toRemove = transform.GetChild (0).gameObject;
 				buttonObjectPool.ReturnObject (toRemove);
 			}
-		
 		}
+
+
 
 		private void addTask(Task taskToAdd, TaskScrollList scrollList)
 		{
@@ -59,6 +64,31 @@ namespace Application{
 				}
 			}
 		}
-	}
 
+		public void addCheckedTasks(){
+			for (int i = 0; i < taskList.Count; i++) {
+				if (taskList [i].check) {
+					//Debug.Log (taskList [i].title);
+					taskList [i].available = false;
+					checkedCount--;
+				}
+				RefreshDisplay ();
+			}
+		}
+
+		public void showAddButton(bool toggle){
+			if (toggle) {
+				checkedCount++;
+			} else {
+				checkedCount--;
+			}
+			Debug.Log (checkedCount);
+			if (checkedCount > 0) {
+				addTaskButton.gameObject.SetActive(true);
+			} else {
+				addTaskButton.gameObject.SetActive(false);
+			}
+			
+		}
+	}
 }

@@ -86,63 +86,103 @@ MonoBehaviour:
   - id: 0
     title: asdasdasdasd
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
-    title: asdasd
+    title: 1
     Totalxp: 1000
+    available: 1
+    check: 0
   - id: 0
-    title: asdasdasd
+    title: 2
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
-    title: agagadsg
+    title: 3
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
-    title: agagadsg
+    title: 4
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
-    title: agagadsg
+    title: 5
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
-    title: agagadsg
+    title: 6
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
-    title: agagadsg
+    title: 7
     Totalxp: 0
-  - id: 0
-    title: agagadsg
-    Totalxp: 0
-  - id: 0
-    title: agagadsg
-    Totalxp: 0
-  - id: 0
-    title: agagadsg
-    Totalxp: 0
-  - id: 0
-    title: agagadsg
-    Totalxp: 0
-  - id: 0
-    title: agagadsg
-    Totalxp: 0
-  - id: 0
-    title: agagadsg
-    Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
     title: agagadsg
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
     title: agagadsg
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
     title: agagadsg
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
     title: agagadsg
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
     title: agagadsg
     Totalxp: 0
+    available: 1
+    check: 0
   - id: 0
     title: agagadsg
     Totalxp: 0
+    available: 1
+    check: 0
+  - id: 0
+    title: agagadsg
+    Totalxp: 0
+    available: 1
+    check: 0
+  - id: 0
+    title: agagadsg
+    Totalxp: 0
+    available: 1
+    check: 0
+  - id: 0
+    title: agagadsg
+    Totalxp: 0
+    available: 1
+    check: 0
+  - id: 0
+    title: agagadsg
+    Totalxp: 0
+    available: 1
+    check: 0
+  - id: 0
+    title: agagadsg
+    Totalxp: 0
+    available: 1
+    check: 0
+  - id: 0
+    title: agagadsg
+    Totalxp: 0
+    available: 1
+    check: 0
   contentPanel: {fileID: 224965545544661874}
   buttonObjectPool: {fileID: 0}
 --- !u!114 &114840970169168996

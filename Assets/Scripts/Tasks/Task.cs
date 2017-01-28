@@ -12,9 +12,13 @@ namespace Application{
 		public string title;
 		public int Totalxp;
 		public List<SubTask> subtasks;
+		public bool available;
+		public bool check;
 
-		public Task ()
+		public void Start ()
 		{
+			this.available = true;
+			this.check = false;
 		}
 	}
 }
