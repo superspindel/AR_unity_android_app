@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class dataContainer : MonoBehaviour {
+
+	// List of "My Tasks / Active Tasks" TaskData wich contains a list SubTaskData
+	public List<TaskData> activeTasks;
+	// List of "Avalible Tasks" TaskData wich contains a list SubTaskData
+	public List<TaskData> avalibleTasks;
+
 	public List<AchievementObject> achievementList;
 	public List<BadgeObject> badgeList;
 	public Profile activeProfile;
@@ -59,4 +65,8 @@ public class dataContainer : MonoBehaviour {
 		this.activeProfile = newProfile;
 	}
 
+
+	public void createTestTask(){
+		// create a test TaskData Object and put in activeTasks 
+	}
 }
