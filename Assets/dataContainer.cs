@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class dataContainer : MonoBehaviour {
 
+	//TEST VARIABLES
+	[Header("Testing Variables")]
+	[Tooltip("Use for testing")]
+	public int test_nrOfSubTasks;
+
+
+	[Header("Real Variables")]
 	// List of "My Tasks / Active Tasks" TaskData wich contains a list SubTaskData
 	public List<TaskData> activeTasks;
 	// List of "Avalible Tasks" TaskData wich contains a list SubTaskData
@@ -14,6 +21,13 @@ public class dataContainer : MonoBehaviour {
 	public Profile activeProfile;
 
 	public ArrayList settingsArray;
+
+	void Awake(){
+		Debug.Log ("DataContainer is Awake");
+		activeTasks = new List<TaskData> ();
+		createTestTaskList ();
+		Debug.Log ("Test Task List Created");
+	}
 
 	public List<AchievementObject> getAchievementList()
 	{
@@ -66,7 +80,49 @@ public class dataContainer : MonoBehaviour {
 	}
 
 
-	public void createTestTask(){
-		// create a test TaskData Object and put in activeTasks 
+	// Tasks & SubTasks TODO: Separate active / avalible or use same list with flag?
+	public TaskData getTaskDataById(int id){
+		foreach (TaskData t in activeTasks) {
+			if (t.id == id)
+				return t;
+		}
+		foreach (TaskData t in avalibleTasks) {
+			if (t.id == id)
+				return t;
+		}
+		return null;
+	}
+
+	private int testTaskCount = 0;
+
+	public void createTestTaskList(){
+		// Create TaskData
+		TaskData testTask = new TaskData();
+		testTask.id 			= testTaskCount++;
+		testTask.title 			= "TestTask 1";
+		testTask.description 	= "Description of TestTask 1";
+		testTask.totalxp 		= 1337;
+		testTask.location		= new Vector3(0f,0f,0f);
+		testTask.status			= Status.InProgress;
+		testTask.tools			= new List<string>(); 
+		testTask.subTasks		= new List<SubTaskData>(); 
+
+		// Create SubTaskData
+		for (int i = 0; i < test_nrOfSubTasks; i++) {
+			SubTaskData testSubTask = new SubTaskData ();
+			testSubTask.id 			= i;
+			testSubTask.title 		= "SubTask[" + i + "]";
+			testSubTask.information = "information for subtask nr " + i;
+			testSubTask.warning 	= "Warning";
+			testSubTask.tools		= new List<string>(); 
+			testSubTask.tools.Add("Helm");
+			testSubTask.status		= Status.InProgress;
+			testSubTask.isBonus		= (Random.value > 0.5); // true or false
+
+			testTask.subTasks.Add (testSubTask);
+		}
+
+		// Add to activeTasks
+		this.activeTasks.Add (testTask);
 	}
 }

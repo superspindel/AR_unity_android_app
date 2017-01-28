@@ -17,15 +17,32 @@ public class SubTask : MonoBehaviour {
 	private Toggle progressToggle;
 	private Toggle bonusToggle;
 
+	private Button warningButton, infoButton, helpButton, toolButton;
+
+	private PopUp popup;
+
+	public string warning, info;
+	public List<string> tools;
+
 	// Use this for initialization
 	void Awake () {
 		this.buttonGroup 	= this.transform.FindChild ("ButtonGroup").gameObject;
 		this.textField 		= this.transform.FindChild ("Name").GetComponent<Text>();
 		this.progressToggle = this.transform.FindChild ("Toggle").GetComponent<Toggle>();
 		this.bonusToggle	= this.transform.FindChild ("Toggle-Bonus").GetComponent<Toggle>();
+		this.warningButton 	= this.buttonGroup.transform.FindChild("Warning").GetComponent<Button> ();
+		this.infoButton 	= this.buttonGroup.transform.FindChild("Info").GetComponent<Button> ();
+		this.helpButton 	= this.buttonGroup.transform.FindChild("Help").GetComponent<Button> ();
+		this.toolButton 	= this.buttonGroup.transform.FindChild("Tool").GetComponent<Button> ();
+		this.popup 			= GameObject.Find ("Canvas").GetComponent<CanvasObjects> ().popup.GetComponent<PopUp> ();
 
 		progressToggle.onValueChanged.AddListener (toggleListener);
 		bonusToggle.onValueChanged.AddListener (toggleListener);
+
+		warningButton.onClick.AddListener (warningListener);
+		infoButton.onClick.AddListener (infoListener);
+		helpButton.onClick.AddListener (helpListener);
+		toolButton.onClick.AddListener (toolListener);
 	}
 
 	// When first enabled
@@ -59,6 +76,25 @@ public class SubTask : MonoBehaviour {
 		} else {
 			setStatus(Status.InProgress);
 		}
+	}
+
+	// when warning icon is clicked
+	public void warningListener(){
+		this.popup.enterPopup(PopUpType.general, "Warning!", "Warning:", this.warning);
+	}
+
+	// when warning icon is clicked
+	public void infoListener(){
+		this.popup.enterPopup(PopUpType.general, "Information!", "Information:", this.info);
+	}
+
+	// when warning icon is clicked
+	public void helpListener(){
+		this.popup.enterPopup(PopUpType.general, "Help!", "Help:", "HELP");
+	}
+
+	public void toolListener(){
+		this.popup.enterPopup(PopUpType.general, "Tools!", "Tools:", "TOOLS");
 	}
 
 	// Status

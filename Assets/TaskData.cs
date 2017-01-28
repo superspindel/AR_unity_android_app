@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskData : MonoBehaviour {
+public class TaskData {
 
 	// Task
 	public int id;
@@ -19,13 +19,9 @@ public class TaskData : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Awake () {
+	public TaskData () {
+		Debug.Log ("TaskData is Awake");
 		//tools = getToolsFromSubTasks ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	//TODO:getToolsFromSubTasks () {}

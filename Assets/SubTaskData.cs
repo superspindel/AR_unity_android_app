@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubTaskData : MonoBehaviour {
+public class SubTaskData {
 
+	public int id;
+	public bool isBonus;
 	public string title;
 	public string information;
 	public string warning;
@@ -11,12 +13,8 @@ public class SubTaskData : MonoBehaviour {
 	public Status status;
 
 	// Use this for initialization
-	void Start () {
+	public SubTaskData () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
