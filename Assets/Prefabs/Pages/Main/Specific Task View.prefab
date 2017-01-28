@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224712225668987364}
   - component: {fileID: 114610496608593794}
   m_Layer: 5
-  m_Name: Checkmark Slider
+  m_Name: Progress Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 224695551676276176}
   - component: {fileID: 114132836697792912}
   m_Layer: 5
-  m_Name: Star Slider
+  m_Name: Bonus Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,6 +170,24 @@ GameObject:
   - component: {fileID: 224605001635008284}
   m_Layer: 5
   m_Name: Fill Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1476326619271052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224221076131056438}
+  - component: {fileID: 114550551921950014}
+  - component: {fileID: 114226521007701830}
+  - component: {fileID: 114073511870166584}
+  m_Layer: 5
+  m_Name: Sub Task Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,8 +255,8 @@ GameObject:
   - component: {fileID: 224957371732210504}
   - component: {fileID: 114569476747326180}
   - component: {fileID: 114214244291448508}
-  - component: {fileID: 114404624099238840}
   - component: {fileID: 114136065288617918}
+  - component: {fileID: 114404624099238840}
   m_Layer: 5
   m_Name: Specific Task View
   m_TagString: Untagged
@@ -391,6 +409,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &114073511870166584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476326619271052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
 --- !u!114 &114131149496185640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,7 +491,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 224432132565203326}
   m_HandleRect: {fileID: 0}
@@ -514,6 +545,18 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &114226521007701830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476326619271052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9580cfa9cac58471087488ea9e1af25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1725096426935084, guid: 2d82111cc7afa2c4fbe53105360fcbd7, type: 2}
 --- !u!114 &114281804891618462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -638,8 +681,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eefccde0ac46fd40a5e83ebdc7837cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subTaskPrefab: {fileID: 1725096426935084, guid: 2d82111cc7afa2c4fbe53105360fcbd7,
-    type: 2}
+  testListSize: 9
+  subTaskGroup: {fileID: 1476326619271052}
+  subTaskList: []
+  pool: {fileID: 0}
+  regular: 0
+  bonus: 0
 --- !u!114 &114445013317496532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,6 +740,28 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114550551921950014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476326619271052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 8
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 1
 --- !u!114 &114554844769100248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,7 +848,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 224089497541810938}
   m_HandleRect: {fileID: 0}
@@ -1152,6 +1221,24 @@ RectTransform:
   m_AnchoredPosition: {x: 147, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224221076131056438
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476326619271052}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224957371732210504}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224251655502285110
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1470,6 +1557,7 @@ RectTransform:
   - {fileID: 224892315143692402}
   - {fileID: 224251655502285110}
   - {fileID: 224588226803425896}
+  - {fileID: 224221076131056438}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
