@@ -10,6 +10,7 @@ public class ButtonGroup : MonoBehaviour {
 	private SimpleObjectPool mainButtonPool;
 	private SimpleObjectPool subButtonGroupPool;
 	private GameObject sbtgrp;
+	private subButtonGroup sbtgrpscr;
 
 	public void Setup(List<subMenus> lstsub, string title, Sprite icon, SetupMenu setMenu)
 	{
@@ -40,6 +41,7 @@ public class ButtonGroup : MonoBehaviour {
 		subButtonGroup sbtg = subButGrp.GetComponent<subButtonGroup> ();
 		sbtg.Setup (this.lstsub, this.subButtonPool);
 		this.sbtgrp = subButGrp;
+		this.sbtgrpscr = sbtgrp.GetComponent<subButtonGroup> ();
 	}
 
 	public void toggleSubMenu()
@@ -47,9 +49,11 @@ public class ButtonGroup : MonoBehaviour {
 		if (this.sbtgrp.activeSelf) 
 		{
 			this.sbtgrp.SetActive (false);
+			this.sbtgrpscr.removeSubs ();
 		} else 
 		{
 			this.sbtgrp.SetActive (true);
+			this.sbtgrpscr.addSubMenus (lstsub);
 		}
 	}
 }

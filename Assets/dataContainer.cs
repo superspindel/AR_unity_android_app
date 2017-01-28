@@ -24,15 +24,39 @@ public class dataContainer : MonoBehaviour {
 		this.achievementList.Add (achObj);
 	}
 
+	public void setAchievementList(List<AchievementObject> newList)
+	{
+		this.achievementList = newList;
+	}
+
 	public void removeAchievement(AchievementObject achObj)
 	{
-		achievementList.Remove (achObj);
+		this.achievementList.Remove (achObj);
 	}
 
 	public void addBadge(BadgeObject bdgObj)
 	{
-		badgeList.Remove (bdgObj);
+		this.badgeList.Add (bdgObj);
 	}
 
+	public void setBadgeList(List<BadgeObject> newList)
+	{
+		this.badgeList = newList;
+	}
+
+	public void removeBadge(BadgeObject bdgObj)
+	{
+		this.badgeList.Remove (bdgObj);
+	}
+
+	public Profile getProfile()
+	{
+		return activeProfile;
+	}
+
+	public void setProfile(Profile newProfile)
+	{
+		this.activeProfile = newProfile;
+	}
 
 }
