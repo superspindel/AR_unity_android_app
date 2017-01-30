@@ -29,6 +29,14 @@ public class CommunicationsApi : MonoBehaviour
 	    Socket.Connect();
     }
 
+    void OnDestroy()
+    {
+        if (Socket != null)
+        {
+            Socket.Close();
+        }
+    }
+
     private void ClientOnError(object sender, ErrorEventArgs errorEventArgs)
     {
         Debug.Log("Error");
