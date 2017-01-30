@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
+using Application;
 using UnityEngine;
 using SocketIOClient;
 
@@ -26,7 +27,7 @@ public class CommunicationsApi : MonoBehaviour
         Socket.Error += ClientOnError;
 
 	    Socket.Connect();
-	}
+    }
 
     private void ClientOnError(object sender, ErrorEventArgs errorEventArgs)
     {
@@ -48,10 +49,22 @@ public class CommunicationsApi : MonoBehaviour
 
     private void ClientOnOpened(object sender, EventArgs eventArgs)
     {
+        Debug.Log("Opened connection!");
     }
     
     // Update is called once per frame
+    private bool _attempt = false;
 	void Update () {
-		
+	    if (IsAvailable && !_attempt)
+	    {
+	        _attempt = true;
+            DataStore.List<Task>(tasks =>
+            {
+                foreach (var task in tasks)
+                {
+                    Debug.Log(task.Title);
+                }
+            });
+        }
 	}
 }

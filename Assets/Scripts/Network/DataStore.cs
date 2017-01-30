@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using SocketIOClient.Messages;
 using UnityEngine;
 
 public abstract class NetworkDataObject
@@ -13,13 +14,21 @@ public abstract class NetworkDataObject
 
     public void Merge(object newData)
     {
+        Debug.Log(newData);
         Available = true;
         LastModified = DateTime.UtcNow;
         foreach (var prop in this.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite))
         {
-            var value = prop.GetValue(newData, null);
-            if(value != null)
-                prop.SetValue(this, value, null);
+            try
+            {
+                var value = prop.GetValue(newData, null);
+                if (value != null)
+                    prop.SetValue(this, value, null);
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Failed to merge " + prop.Name + ", due to: " + ex.Message);
+            }
         }
     }
     public override int GetHashCode()
@@ -53,19 +62,22 @@ public class DataStore
         bool fast = false;
         if (_objectTracker.ContainsKey(hash) && _objectTracker[hash].LastModified > DateTime.UtcNow - TimeSpan.FromMinutes(1))
         {
+            Debug.Log("fast mode");
             if (callback != null)
                 callback(_objectTracker[hash] as T);
             fast = true;
         }
         if (CommunicationsApi.IsAvailable)
         {
+            Debug.Log("fetch via API");
             // Queue update from server
-            CommunicationsApi.Socket.Emit(eventName, id, "/", o =>
+            CommunicationsApi.Socket.Emit(eventName, id, "", o =>
             {
+                Debug.Log("fetched via API");
                 // New object? create empty instance and merge data to it
                 if (!_objectTracker.ContainsKey(hash))
                     _objectTracker[hash] = new T();
-                _objectTracker[hash].Merge(o);
+                _objectTracker[hash].Merge((o as JsonEncodedEventMessage).GetFirstArgAs<T>());
                 // Update Offline Cache, is done async so it doesn't block
                 OfflineCache.QueueStore(hash, _objectTracker[hash]);
                 if (!fast && callback != null)
@@ -75,6 +87,7 @@ public class DataStore
         }
         else
         {
+            Debug.Log("no API");
             if (fast) // fast cache but API offline? not our problem for now
                 return;
             // Got an object tracked but older than a minute? lets just use it
@@ -106,23 +119,26 @@ public class DataStore
         if (CommunicationsApi.IsAvailable)
         {
             // fetch array with ids, then Get each object (allows us to fetch from local cache instead of sending buttloads of data over net by default)
-            CommunicationsApi.Socket.Emit(eventName, null, "/", o =>
+            CommunicationsApi.Socket.Emit(eventName, null, "", o =>
             {
                 List<T> returns = new List<T>();
-                var got = (o as string[]);
+                var got = (o as JsonEncodedEventMessage).GetFirstArgAs<string[]>();
                 int i = got.Length;
                 foreach (var id in got)
                 {
+                    Debug.Log("going through: " + id);
                     Get<T>(id, obj =>
                     {
                         returns.Add(obj);
+                        Debug.Log("added " + obj.Id);
                         i--;
+                        if (i == 0)
+                        {
+                            if (callback != null)
+                                callback(returns);
+                        }
                     });
                 }
-                while(i != 0)
-                    Thread.Sleep(5);
-                if (callback != null)
-                    callback(returns);
             });
         }
         else

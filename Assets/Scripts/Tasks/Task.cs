@@ -4,10 +4,9 @@ using System.Collections.Generic;
 namespace Application
 {
 	[System.Serializable]
-	public class Task
+	public class Task : NetworkDataObject
 	{
-		public int id;
-		public string title;
+		public string Title { get; set; }
 		public List<SubTask> subtasks;
 
 		public Task ()
