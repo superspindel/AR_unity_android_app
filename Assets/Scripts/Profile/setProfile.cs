@@ -11,11 +11,20 @@ public class Profile
 	//private int dailyScore;
 	//private int TotalScore;
 	//private int totalLevel;
-	public Sprite profImg;
+	public int id;
+	public Sprite profImg; 		// how?
 	public string name;
 	public int dailyScore;
 	public int TotalScore;
 	public int totalLevel;
+
+	// Badge data
+	// store on server? int for example: tasksCompleted, nrOfDaysInTime etc.;
+	// Server listens for changes in statistics sends badge id
+
+	// Ach data
+	//public List<int> achiId
+	//public List<int> badgeId
 
 	public Profile(Sprite img, string profName, int dScore, int tScore, int tLevel)
 	{

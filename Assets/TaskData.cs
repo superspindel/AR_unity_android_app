@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class TaskData {
 
 	// Task
 	public int id;
 	public string title;
 	public string description;
-	public int totalxp;
+	public int totalxp; // get from subtasks
 	public Vector3 location;
 	public Status status;
-	public List<string> tools;
+	//public TIDSVARIABEL statusUpdated;
+	public List<Tool> tools; // TODO: add Tool class, helm etc . + get from subtask
+	public int userid; // more users later
+	public List<string> hints;
 
 	// List of SubTaskData for this Task
 	public List<SubTaskData> subTasks;
