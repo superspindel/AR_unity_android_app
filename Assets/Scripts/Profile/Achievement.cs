@@ -6,8 +6,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public class AchievementObject
 {
-	public int id;
-	public string achievementText;
+	public int id { get; private set;}
+	public string achievementText { get; private set;}
 }
 
 
@@ -20,42 +20,42 @@ public class Achievement : MonoBehaviour {
 
 	public void addToList(AchievementObject obj)
 	{
-		achievementObjectList.Add (obj);
+		this.achievementObjectList.Add (obj);
 	}
 
 	public void resetDisplay()
 	{
-		RemoveAchievements ();
-		addAchievements ();
+		this.RemoveAchievements ();
+		this.addAchievements ();
 	}
 
 	public void removeFromList(int id)
 	{
-		for (int i = achievementObjectList.Count-1; i >= 0; i--) 
+		for (int i = this.achievementObjectList.Count-1; i >= 0; i--) 
 		{
-			if (achievementObjectList [i].id == id) 
+			if (this.achievementObjectList [i].id == id) 
 			{
-				achievementObjectList.RemoveAt (i);
+				this.achievementObjectList.RemoveAt (i);
 			}
 		}
 		resetDisplay ();
 	}
 	private void RemoveAchievements()
 	{
-		while (achievementPanel.childCount > 0)
+		while (this.achievementPanel.childCount > 0)
 		{
 			GameObject toRemove = achievementPanel.GetChild(0).gameObject;
-			achievementObjectPool.ReturnObject(toRemove);
+			this.achievementObjectPool.ReturnObject(toRemove);
 		}
 	}
 
 	private void addAchievements()
 	{
-		for (int i = 0; i < achievementObjectList.Count; i++)
+		for (int i = 0; i < this.achievementObjectList.Count; i++)
 		{
-			AchievementObject achObj = achievementObjectList [i];
-			GameObject newAch = achievementObjectPool.GetObject ();
-			newAch.transform.SetParent (achievementPanel);
+			AchievementObject achObj = this.achievementObjectList [i];
+			GameObject newAch = this.achievementObjectPool.GetObject ();
+			newAch.transform.SetParent (this.achievementPanel);
 			AchievementPrefab achPref = newAch.GetComponent<AchievementPrefab> ();
 			achPref.Setup (achObj, this);
 		}

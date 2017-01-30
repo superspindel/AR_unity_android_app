@@ -6,17 +6,15 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Profile
 {
-	//private Sprite profImg;
-	//private string name;
-	//private int dailyScore;
-	//private int TotalScore;
-	//private int totalLevel;
-	public int id;
-	public Sprite profImg; 		// how?
-	public string name;
-	public int dailyScore;
-	public int TotalScore;
-	public int totalLevel;
+	public int id { get; private set;}
+	public Sprite profImg { get; private set;} 		// how?
+	public string name { get; private set;}
+	public int dailyScore { get; private set;}
+	public int TotalScore { get; private set;}
+	public int totalLevel { get; private set;}
+
+	public int[] badgeArray { get; private set;}
+	public int[] achArray { get; private set;}
 
 	// Badge data
 	// store on server? int for example: tasksCompleted, nrOfDaysInTime etc.;
@@ -26,38 +24,15 @@ public class Profile
 	//public List<int> achiId
 	//public List<int> badgeId
 
-	public Profile(Sprite img, string profName, int dScore, int tScore, int tLevel)
+	public Profile(Sprite img, string profName, int dScore, int tScore, int tLevel, int[] badgeArray, int[] achArray)
 	{
-		profImg = img;
-		name = profName;
-		dailyScore = dScore;
-		TotalScore = tScore;
-		totalLevel = tLevel;
-	}
-
-	public Sprite getSprite()
-	{
-		return profImg;
-	}
-
-	public string getName()
-	{
-		return name;
-	}
-
-	public int getDailyScore()
-	{
-		return dailyScore;
-	}
-
-	public int getTotalScore()
-	{
-		return TotalScore;
-	}
-
-	public int getLevel()
-	{
-		return totalLevel;
+		this.profImg = img;
+		this.name = profName;
+		this.dailyScore = dScore;
+		this.TotalScore = tScore;
+		this.totalLevel = tLevel;
+		this.badgeArray = badgeArray;
+		this.achArray = achArray;
 	}
 }
 
@@ -69,31 +44,26 @@ public class setProfile : MonoBehaviour {
 	public Text DailyScoreField;
 	public Text TotalScoreField;
 	public Transform slider;
-	private SliderScript slscrpt;
+	public SliderScript slscrpt{ get; private set; }
 	public List<Profile> profileList;
 
 	public void Start()
 	{
-		slscrpt = slider.GetComponent<SliderScript> ();
-		setProfileInfo (profileList [0]);
+		this.slscrpt = slider.GetComponent<SliderScript> ();
+		this.setProfileInfo (profileList [0]);
 	}
 		
 	public void setProfileInfo(Profile playerProfile)
 	{
-		setImage (playerProfile.getSprite ());
-		setName (playerProfile.getName ());
-		setScore (playerProfile.getDailyScore (), playerProfile.getTotalScore ());
-		slscrpt.setSlider (playerProfile);
+		this.profileImage.sprite = playerProfile.profImg;
+		this.setName (playerProfile.name);
+		this.setScore (playerProfile.dailyScore, playerProfile.TotalScore);
+		this.slscrpt.setSlider (playerProfile);
 	}
 
 	private void setName(string name)
 	{
 		nameField.text = "Name: \n" + name;
-	}
-
-	private void setImage(Sprite image)
-	{
-		profileImage.sprite = image;
 	}
 
 	private void setScore(int dScore, int tScore)

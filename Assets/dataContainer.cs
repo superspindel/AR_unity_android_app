@@ -104,7 +104,7 @@ public class dataContainer : MonoBehaviour {
 		testTask.totalxp 		= 1337;
 		testTask.location		= new Vector3(0f,0f,0f);
 		testTask.status			= Status.InProgress;
-		testTask.tools			= new List<string>(); 
+		testTask.tools			= new List<Tool>(); 
 		testTask.subTasks		= new List<SubTaskData>(); 
 
 		// Create SubTaskData
@@ -114,8 +114,8 @@ public class dataContainer : MonoBehaviour {
 			testSubTask.title 		= "SubTask[" + i + "]";
 			testSubTask.information = "information for subtask nr " + i;
 			testSubTask.warning 	= "Warning";
-			testSubTask.tools		= new List<string>(); 
-			testSubTask.tools.Add("Helm");
+			testSubTask.tools		= new List<Tool>(); 
+			testSubTask.tools.Add(new Tool("helm"));
 			testSubTask.status		= Status.InProgress;
 			testSubTask.isBonus		= (Random.value > 0.5); // true or false
 

@@ -16,31 +16,30 @@ public class ProfileScrollView : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		achScript = achievementBox.GetComponent<Achievement> ();
-		badgeScript = BadgesBox.GetComponent<Badges> ();
-		addAchievement ();
-		addBadges ();
+		this.achScript = achievementBox.GetComponent<Achievement> ();
+		this.badgeScript = BadgesBox.GetComponent<Badges> ();
+		this.addAchievement ();
+		this.addBadges ();
 	}
 
 	public void addAchievement()
 	{
-		for (int i = 0; i < achievementObjectList.Count; i++)
+		for (int i = 0; i < this.achievementObjectList.Count; i++)
 		{
-			AchievementObject obj = achievementObjectList [i];
-			achScript.addToList (obj);
-			achScript.resetDisplay ();
+			AchievementObject obj = this.achievementObjectList [i];
+			this.achScript.addToList (obj);
 		}
 		achScript.resetDisplay ();
 	}
 
 	public void addBadges()
 	{
-		for (int i = 0; i < badgeObjectList.Count; i++) 
+		for (int i = 0; i < this.badgeObjectList.Count; i++) 
 		{
 			BadgeObject obj = badgeObjectList [i];
-			badgeScript.addToList (obj);
-			badgeScript.resetDisplay ();
+			this.badgeScript.addToList (obj);
 		}
+		this.badgeScript.resetDisplay ();
 	}
 
 }

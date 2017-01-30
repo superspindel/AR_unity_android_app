@@ -8,23 +8,23 @@ public class AchievementPrefab : MonoBehaviour {
 	public Text achText;
 	public Button buttonComponent;
 	private Achievement achievement;
-	private int id;
+	public int id { get; private set;}
 
 
 	public void Setup(AchievementObject achObj, Achievement ach)
 	{
-		achText.text = achObj.achievementText;
-		id = achObj.id;
-		achievement = ach;
+		this.achText.text = achObj.achievementText;
+		this.id = achObj.id;
+		this.achievement = ach;
 	}
 	void Start()
 	{
-		buttonComponent.onClick.AddListener (HandleClick);
+		this.buttonComponent.onClick.AddListener (HandleClick);
 	}
 
 	public void HandleClick()
 	{
-		achievement.removeFromList (this.id);
+		this.achievement.removeFromList (this.id);
 	}
 
 

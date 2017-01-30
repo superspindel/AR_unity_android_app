@@ -10,13 +10,13 @@ public class SliderScript : MonoBehaviour {
 	public Text XpLevel;
 	public Text LevelText;
 
-	private int xp;
-	private int maxXp;
-	private int userLevel;
+	public int xp { get; private set; }
+	public int maxXp { get; private set; }
+	public int userLevel { get; private set; }
 
 	public void setSlider(Profile playerProf)
 	{
-		setData (playerProf.getLevel (), playerProf.getTotalScore ());
+		setData (playerProf.totalLevel, playerProf.TotalScore);
 		updateDisplay ();
 	}
 

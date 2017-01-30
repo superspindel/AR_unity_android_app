@@ -8,24 +8,24 @@ public class BadgePrefab : MonoBehaviour {
 	public Image badgeIcon;
 	public Button buttonComponent;
 	public Badges badges;
-	public int id;
+	public int id { get; private set;}
 	// Use this for initialization
 	public void Setup(BadgeObject badge, Badges badgeInstance)
 	{
-		badgeIcon.sprite = badge.iconImage;
-		id = badge.id;
-		badges = badgeInstance;
-		badgeIcon.color = badge.color;
+		this.badgeIcon.sprite = badge.iconImage;
+		this.id = badge.id;
+		this.badges = badgeInstance;
+		this.badgeIcon.color = badge.color;
 	}
 
 	void Start()
 	{
-		buttonComponent.onClick.AddListener (HandleClick);
+		this.buttonComponent.onClick.AddListener (HandleClick);
 	}
 
 	public void HandleClick()
 	{
-		badges.removeFromList (this.id);
+		this.badges.removeFromList (this.id);
 	}
 
 }

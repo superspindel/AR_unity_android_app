@@ -22,7 +22,7 @@ public class SubTask : MonoBehaviour {
 	private PopUp popup;
 
 	public string warning, info;
-	public List<string> tools;
+	public List<Tool> tools;
 
 	// Use this for initialization
 	void Awake () {

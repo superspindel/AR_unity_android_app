@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonGroup : MonoBehaviour {
-	private List<subMenus> lstsub;
-	private SetupMenu setMenu;
-	private SimpleObjectPool subButtonPool;
-	private SimpleObjectPool mainButtonPool;
-	private SimpleObjectPool subButtonGroupPool;
-	private GameObject sbtgrp;
-	private subButtonGroup sbtgrpscr;
+	public List<subMenus> lstsub { get; private set; }
+	public SetupMenu setMenu { get; private set; }
+	public SimpleObjectPool subButtonPool { get; private set; }
+	public SimpleObjectPool mainButtonPool { get; private set; }
+	public SimpleObjectPool subButtonGroupPool { get; private set; }
+	public GameObject sbtgrp { get; private set; }
+	public subButtonGroup sbtgrpscr { get; private set; }
 
 	public void Setup(List<subMenus> lstsub, string title, Sprite icon, SetupMenu setMenu)
 	{
@@ -20,15 +20,15 @@ public class ButtonGroup : MonoBehaviour {
 		this.mainButtonPool = setMenu.mainButtonPool;
 		this.subButtonGroupPool = setMenu.subButtonGroupPool;
 
-		addMainButton (title, icon);
-		addSubMenuGroup ();
-		toggleSubMenu ();
+		this.addMainButton (title, icon);
+		this.addSubMenuGroup ();
+		this.toggleSubMenu ();
 	}
 		
 
 	private void addMainButton(string title, Sprite icon)
 	{
-		GameObject MainButton = mainButtonPool.GetObject ();
+		GameObject MainButton = this.mainButtonPool.GetObject ();
 		MainButton.transform.SetParent (this.transform);
 		mainButton mbut = MainButton.GetComponent<mainButton> ();
 		mbut.Setup (title, icon, this);
@@ -36,7 +36,7 @@ public class ButtonGroup : MonoBehaviour {
 
 	private void addSubMenuGroup()
 	{
-		GameObject subButGrp = subButtonGroupPool.GetObject ();
+		GameObject subButGrp = this.subButtonGroupPool.GetObject ();
 		subButGrp.transform.SetParent (this.transform);
 		subButtonGroup sbtg = subButGrp.GetComponent<subButtonGroup> ();
 		sbtg.Setup (this.lstsub, this.subButtonPool);

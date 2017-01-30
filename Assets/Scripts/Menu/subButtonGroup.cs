@@ -9,7 +9,7 @@ public class subButtonGroup : MonoBehaviour {
 	public void Setup(List<subMenus> lst, SimpleObjectPool subButtonPool)
 	{
 		this.subButtonPool = subButtonPool;
-		addSubMenus (lst);
+		this.addSubMenus (lst);
 	}
 
 
@@ -21,7 +21,7 @@ public class subButtonGroup : MonoBehaviour {
 			GameObject subButton = this.subButtonPool.GetObject ();
 			subButton.transform.SetParent (this.transform);
 			SubButton subBut = subButton.GetComponent<SubButton> ();
-			subBut.Setup (submenu.getTitle(), submenu.getTarget(), this);
+			subBut.Setup (submenu.title, submenu.target, this);
 		}
 	}
 

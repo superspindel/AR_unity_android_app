@@ -106,7 +106,7 @@ public class SpecificTaskView : MonoBehaviour {
 		GameObject.Find ("Bonus Slider").GetComponent<Slider> ().value = bonus;
 	}
 
-	void addSubTask(int id, string name, bool isBonus, List<string> tools, string info, string warning){
+	void addSubTask(int id, string name, bool isBonus, List<Tool> tools, string info, string warning){
 		// get prefab from objectpool
 		GameObject g = pool.GetObject ();
 		// attach to subTaskGroup LayoutGroup
