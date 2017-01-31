@@ -4,9 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public enum Status{InProgress, Completed, Aborted};
-
-public class SubTask : MonoBehaviour {
+public class SubTaskItem : MonoBehaviour {
 
 	public Status status;
 	public bool hasTool, hasHelp, hasInfo, hasWarning;
@@ -34,7 +32,6 @@ public class SubTask : MonoBehaviour {
 		this.infoButton 	= this.buttonGroup.transform.FindChild("Info").GetComponent<Button> ();
 		this.helpButton 	= this.buttonGroup.transform.FindChild("Help").GetComponent<Button> ();
 		this.toolButton 	= this.buttonGroup.transform.FindChild("Tool").GetComponent<Button> ();
-		this.popup 			= GameObject.Find ("Canvas").GetComponent<CanvasObjects> ().popup.GetComponent<PopUp> ();
 
 		progressToggle.onValueChanged.AddListener (toggleListener);
 		bonusToggle.onValueChanged.AddListener (toggleListener);

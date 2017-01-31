@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tool : MonoBehaviour {
-
+	string name;
 	public Tool(string name)
 	{
 		this.name = name;

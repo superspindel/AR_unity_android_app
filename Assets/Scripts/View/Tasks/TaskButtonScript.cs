@@ -15,14 +15,12 @@ namespace Application{
 		private TaskScrollList scrollList;
 
 		// Use this for initialization
-
-
 		void Start () {
 			
 		}
 			
 		public void checkout(bool togglecheck){
-			task.check = togglecheck;
+			// TODO: Task.check = togglecheck; 
 			scrollList.showAddButton (togglecheck);
 		}
 
@@ -30,10 +28,10 @@ namespace Application{
 		{
 			task = currentTask;
 			taskLabel.text = task.Title;
-			xpLabel.text = task.Totalxp.ToString() + "xp";
+			xpLabel.text = task.TotalXp.ToString() + "xp";
 			scrollList = currentScrollList;
 			taskToggle = this.GetComponentInChildren<taskToggleScript>();
-			taskToggle.Setup (this, currentTask.check);
+			// TODO: Check taskToggle.Setup (this, currentTask.check);
 		}
 	}
 }

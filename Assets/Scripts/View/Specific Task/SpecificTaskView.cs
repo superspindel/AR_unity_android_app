@@ -50,17 +50,17 @@ public class SpecificTaskView : MonoBehaviour {
 			}
 
 			// get data from dataContainer
-			dataContainer data = GameObject.Find ("DataContainer").GetComponent<dataContainer> ();
-			TaskData taskData = data.getTaskDataById (taskId);
+			DataContainer data = GameObject.Find ("DataContainer").GetComponent<DataContainer> ();
+			Task taskData = data.activeTasks[0];
 
 			// Set Task Variables
-			transform.FindChild ("Title").GetComponent<Text> ().text = taskData.title;
-			transform.FindChild ("Description").GetComponent<Text> ().text = taskData.description;
+			transform.FindChild ("Title").GetComponent<Text> ().text = taskData.Title;
+			transform.FindChild ("Description").GetComponent<Text> ().text = taskData.Description;
 
 			// Set subtasks
 			int i = 0;
-			foreach (SubTaskData subTaskData in taskData.subTasks) {
-				addSubTask (i++, subTaskData.title, subTaskData.isBonus, subTaskData.tools, subTaskData.information, subTaskData.warning);
+			foreach (SubTask subTaskData in taskData.SubTasks) {
+				addSubTask (i++, subTaskData.Title, subTaskData.IsBonus, subTaskData.Tools, subTaskData.Information, subTaskData.Warning);
 			}
 		}
 
@@ -86,13 +86,13 @@ public class SpecificTaskView : MonoBehaviour {
 		float b_c = 0f; // bonus completed
 		foreach (GameObject g in subTaskList) {
 			SubTask subTask = g.GetComponent<SubTask> ();
-			if (!subTask.isBonus) {
-				if (subTask.status == Status.Completed) {
+			if (!subTask.IsBonus) {
+				if (subTask.Status == Status.Completed) {
 					r_c++;
 				}
 				r_t++;
 			} else {
-				if (subTask.status == Status.Completed) {
+				if (subTask.Status == Status.Completed) {
 					b_c++;
 				}
 				b_t++;
@@ -112,13 +112,13 @@ public class SpecificTaskView : MonoBehaviour {
 		// attach to subTaskGroup LayoutGroup
 		g.transform.SetParent(subTaskGroup.transform);
 		// Set parameters
-		SubTask st = g.GetComponent<SubTask>();
+		SubTaskItem st = g.GetComponent<SubTaskItem>();
 		st.setText (name + "[" + id + "]");
 		st.setBonus (isBonus);
 		st.setStatus (Status.InProgress);
 
 		// Set buttons and data (Help should always be avalible)
-		g.GetComponent<SubTask>().setAvalibeButtons ((warning != null), (tools != null), (info != null), true);
+		g.GetComponent<SubTaskItem>().setAvalibeButtons ((warning != null), (tools != null), (info != null), true);
 		if (tools != null)
 			st.tools = tools;
 		if (warning != null)

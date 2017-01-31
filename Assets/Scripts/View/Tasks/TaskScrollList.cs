@@ -9,7 +9,6 @@ namespace Application{
 		public Transform contentPanel;
 		public SimpleObjectPool buttonObjectPool;
 		public AddTaskButtonScript addTaskButton;
-		// Use this for initialization
 		private List<Task> checkedList;
 		private int checkedCount = 0;
 
@@ -27,7 +26,7 @@ namespace Application{
 		{
 			for (int i = 0; i < taskList.Count; i++)
 			{
-				if (taskList [i].available) {
+				if (taskList [i].UserId == 0) { // TODO: check if no one "has task"
 					Task task = taskList [i];
 					GameObject newButton = buttonObjectPool.GetObject ();
 					newButton.transform.SetParent (contentPanel);
@@ -66,14 +65,14 @@ namespace Application{
 		}
 
 		public void addCheckedTasks(){
-			for (int i = 0; i < taskList.Count; i++) {
+			/* TODO: for (int i = 0; i < taskList.Count; i++) {
 				if (taskList [i].check) {
 					//Debug.Log (taskList [i].title);
 					taskList [i].available = false;
 					checkedCount--;
 				}
 				RefreshDisplay ();
-			}
+			}*/ 
 		}
 
 		public void showAddButton(bool toggle){
