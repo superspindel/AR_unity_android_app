@@ -97,7 +97,7 @@ public class DataStore
                     callback(_objectTracker[hash] as T);
             }
             // Attempt to fetch sync from Offline Cache
-            var cache = OfflineCache.Fetch(hash);
+			var cache = OfflineCache.Fetch<T>(hash);
             if (cache != null)
             {
                 _objectTracker[hash] = cache as NetworkDataObject;
@@ -147,7 +147,7 @@ public class DataStore
         }
         else
         {
-            var cache = OfflineCache.Fetch(hash);
+			var cache = OfflineCache.Fetch<T>(hash);
             if (cache != null)
             {
                 List<T> returns = new List<T>();
