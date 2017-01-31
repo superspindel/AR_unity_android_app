@@ -112,6 +112,11 @@ public class DataStore
         }
     }
 
+    /// <summary>
+    /// Gets a list of objects corresponding to the relevancy of the request. Is async with callback in most cases.
+    /// </summary>
+    /// <typeparam name="T">The type of objects to list</typeparam>
+    /// <param name="callback">A callback to handle the requested data. Can be null to just queue update from server or heat up data from disk cache.</param>
     public static void List<T>(Action<IEnumerable<T>> callback) where T: NetworkDataObject, new()
     {
         string eventName = "list " + typeof(T).Name;
@@ -130,7 +135,6 @@ public class DataStore
                     Get<T>(id, obj =>
                     {
                         returns.Add(obj);
-                        Debug.Log("added " + obj.Id);
                         i--;
                         if (i == 0)
                         {
@@ -155,18 +159,50 @@ public class DataStore
                     {
                         returns.Add(obj);
                         i--;
+                        if (i == 0)
+                        {
+                            if (callback != null)
+                                callback(returns);
+                        }
                     });
                 }
-                while (i != 0)
-                    Thread.Sleep(5);
-                if (callback != null)
-                    callback(returns);
             }
             else
             {
                 if (callback != null)
                     callback(new T[0]);
             }
+        }
+    }
+
+    /// <summary>
+    /// Registers an NetworkDataObject type for AutoUpdates.
+    /// </summary>
+    /// <typeparam name="T">The type of object to register.</typeparam>
+    public static void RegisterAutoUpdate<T>() where T : NetworkDataObject, new()
+    {
+        var eventName = "update " + typeof(T).Name;
+        CommunicationsApi.Socket.On(eventName, message =>
+        {
+            var obj = message.Json.GetFirstArgAs<T>();
+            int hash = GetHashCode(typeof(T), obj.Id);
+            if (!_objectTracker.ContainsKey(hash))
+                _objectTracker[hash] = new T();
+            _objectTracker[hash].Merge(obj);
+            // Update Offline Cache, is done async so it doesn't block
+            OfflineCache.QueueStore(hash, _objectTracker[hash]);
+        });   
+    }
+    public static void Update<T>(T obj, Action<bool> callback) where T : NetworkDataObject, new()
+    {
+        string eventName = "update " + typeof(T).Name;
+        int hash = GetHashCode(typeof(T), obj.Id);
+        if (CommunicationsApi.IsAvailable)
+        {
+        }
+        else
+        {
+            // queue for update
         }
     }
 }
