@@ -6,86 +6,56 @@ using UnityEngine.UI;
 [System.Serializable]
 public class titleObject
 {
-	public string title;
+	public string title { get; private set; }
 
-	public string getTitle()
-	{
-		return this.title;
-	}
-
-	public void setTitle(string title)
-	{
-		this.title = title;
-	}
 }
 [System.Serializable]
 public class leaderboardUserObject
 {
-	public int xp;
-	public string position;
+	public int xp { get; private set; }
+	public string position { get; private set; }
 
 	public leaderboardUserObject(int xp, string position)
 	{
 		this.xp = xp;
 		this.position = position;
 	}
-
-	public int getXp()
-	{
-		return this.xp;
-	}
-
-	public void setXp(int xp)
-	{
-		this.xp = xp;
-	}
-
-	public string getPosition()
-	{
-		return this.position;
-	}
-
-
-	public void setPosition(string position)
-	{
-		this.position = position;
-	}
 }
 
 public class LeaderboardSubject : MonoBehaviour {
 
-	private titleObject title;
+	private titleObject titleObj;
 	private List<leaderboardUserObject> userList;
 
 	private SimpleObjectPool titleObjectPool;
 	private SimpleObjectPool userObjectPool;
 
 
-	public void Setup(SimpleObjectPool titleObjectPool, SimpleObjectPool userObjectPool, titleObject title, List<leaderboardUserObject> userList)
+	public void Setup(SimpleObjectPool titleObjectPool, SimpleObjectPool userObjectPool, ldbSubjObj ldbSubObj)
 	{
 		this.titleObjectPool = titleObjectPool;
 		this.userObjectPool = userObjectPool;
-		this.title = title;
-		this.userList = userList;
+		this.titleObj = ldbSubObj.subjectTitle;
+		this.userList = ldbSubObj.subjectUserList;
 
-		createTitle ();
-		insertLeaderboardUsers ();
+		this.createTitle ();
+		this.insertLeaderboardUsers ();
 	}
 
 	private void createTitle()
 	{
-		GameObject newTitle = titleObjectPool.GetObject ();
+		GameObject newTitle = this.titleObjectPool.GetObject ();
 		newTitle.transform.SetParent (this.transform);
 		leaderboardTitle ldbttl = newTitle.GetComponent<leaderboardTitle> ();
-		ldbttl.Setup (title.getTitle());
+		ldbttl.Setup (titleObj.title);
 	}
 
 	private void insertLeaderboardUsers()
 	{
 		for (int i = 0; i < userList.Count; i++)
 		{
-			leaderboardUserObject ldbUsObj = userList [i];
-			GameObject newUsObj = userObjectPool.GetObject ();
+			leaderboardUserObject ldbUsObj = this.userList [i];
+			GameObject newUsObj = this.userObjectPool.GetObject ();
 			newUsObj.transform.SetParent (this.transform);
 			LeaderBoardUser ldbUser = newUsObj.GetComponent<LeaderBoardUser> ();
 			ldbUser.Setup (ldbUsObj, i == userList.Count-1);

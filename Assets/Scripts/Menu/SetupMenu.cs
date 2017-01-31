@@ -6,8 +6,8 @@ using UnityEngine.UI;
 [System.Serializable]
 public class subMenus
 {
-	public string title { get; private set; }
-	public Transform target { get; private set; }
+	public string title;// { get; private set; }
+	public Transform target;// { get; private set; }
 
 	public subMenus(string title, Transform target)
 	{
@@ -18,9 +18,9 @@ public class subMenus
 [System.Serializable]
 public class MenuGroups
 {
-	public string title { get; private set; }
-	public Sprite icon { get; private set; }
-	public List<subMenus> submenus { get; private set; }
+	public string title;// { get; private set; }
+	public Sprite icon;// { get; private set; }
+	public List<subMenus> submenus;// { get; private set; }
 
 	public MenuGroups(string title, Sprite icon, List<subMenus> submenus)
 	{

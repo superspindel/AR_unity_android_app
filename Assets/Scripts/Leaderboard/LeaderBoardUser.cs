@@ -10,8 +10,8 @@ public class LeaderBoardUser : MonoBehaviour {
 
 	public void Setup(leaderboardUserObject ldbUsObj, bool last)
 	{
-		this.XpText.text = ldbUsObj.getXp().ToString();
-		this.positionText.text = ldbUsObj.getPosition();
+		this.XpText.text = ldbUsObj.xp.ToString();
+		this.positionText.text = ldbUsObj.position;
 
 		if (last) 
 		{

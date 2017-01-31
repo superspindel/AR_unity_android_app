@@ -15,7 +15,6 @@ public class mainButton : MonoBehaviour {
 		textField.text = title;
 		this.parent = parent;
 		butncmp.onClick.AddListener (handleClick);
-
 	}
 
 	public void handleClick()
