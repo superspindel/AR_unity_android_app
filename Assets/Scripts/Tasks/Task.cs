@@ -6,10 +6,10 @@ using UnityEngine.UI;
 namespace Application{
 	
 	[System.Serializable]
-	public class Task
+	public class Task : NetworkDataObject
 	{
-		public int id;
-		public string title;
+		public string Title { get; set; }
+
 		public int Totalxp;
 		public List<SubTask> subtasks;
 		public bool available;

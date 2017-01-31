@@ -29,7 +29,7 @@ namespace Application{
 		public void Setup(Task currentTask, TaskScrollList currentScrollList)
 		{
 			task = currentTask;
-			taskLabel.text = task.title;
+			taskLabel.text = task.Title;
 			xpLabel.text = task.Totalxp.ToString() + "xp";
 			scrollList = currentScrollList;
 			taskToggle = this.GetComponentInChildren<taskToggleScript>();
