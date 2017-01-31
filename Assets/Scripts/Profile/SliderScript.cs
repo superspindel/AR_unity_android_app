@@ -10,37 +10,49 @@ public class SliderScript : MonoBehaviour {
 	public Text XpLevel;
 	public Text LevelText;
 
-	private int xp;
-	private int maxXp;
-	private int level;
+	public int xp { get; private set; }
+	public int maxXp { get; private set; }
+	public int userLevel { get; private set; }
 
-	// Use this for initialization
-	void Start () {
-		xp = 0;
-		maxXp = 10;
-		level = 1;
-		updateDisplay ();
-	}
-	
-	// Update is called once per frame
-	void Update () 
+	public void setSlider(Profile playerProf)
 	{
-		xp = xp + 1;
-		if (xp == maxXp) 
-		{
-			maxXp = maxXp * 2;
-			xp = 0;
-			level = level + 1;
-		}
+		setData (playerProf.totalLevel, playerProf.TotalScore);
 		updateDisplay ();
 	}
+
+	private void setData(int level, int totalXp)
+	{
+		int bottom = (10 * ((int)Mathf.Pow ((float)1.2, (float)(level - 1))));
+		int top = (10 * ((int)Mathf.Pow ((float)1.2, (float)level)));
+		maxXp = top - bottom;
+		xp = totalXp - bottom;
+		userLevel = level;
+	}
+		
 
 	private void updateDisplay()
 	{
 		XpNow.text = xp.ToString ();
 		XpLevel.text = maxXp.ToString ();
-		LevelText.text = "Level:\n"+level.ToString ();
-		LevelSlider.value = xp;
+		LevelText.text = "Level:\n"+userLevel.ToString ();
 		LevelSlider.maxValue = maxXp;
+		LevelSlider.value = xp;
 	}
+
+	public void setxp (int addXP) 
+	{
+		xp += addXP;
+		if (xp >= maxXp) 
+		{
+			xp = xp - maxXp;
+			maxXp = (int)(maxXp * 1.2);
+		}
+		addLevel ();
+	}
+
+	private void addLevel()
+	{
+		userLevel += 1;
+	}
+		
 }
