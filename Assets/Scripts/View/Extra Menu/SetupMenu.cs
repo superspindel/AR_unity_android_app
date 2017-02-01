@@ -3,57 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class subMenus
-{
-	public string title;// { get; private set; }
-	public Transform target;// { get; private set; }
-
-	public subMenus(string title, Transform target)
-	{
-		this.title = title;
-		this.target = target;
-	}
-}
-[System.Serializable]
-public class MenuGroups
-{
-	public string title;// { get; private set; }
-	public Sprite icon;// { get; private set; }
-	public List<subMenus> submenus;// { get; private set; }
-
-	public MenuGroups(string title, Sprite icon, List<subMenus> submenus)
-	{
-		this.title = title;
-		this.icon = icon;
-		this.submenus = submenus;
-	}
-}
-
-
 public class SetupMenu : MonoBehaviour {
 
-	public List<MenuGroups> menuGroupList;
-	public SimpleObjectPool buttonGroupPool;
-	public SimpleObjectPool subButtonPool;
-	public SimpleObjectPool mainButtonPool;
-	public SimpleObjectPool subButtonGroupPool;
+	public SimpleObjectPool ButtonGroupPool;
+	public SimpleObjectPool SubButtonPool;
+	public SimpleObjectPool MainButtonPool;
+	public SimpleObjectPool SubButtonGroupPool;
 
-
-	public void createMenu()
+	public void createMenu(List<MenuGroup> MenuGroupList)
 	{
-		for (int i = 0; i < menuGroupList.Count; i++)
+		foreach (MenuGroup MenuGrp in MenuGroupList)
 		{
-			MenuGroups menuGroup = this.menuGroupList [i];
-			GameObject menuGroupPrefab = this.buttonGroupPool.GetObject ();
-			menuGroupPrefab.transform.SetParent (this.transform);
-			ButtonGroup btngrp = menuGroupPrefab.GetComponent<ButtonGroup> ();
-			btngrp.Setup (menuGroup.submenus, menuGroup.title, menuGroup.icon, this);
+			GameObject MenuGroupPrefab = this.ButtonGroupPool.GetObject ();
+			MenuGroupPrefab.transform.SetParent (this.transform);
+			ButtonGroupPref btngrp = MenuGroupPrefab.GetComponent<ButtonGroupPref> ();
+			btngrp.Setup (MenuGrp, this);
 		}
-	}
-
-	public void Start()
-	{
-		this.createMenu ();
 	}
 }

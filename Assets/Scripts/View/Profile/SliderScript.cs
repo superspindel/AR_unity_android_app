@@ -16,7 +16,7 @@ public class SliderScript : MonoBehaviour {
 
 	public void setSlider(Profile playerProf)
 	{
-		setData (playerProf.totalLevel, playerProf.TotalScore);
+		setData (playerProf.TotalLevel, playerProf.TotalScore);
 		updateDisplay ();
 	}
 

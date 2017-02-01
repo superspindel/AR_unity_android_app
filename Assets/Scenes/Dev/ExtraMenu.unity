@@ -570,6 +570,16 @@ MonoBehaviour:
   avalibleTasks: []
   achievementList: []
   badgeList: []
+  activeProfile:
+    <id>k__BackingField: 0
+    <profImg>k__BackingField: {fileID: 0}
+    <name>k__BackingField: 
+    <dailyScore>k__BackingField: 0
+    <TotalScore>k__BackingField: 0
+    <totalLevel>k__BackingField: 0
+    <badgeArray>k__BackingField: 
+    <achArray>k__BackingField: 
+  testTaskCount: 0
 --- !u!4 &1378633300
 Transform:
   m_ObjectHideFlags: 0

@@ -80,7 +80,7 @@ public class Pageswapper : MonoBehaviour {
 // Main View
 	// use for windows without dynamic data ( BOT BAR ), can be rigged with ui for buttons.
 	public void gotoProfilePage(){
-		ProfileScrollView script = profilePage.GetComponent<ProfileScrollView> ();
+		ProfileView script = profilePage.GetComponent<ProfileView> ();
 		profilePage.SetActive (true);
 	}
 
