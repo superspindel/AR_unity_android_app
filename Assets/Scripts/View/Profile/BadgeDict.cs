@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BadgeDict {
+public class BadgeDict : MonoBehaviour{
 
-	public Sprite NotFound;
-
+	public Sprite NotFound { get; set; }
 	public Dictionary<int, Sprite> Dict;
 
 	public Sprite GetSprite(int SpriteId)

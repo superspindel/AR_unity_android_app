@@ -8,7 +8,7 @@ public class ButtonGroupPref : MonoBehaviour {
 	public SetupMenu SetMenu { get; set; }
 	public SimpleObjectPool SubButtonPool { get; set; }
 	public SimpleObjectPool MainButtonPool { get; set; }
-	public SimpleObjectPool SubButtonGroupPool { get; set; }
+	public SimpleObjectPool SubMenuGroupPool { get; set; }
 	public GameObject SubMenugrp { get; set; }
 	public SubMenuGroupPref SubMenuGroupScript { get; set; }
 
@@ -18,7 +18,7 @@ public class ButtonGroupPref : MonoBehaviour {
 		this.SetMenu = SetMenu;
 		this.SubButtonPool = SetMenu.SubButtonPool;
 		this.MainButtonPool = SetMenu.MainButtonPool;
-		this.SubButtonGroupPool = SetMenu.SubButtonGroupPool;
+		this.SubMenuGroupPool = SetMenu.SubMenuGroupPool;
 
 		this.AddMainButton (MenuGrp.Title, MenuGrp.Icon);
 		this.AddSubMenuGroup ();
@@ -36,7 +36,7 @@ public class ButtonGroupPref : MonoBehaviour {
 
 	private void AddSubMenuGroup()
 	{
-		this.SubMenugrp = this.SubButtonGroupPool.GetObject ();
+		this.SubMenugrp = this.SubMenuGroupPool.GetObject ();
 		this.SubMenugrp.transform.SetParent (this.transform);
 		this.SubMenuGroupScript = this.SubMenugrp.GetComponent<SubMenuGroupPref> ();
 		SubMenuGroupScript.Setup (this.SubMenuList, this.SubButtonPool);

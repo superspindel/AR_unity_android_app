@@ -8,7 +8,7 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool ButtonGroupPool;
 	public SimpleObjectPool SubButtonPool;
 	public SimpleObjectPool MainButtonPool;
-	public SimpleObjectPool SubButtonGroupPool;
+	public SimpleObjectPool SubMenuGroupPool;
 
 	public void createMenu(List<MenuGroup> MenuGroupList)
 	{

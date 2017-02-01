@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 114702814840643604}
   - component: {fileID: 114769461189327244}
   m_Layer: 5
-  m_Name: BadgesBox
+  m_Name: BadgeBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1424,7 +1424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f09465466ba457ca3a302e92a7a746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BadgeObjectList: []
   BadgeGroupPanel: {fileID: 224701328248366086}
   BadgePool: {fileID: 0}
 --- !u!114 &114775594715393984
@@ -1559,17 +1558,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7664d659d18554de8a1380429ef63455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileImage: {fileID: 114763979550193470}
-  nameField: {fileID: 114664708685751096}
+  ProfileImage: {fileID: 0}
+  NameField: {fileID: 0}
   DailyScoreField: {fileID: 114647404302175696}
   TotalScoreField: {fileID: 114070056097081278}
-  slider: {fileID: 224402690175912398}
-  profileList:
-  - profImg: {fileID: 21300000, guid: 915cf094df33b4eccb14517a5a6c3360, type: 3}
-    name: Virre Pirre
-    dailyScore: 149
-    TotalScore: 330
-    totalLevel: 20
+  Slider: {fileID: 0}
 --- !u!114 &114869655108608806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1594,31 +1587,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e29ef3be12254c9fac54aeac349d8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achievementBox: {fileID: 224927619128105390}
-  profileInfo: {fileID: 224009765031859234}
-  BadgesBox: {fileID: 224080121891987354}
-  achievementObjectList:
-  - id: 1
-    achievementText: hfodshjfkjdshfjkds
-  - id: 2
-    achievementText: ohafhfkjdashfjkdsa
-  - id: 3
-    achievementText: dsadashjdhsakj
-  - id: 0
-    achievementText: dsfhkafhgkdsjfa
-  badgeObjectList:
-  - id: 1
-    iconImage: {fileID: 21300000, guid: f9e30604603bdce458e0af50dbbd7a9e, type: 3}
-    color: {r: 1, g: 0, b: 0, a: 1}
-  - id: 2
-    iconImage: {fileID: 21300000, guid: cc04b68180e23a24790d8c0285183685, type: 3}
-    color: {r: 0.4699796, g: 0.42647058, b: 1, a: 1}
-  - id: 3
-    iconImage: {fileID: 21300000, guid: e7798bb80eccf694295e0813fd9ceec8, type: 3}
-    color: {r: 0.16290008, g: 0.9632353, b: 0.30088893, a: 1}
-  - id: 4
-    iconImage: {fileID: 21300000, guid: 4147dced12149a2449ac5593c47ee789, type: 3}
-    color: {r: 0.9705882, g: 0.2640571, b: 0.74644744, a: 1}
+  AchievementBox: {fileID: 224927619128105390}
+  ProfileInfoBox: {fileID: 224009765031859234}
+  BadgeBox: {fileID: 224080121891987354}
+  AchievementList: []
 --- !u!114 &114947022298206218
 MonoBehaviour:
   m_ObjectHideFlags: 1

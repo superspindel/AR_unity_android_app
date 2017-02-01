@@ -7,16 +7,18 @@ public class ProfileView : MonoBehaviour {
 
 	public Transform AchievementBox;
 	public Transform ProfileInfoBox;
-	public Transform BadgesBox;
+	public Transform BadgeBox;
+
 	private ProfileAchievement AchScript;
 	private ProfileBadge BadgeScript;
+
 	public List<Achievement> AchievementList;
 	public List<Badge> BadgeList;
 
 	// Use this for initialization
 	void Start () {
 		this.AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
-		this.BadgeScript = BadgesBox.GetComponent<ProfileBadge> ();
+		this.BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
 		this.addAchievement ();
 		this.addBadges ();
 	}
