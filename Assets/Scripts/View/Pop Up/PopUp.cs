@@ -7,36 +7,57 @@ using UnityEngine.UI;
 public enum PopUpType{general, startup, tools, reward};
 
 public class PopUp : MonoBehaviour {
+	
+	public GameObject 	StartupView;
+	public GameObject 	GeneralView;
+	public GameObject 	TopPanel;
 
-	public GameObject topPanel, startupView, generalView;
-	public string panelTitle, title, content;
+	private Button 		_exitButton;
 
-	private Button exitButton;
+	private Pageswapper _pageswapper;
 
-	public void enterPopup(PopUpType type, string panelTitle, string title, string content){
-		this.gameObject.SetActive (true);
-		if (type == PopUpType.general) {
-			setActivePopUpView (PopUpType.general);
-			generalView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
-			generalView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
-		}
-		topPanel.transform.FindChild ("Title").GetComponent<Text> ().text = panelTitle;
+	void Awake(){
+		_pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
+	}
 
+
+	public void enterPopup(){
 		// setup exit button
-		this.exitButton = topPanel.transform.FindChild("ExitButton").GetComponent<Button> ();
-		exitButton.onClick.AddListener (leavePopup);
-	}
-			
-	private void setActivePopUpView(PopUpType type){
-		startupView.gameObject.SetActive(false);
-		generalView.gameObject.SetActive(false);
-		if(type == PopUpType.general)
-			generalView.gameObject.SetActive(true);
-		if(type == PopUpType.startup)
-			startupView.gameObject.SetActive(false);
+		this._exitButton = TopPanel.transform.FindChild("ExitButton").GetComponent<Button> ();
+		_exitButton.onClick.AddListener (_pageswapper.leavePopup);
+
+		// Setup Panel Title
+		setPanelTitle("Panel Title");
+		setContentTitle ("Content Title");
+
+
+		// 
+		setActivePopUpView (PopUpType.general);
 	}
 
-	void leavePopup(){
-		transform.gameObject.SetActive (false);
+
+	private void setActivePopUpView(PopUpType type){
+		StartupView.gameObject.SetActive(false);
+		GeneralView.gameObject.SetActive(false);
+		if(type == PopUpType.general)
+			GeneralView.gameObject.SetActive(true);
+		if(type == PopUpType.startup)
+			StartupView.gameObject.SetActive(false);
 	}
+
+
+
+
+	public void setPanelTitle(string s){
+		this.TopPanel.transform.FindChild ("Title").GetComponent<Text> ().text = s;
+	}
+
+	public void setContentTitle(string s){
+		GeneralView.transform.FindChild ("Title").GetComponent<Text> ().text = s;
+	}
+
+	public void setContentText(string s){
+		GeneralView.transform.FindChild ("Content").GetComponent<Text> ().text = s;
+	}
+
 }

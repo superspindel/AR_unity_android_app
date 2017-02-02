@@ -6,40 +6,43 @@ using UnityEngine.UI;
 
 public class SubTaskItem : MonoBehaviour {
 
-	public Status status;
-	public bool hasTool, hasHelp, hasInfo, hasWarning;
-	public bool isBonus;
+	private Status 	_status;
+	private bool 	_hasTool, _hasHelp, _hasInfo, _hasWarning;
+	private bool 	_isBonus;
 
-	private GameObject buttonGroup;
-	private Text textField;
-	private Toggle progressToggle;
-	private Toggle bonusToggle;
+	private GameObject 	_buttonGroup;
+	private Text 		_textField;
+	private Toggle 		_progressToggle;
+	private Toggle 		_bonusToggle;
 
-	private Button warningButton, infoButton, helpButton, toolButton;
+	private Button 		_warningButton, _infoButton, _helpButton, _toolButton;
 
-	private PopUp popup;
+	private Pageswapper _pageSwapper;
 
-	public string warning, info;
-	public List<Tool> tools;
+	public string Warning, Info;
+	public List<Tool> Tools;
 
 	// Use this for initialization
 	void Awake () {
-		this.buttonGroup 	= this.transform.FindChild ("ButtonGroup").gameObject;
-		this.textField 		= this.transform.FindChild ("Name").GetComponent<Text>();
-		this.progressToggle = this.transform.FindChild ("Toggle").GetComponent<Toggle>();
-		this.bonusToggle	= this.transform.FindChild ("Toggle-Bonus").GetComponent<Toggle>();
-		this.warningButton 	= this.buttonGroup.transform.FindChild("Warning").GetComponent<Button> ();
-		this.infoButton 	= this.buttonGroup.transform.FindChild("Info").GetComponent<Button> ();
-		this.helpButton 	= this.buttonGroup.transform.FindChild("Help").GetComponent<Button> ();
-		this.toolButton 	= this.buttonGroup.transform.FindChild("Tool").GetComponent<Button> ();
+		this._buttonGroup 		= this.transform.FindChild ("ButtonGroup").gameObject;
+		this._textField 		= this.transform.FindChild ("Name").GetComponent<Text>();
+		this._progressToggle 	= this.transform.FindChild ("Toggle").GetComponent<Toggle>();
+		this._bonusToggle		= this.transform.FindChild ("Toggle-Bonus").GetComponent<Toggle>();
+		this._warningButton 	= this._buttonGroup.transform.FindChild("Warning").GetComponent<Button> ();
+		this._infoButton 		= this._buttonGroup.transform.FindChild("Info").GetComponent<Button> ();
+		this._helpButton 		= this._buttonGroup.transform.FindChild("Help").GetComponent<Button> ();
+		this._toolButton 		= this._buttonGroup.transform.FindChild("Tool").GetComponent<Button> ();
 
-		progressToggle.onValueChanged.AddListener (toggleListener);
-		bonusToggle.onValueChanged.AddListener (toggleListener);
+		_progressToggle.onValueChanged.AddListener (toggleListener);
+		_bonusToggle.onValueChanged.AddListener (toggleListener);
 
-		warningButton.onClick.AddListener (warningListener);
-		infoButton.onClick.AddListener (infoListener);
-		helpButton.onClick.AddListener (helpListener);
-		toolButton.onClick.AddListener (toolListener);
+		// TODO:
+		//_warningButton.onClick.AddListener 	(_pageSwapper.dostuff);
+		//_infoButton.onClick.AddListener 	(_pageSwapper.dostuff);
+		//_helpButton.onClick.AddListener 	(_pageSwapper.dostuff);
+		//_toolButton.onClick.AddListener 	(_pageSwapper.dostuff);
+
+		this._pageSwapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper>();
 	}
 
 	// When first enabled
@@ -48,23 +51,23 @@ public class SubTaskItem : MonoBehaviour {
 	}
 
 	public void setBonus(bool b){
-		isBonus = b;
+		_isBonus = b;
 		refreshBonus ();
 	}
 
 	// Sets variables and refresh button grp();
 	public void setAvalibeButtons(bool w, bool t, bool i, bool h){
-		this.hasWarning = w;
-		this.hasTool = t;
-		this.hasInfo = i;
-		this.hasHelp = h;
+		this._hasWarning = w;
+		this._hasTool = t;
+		this._hasInfo = i;
+		this._hasHelp = h;
 
 		refreshButtonGroup ();
 	}
 
 	// Sets title text
 	public void setText(string s){
-		this.textField.text = s;
+		this._textField.text = s;
 	}
 
 	public void toggleListener(bool b){
@@ -74,29 +77,10 @@ public class SubTaskItem : MonoBehaviour {
 			setStatus(Status.InProgress);
 		}
 	}
-
-	// when warning icon is clicked
-	public void warningListener(){
-		this.popup.enterPopup(PopUpType.general, "Warning!", "Warning:", this.warning);
-	}
-
-	// when warning icon is clicked
-	public void infoListener(){
-		this.popup.enterPopup(PopUpType.general, "Information!", "Information:", this.info);
-	}
-
-	// when warning icon is clicked
-	public void helpListener(){
-		this.popup.enterPopup(PopUpType.general, "Help!", "Help:", "HELP");
-	}
-
-	public void toolListener(){
-		this.popup.enterPopup(PopUpType.general, "Tools!", "Tools:", "TOOLS");
-	}
-
+		
 	// Status
 	public void setStatus(Status s){
-		this.status = s;
+		this._status = s;
 		refreshTextColor ();
 		GameObject.Find ("Specific Task View").transform.GetComponent<SpecificTaskView>().refresh ();
 	}
@@ -109,26 +93,27 @@ public class SubTaskItem : MonoBehaviour {
 	}
 
 	private void refreshButtonGroup (){
-		this.buttonGroup.transform.Find ("Tool").gameObject.SetActive (hasTool);
-		this.buttonGroup.transform.Find ("Help").gameObject.SetActive (hasHelp);
-		this.buttonGroup.transform.Find ("Info").gameObject.SetActive (hasInfo);
-		this.buttonGroup.transform.Find ("Warning").gameObject.SetActive (hasWarning);
+		this._buttonGroup.transform.Find ("Tool").gameObject.SetActive (_hasTool);
+		this._buttonGroup.transform.Find ("Help").gameObject.SetActive (_hasHelp);
+		this._buttonGroup.transform.Find ("Info").gameObject.SetActive (_hasInfo);
+		this._buttonGroup.transform.Find ("Warning").gameObject.SetActive (_hasWarning);
 	}
 
 	private void refreshTextColor(){
-		if (status == Status.InProgress) {
-			this.textField.color = Color.black;
+		if (_status == Status.InProgress) {
+			this._textField.color = Color.black;
 		}
-		if (status == Status.Completed) {
-			this.textField.color = Color.green;
+		if (_status == Status.Completed) {
+			this._textField.color = Color.green;
 		}
-		if (status == Status.Aborted) {
-			this.textField.color = Color.red;
+		if (_status == Status.Aborted) {
+			this._textField.color = Color.red;
 		}
 	}
 
 	private void refreshBonus(){
-		this.transform.FindChild ("Toggle").gameObject.SetActive(!isBonus);
-		this.transform.FindChild ("Toggle-Bonus").gameObject.SetActive(isBonus);
+		this.transform.FindChild ("Toggle").gameObject.SetActive(!_isBonus);
+		this.transform.FindChild ("Toggle-Bonus").gameObject.SetActive(_isBonus);
 	}
+
 }
