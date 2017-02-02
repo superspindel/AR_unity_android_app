@@ -14,7 +14,7 @@ public class AchievementPrefab : MonoBehaviour {
 	public void Setup(Achievement Achiev, ProfileAchievement ProfAch)
 	{
 		this.AchText.text = Achiev.Information;
-		this._UserId = Achiev.userID;
+		this._UserId = Achiev.userID.ToString ();
 		this._ProfileAch = ProfAch;
 	}
 }
