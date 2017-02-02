@@ -18,6 +18,7 @@ public class ProfileBadge : MonoBehaviour {
 	}
 	*/
 
+	// Return object to the pool
 	public void RemoveBadges()
 	{
 		while (this.BadgeGroupPanel.childCount > 0) 
@@ -27,6 +28,7 @@ public class ProfileBadge : MonoBehaviour {
 		}
 	}
 
+	// Add objects from pool to the scene and call setup on them
 	public void AddBadges(List<Badge> BadgeList)
 	{
 		foreach (Badge Bdg in BadgeList)

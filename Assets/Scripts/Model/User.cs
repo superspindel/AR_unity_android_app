@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Profile : NetworkDataObject
+public class User : NetworkDataObject
 {
-	public int UserId { get; set;} // userID
 	public Sprite profImg { get; set ;} 		// how?
 	public int UserIcon { get; set; }
 	public string Name { get; set;}
@@ -23,7 +22,7 @@ public class Profile : NetworkDataObject
 	//public List<int> achiId
 	//public List<int> badgeId
 
-	public Profile()
+	public User()
 	{
 	}
 }

@@ -18,7 +18,7 @@ public class DataContainer : MonoBehaviour {
 	public List<Badge> badgeList;
 
 	// Personal Profile
-	public Profile activeProfile;
+	public User activeUser;
 
 	// Personal Settings
 	public ArrayList settingsArray;

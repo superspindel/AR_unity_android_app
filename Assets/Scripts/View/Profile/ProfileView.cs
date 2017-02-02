@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// profile panel script. Runs the profile view and sets up the components within the profile panel.
 public class ProfileView : MonoBehaviour {
 
 	public Transform AchievementBox;
 	public Transform ProfileInfoBox;
 	public Transform BadgeBox;
 
-	private ProfileAchievement AchScript;
-	private ProfileBadge BadgeScript;
+	private ProfileInfo _InfScript;
+	private ProfileAchievement _AchScript;
+	private ProfileBadge _BadgeScript;
 
-	public List<Achievement> AchievementList;
-	public List<Badge> BadgeList;
-
-	// Use this for initialization
+	// Start will get the scripts for the transforms that was specified in the Unity control panel
 	void Start () {
-		this.AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
-		this.BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
-		this.addAchievement ();
-		this.addBadges ();
+		this._AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
+		this._BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
+		this._InfScript = ProfileInfoBox.GetComponent<ProfileInfo> ();
+
+	}
+	// AddAchievement takes a list of achievement objects and runs the script of the achievementbox to insert the achievements in the scene.     
+	public void AddAchievement(List<Achievement> AchievementList)
+	{
+		this._AchScript.AddAchievements (AchievementList);
 	}
 
-	public void addAchievement()
+	// AddBadges takes a list of badge objects and runs the script of the badgebox to insert the badges in the scene.
+	public void AddBadges(List<Badge> BadgeList)
 	{
-		this.AchScript.AddAchievements (AchievementList);
-	}
-
-	public void addBadges()
-	{
-		this.BadgeScript.AddBadges (BadgeList);
+		this._BadgeScript.AddBadges (BadgeList);
 	}
 
 }

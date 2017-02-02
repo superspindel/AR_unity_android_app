@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// Script for the leaderboard panel, sets up the view of the leaderboards.
 public class leaderBoardView : MonoBehaviour {
 
 	public SimpleObjectPool SubjectPool;
@@ -11,6 +11,7 @@ public class leaderBoardView : MonoBehaviour {
 
 	public List<Leaderboard> subjectList;
 
+	// TODO: Have setup get information from the cache
 	public void Setup()
 	{
 		foreach (Leaderboard Ldb in subjectList)

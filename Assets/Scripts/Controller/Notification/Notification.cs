@@ -7,12 +7,9 @@ namespace Assets.SimpleAndroidNotifications
 	public class Notification : MonoBehaviour {
 
 		public string[] Titles = new String[]{"FIRE", "DETONATION", "GAS", "GEAR", "AREA", "LUNCH", "BREAK", "BADGE", "ACHIEVEMENT", "TASK", "SUBTASK"};
+		public GameObject PopUp;
 
 		public NotificationParams Parameters;
-		/// <summary>
-		/// Use "" for simple notification. Use "app_icon" to use the app icon. Use custom value but first place image to "simple-android-notifications.aar/res/". To modify "aar" file just rename it to "zip" and back.
-		/// </summary>
-		public string LargeIcon;
 
 		public Notification(NotificationType NotiType, string Message)
 		{
@@ -24,6 +21,11 @@ namespace Assets.SimpleAndroidNotifications
 			{
 				NotificationParams (Titles [(int) NotiType], Message);
 			}
+		}
+
+		public void Send()
+		{
+			NotificationManager.SendCustom (this.Parameters);
 		}
 
 		private void AlarmParams(string Title, String Message)

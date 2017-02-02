@@ -16,7 +16,8 @@ public class ProfileAchievement : MonoBehaviour {
 		this.AddAchievements ();
 	}
 	*/
-		
+
+	// Return the achievement prefabs to the pool
 	private void RemoveAchievements()
 	{
 		while (this.achievementPanel.childCount > 0)
@@ -25,7 +26,7 @@ public class ProfileAchievement : MonoBehaviour {
 			this.achievementObjectPool.ReturnObject(toRemove);
 		}
 	}
-
+	// Add achievement prefabs from the pool to the scene and call setup on them
 	public void AddAchievements(List<Achievement> AchievementList)
 	{
 		foreach( Achievement Ach in AchievementList)

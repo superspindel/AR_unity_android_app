@@ -11,7 +11,7 @@ public class LeaderboardSubjectPref : MonoBehaviour {
 	private SimpleObjectPool TitleObjectPool;
 	private SimpleObjectPool UserObjectPool;
 
-
+	// Creates the subject gameobject and sets the title and adds the users in the leaderboard.
 	public void Setup(SimpleObjectPool TitleObjectPool, SimpleObjectPool UserObjectPool, Leaderboard ldbSubObj)
 	{
 		this.TitleObjectPool = TitleObjectPool;

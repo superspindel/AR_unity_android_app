@@ -7,13 +7,14 @@ public class AchievementPrefab : MonoBehaviour {
 
 	public Text AchText;
 	public Button ButtonComponent;
-	private ProfileAchievement ProfileAch;
-	public string Id { get; set;}
+	private ProfileAchievement _ProfileAch;
+	private string _UserId { get; set;}
 
+	// Setup of the prefab
 	public void Setup(Achievement Achiev, ProfileAchievement ProfAch)
 	{
 		this.AchText.text = Achiev.Information;
-		this.Id = Achiev.Id;
-		this.ProfileAch = ProfAch;
+		this._UserId = Achiev.userID;
+		this._ProfileAch = ProfAch;
 	}
 }
