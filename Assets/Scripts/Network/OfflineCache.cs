@@ -18,5 +18,9 @@ public static class OfflineCache {
         // TODO: actual offline storage
         return SimpleJson.SimpleJson.DeserializeObject<T>(_fakeOfflineCache[hash]);
     }
-    
+
+    public static void Purge(int hash)
+    {
+        _fakeOfflineCache.Remove(hash);
+    }
 }

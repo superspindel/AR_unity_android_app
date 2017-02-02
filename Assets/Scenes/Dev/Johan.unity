@@ -2719,9 +2719,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BadgeObjectList:
   - iconImage: {fileID: 21300000, guid: af37f9839a3e812438a56a3a5b1fe24f, type: 3}
+    color: {r: 0, g: 0, b: 0, a: 0}
   - iconImage: {fileID: 21300000, guid: 71d9ad8f036b3324da2f36277562553a, type: 3}
+    color: {r: 0, g: 0, b: 0, a: 0}
   - iconImage: {fileID: 21300034, guid: fb448bf93f81e2c429ebe7757b0c4bb3, type: 3}
+    color: {r: 0, g: 0, b: 0, a: 0}
   - iconImage: {fileID: 21300038, guid: c079b2d770ce9094283a134eef218056, type: 3}
+    color: {r: 0, g: 0, b: 0, a: 0}
   BadgeGroupPanel: {fileID: 1024287625}
   BadgePool: {fileID: 585317227}
 --- !u!114 &1509681995
@@ -3229,11 +3233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cc87d06fe9240ce9d2380075c4a03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achievementObjectList:
-  - achievementText: Punktlig ankomst
-  - achievementText: Fulla arbetsdagar
-  - achievementText: Kaffefixare
+  achievementObjectList: []
   achievementPanel: {fileID: 1781681411}
+  achievementGroup: {fileID: 0}
   achievementObjectPool: {fileID: 1209407465}
 --- !u!114 &1781681414
 MonoBehaviour:

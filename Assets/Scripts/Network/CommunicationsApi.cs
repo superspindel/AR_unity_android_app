@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.ComTypes;
 using Application;
 using UnityEngine;
 using SocketIOClient;
+using UnityEditor;
 
 public class CommunicationsApi : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class CommunicationsApi : MonoBehaviour
     }
     public static Client Socket { get; private set; }
 
+    private bool _shouldReconnect = true;
+
     // Use this for initialization
 	void Start ()
 	{
@@ -25,19 +28,20 @@ public class CommunicationsApi : MonoBehaviour
         Socket.Message += ClientOnMessage;
         Socket.SocketConnectionClosed += ClientOnSocketConnectionClosed;
         Socket.Error += ClientOnError;
-
-	    Socket.Connect();
-    }
+        Socket.RetryConnectionAttempts = 100000;
+        Socket.Connect();
+	}
 
     void OnDestroy()
     {
         if (Socket != null)
         {
+            _shouldReconnect = false;
             Socket.Close();
         }
     }
 
-    private void ClientOnError(object sender, ErrorEventArgs errorEventArgs)
+    private static void ClientOnError(object sender, ErrorEventArgs errorEventArgs)
     {
         Debug.Log("Error");
         Debug.Log(errorEventArgs.Message);
@@ -45,9 +49,14 @@ public class CommunicationsApi : MonoBehaviour
 
     private void ClientOnSocketConnectionClosed(object sender, EventArgs eventArgs)
     {
+        Debug.Log("Lost connection...");
+        if (_shouldReconnect)
+        {
+            Socket.Connect();
+        }
     }
 
-    private void ClientOnMessage(object sender, MessageEventArgs messageEventArgs)
+    private static void ClientOnMessage(object sender, MessageEventArgs messageEventArgs)
     {
         if (messageEventArgs != null)
         {
@@ -55,7 +64,7 @@ public class CommunicationsApi : MonoBehaviour
         }
     }
 
-    private void ClientOnOpened(object sender, EventArgs eventArgs)
+    private static void ClientOnOpened(object sender, EventArgs eventArgs)
     {
         Debug.Log("Opened connection!");
     }
@@ -65,14 +74,24 @@ public class CommunicationsApi : MonoBehaviour
 	void Update () {
 	    if (IsAvailable && !_attempt)
 	    {
+            Debug.Log("Attempting to fetch");
 	        _attempt = true;
-            DataStore.List<Task>(tasks =>
+
+            DataStore.RegisterAutoUpdate<Task>();
+            DataStore.Get<Task>("swag", task =>
             {
-                foreach (var task in tasks)
+                task.Updated += o =>
                 {
-                    Debug.Log(task.Title);
-                }
+                    
+                };
+                task.Title = "yolo";
+                DataStore.Update(task, updated =>
+                {
+                    Debug.Log("updated");
+                    Debug.Log(updated);
+                });
             });
-        }
+            
+	    }
 	}
 }

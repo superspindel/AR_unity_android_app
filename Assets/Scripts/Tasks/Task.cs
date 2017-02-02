@@ -10,10 +10,13 @@ namespace Application{
 	{
 		public string Title { get; set; }
 
-		public int Totalxp;
-		public List<SubTask> subtasks;
-		public bool available;
-		public bool check;
+		internal int Totalxp;
+		internal List<SubTask> subtasks = new List<SubTask>();
+		internal bool available;
+		internal bool check;
+
+	    internal bool swag;
+	    private bool yolo;
 
 		public void Start ()
 		{

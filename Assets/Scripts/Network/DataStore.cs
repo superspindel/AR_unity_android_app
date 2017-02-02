@@ -2,12 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using SocketIOClient.Messages;
 using UnityEngine;
 
 public abstract class NetworkDataObject
 {
+
+    public event Action<NetworkDataObject> Updated;
+
     public bool Available { get; set; }
     public string Id { get; set; }
     public DateTime LastModified { get; private set; }
@@ -30,6 +34,8 @@ public abstract class NetworkDataObject
                 Debug.Log("Failed to merge " + prop.Name + ", due to: " + ex.Message);
             }
         }
+        if (Updated != null)
+            Updated(this);
     }
     public override int GetHashCode()
     {
@@ -37,15 +43,38 @@ public abstract class NetworkDataObject
     }
 }
 
+enum QueuedRequestType
+{
+    None = 0,
+    Create,
+    Update,
+    Delete
+}
+class QueuedRequest
+{
+    public QueuedRequest(QueuedRequestType type, Action<object> callback)
+    {
+        Type = type;
+        Callback = callback;
+    }
+    public QueuedRequestType Type { get; set; }
+    public Action<object> Callback { get; private set; }
+}
 public class DataStore
 {
     private static int GetHashCode(Type t, string id)
     {
         return (t.Name + id).GetHashCode();
     }
+    /// <summary>
+    /// Internal tracking dictionary for storing objects
+    /// </summary>
     private static readonly Dictionary<int, NetworkDataObject> _objectTracker 
         = new Dictionary<int, NetworkDataObject>();
     
+    private static readonly List<QueuedRequest> _queuedRequests
+        = new List<QueuedRequest>();
+
     /// <summary>
     /// Retreives an object from a datasource, depending on the availability.
     /// </summary>
@@ -55,25 +84,22 @@ public class DataStore
     public static void Get<T>(string id, Action<T> callback) where T : NetworkDataObject, new()
     {
         // we define event as "get Type", needs to be mapped on server as well
-        string eventName = "get " + typeof(T).Name;
+        string eventName = typeof(T).Name + ".get";
         // get unique-ish hash key for object
         int hash = GetHashCode(typeof(T), id);
         // if object was last modified less than a minute ago, return instantly and queue an update
         bool fast = false;
         if (_objectTracker.ContainsKey(hash) && _objectTracker[hash].LastModified > DateTime.UtcNow - TimeSpan.FromMinutes(1))
         {
-            Debug.Log("fast mode");
             if (callback != null)
                 callback(_objectTracker[hash] as T);
             fast = true;
         }
         if (CommunicationsApi.IsAvailable)
         {
-            Debug.Log("fetch via API");
             // Queue update from server
             CommunicationsApi.Socket.Emit(eventName, id, "", o =>
             {
-                Debug.Log("fetched via API");
                 // New object? create empty instance and merge data to it
                 if (!_objectTracker.ContainsKey(hash))
                     _objectTracker[hash] = new T();
@@ -87,7 +113,6 @@ public class DataStore
         }
         else
         {
-            Debug.Log("no API");
             if (fast) // fast cache but API offline? not our problem for now
                 return;
             // Got an object tracked but older than a minute? lets just use it
@@ -97,12 +122,12 @@ public class DataStore
                     callback(_objectTracker[hash] as T);
             }
             // Attempt to fetch sync from Offline Cache
-            var cache = OfflineCache.Fetch(hash);
+            var cache = OfflineCache.Fetch<T>(hash);
             if (cache != null)
             {
-                _objectTracker[hash] = cache as NetworkDataObject;
+                _objectTracker[hash] = cache;
                 if (callback != null)
-                    callback(cache as T);
+                    callback(cache);
             }
             else
             {
@@ -119,7 +144,7 @@ public class DataStore
     /// <param name="callback">A callback to handle the requested data. Can be null to just queue update from server or heat up data from disk cache.</param>
     public static void List<T>(Action<IEnumerable<T>> callback) where T: NetworkDataObject, new()
     {
-        string eventName = "list " + typeof(T).Name;
+        string eventName = typeof(T).Name + ".list";
         int hash = eventName.GetHashCode();
         if (CommunicationsApi.IsAvailable)
         {
@@ -131,7 +156,6 @@ public class DataStore
                 int i = got.Length;
                 foreach (var id in got)
                 {
-                    Debug.Log("going through: " + id);
                     Get<T>(id, obj =>
                     {
                         returns.Add(obj);
@@ -147,7 +171,7 @@ public class DataStore
         }
         else
         {
-            var cache = OfflineCache.Fetch(hash);
+            var cache = OfflineCache.Fetch<T>(hash);
             if (cache != null)
             {
                 List<T> returns = new List<T>();
@@ -181,7 +205,7 @@ public class DataStore
     /// <typeparam name="T">The type of object to register.</typeparam>
     public static void RegisterAutoUpdate<T>() where T : NetworkDataObject, new()
     {
-        var eventName = "update " + typeof(T).Name;
+        var eventName = typeof(T).Name + ".update";
         CommunicationsApi.Socket.On(eventName, message =>
         {
             var obj = message.Json.GetFirstArgAs<T>();
@@ -195,14 +219,65 @@ public class DataStore
     }
     public static void Update<T>(T obj, Action<bool> callback) where T : NetworkDataObject, new()
     {
-        string eventName = "update " + typeof(T).Name;
+        string eventName = typeof(T).Name + ".update";
         int hash = GetHashCode(typeof(T), obj.Id);
+        Action<object> emitCallback = o =>
+        {
+        };
         if (CommunicationsApi.IsAvailable)
         {
+            CommunicationsApi.Socket.Emit(eventName, obj, "", emitCallback);
         }
         else
         {
             // queue for update
+            _queuedRequests.Add(new QueuedRequest(QueuedRequestType.Update, emitCallback));
+        }
+    }
+
+    public static void Create<T>(T obj, Action<T> callback) where T : NetworkDataObject, new()
+    {
+        Action<object> emitCallback = o =>
+        {
+            var created = (o as JsonEncodedEventMessage).GetFirstArgAs<T>();
+            int hash = GetHashCode(typeof(T), created.Id);
+            if (!_objectTracker.ContainsKey(hash))
+                _objectTracker[hash] = new T();
+            _objectTracker[hash].Merge(created);
+            OfflineCache.QueueStore(hash, _objectTracker[hash]);
+            if (callback != null)
+                callback(_objectTracker[hash] as T);
+        };
+        string eventName = typeof(T).Name + ".create";
+        if (CommunicationsApi.IsAvailable)
+        {
+            CommunicationsApi.Socket.Emit(eventName, obj, "", emitCallback);
+        }
+        else
+        {
+            // queue for update
+            _queuedRequests.Add(new QueuedRequest(QueuedRequestType.Create, emitCallback));
+        }
+    }
+
+    public static void Delete<T>(T obj, Action<bool> callback) where T : NetworkDataObject, new()
+    {
+        int hash = GetHashCode(typeof(T), obj.Id);
+        Action<object> emitCallback = o =>
+        {
+            _objectTracker.Remove(hash);
+            OfflineCache.Purge(hash);
+            if (callback != null)
+                callback(true);
+        };
+        string eventName = typeof(T).Name + ".delete";
+        if (CommunicationsApi.IsAvailable)
+        {
+            CommunicationsApi.Socket.Emit(eventName, obj.Id, "", emitCallback);
+        }
+        else
+        {
+            _queuedRequests.Add(new QueuedRequest(QueuedRequestType.Delete, emitCallback));
         }
     }
 }
