@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using Application;
 using UnityEngine;
 using SocketIOClient;
-using UnityEditor;
 
 public class CommunicationsApi : MonoBehaviour
 {
@@ -70,28 +65,6 @@ public class CommunicationsApi : MonoBehaviour
     }
     
     // Update is called once per frame
-    private bool _attempt = false;
 	void Update () {
-	    if (IsAvailable && !_attempt)
-	    {
-            Debug.Log("Attempting to fetch");
-	        _attempt = true;
-
-            DataStore.RegisterAutoUpdate<Task>();
-            DataStore.Get<Task>("swag", task =>
-            {
-                task.Updated += o =>
-                {
-                    
-                };
-                task.Title = "yolo";
-                DataStore.Update(task, updated =>
-                {
-                    Debug.Log("updated");
-                    Debug.Log(updated);
-                });
-            });
-            
-	    }
 	}
 }
