@@ -23,6 +23,21 @@ public class SetupMenu : MonoBehaviour {
 		}
 	}
 
+	public void EnterPage()
+	{
+		
+	}
+
+	public void LeavePage()
+	{
+		
+	}
+
+	public void UpdatePage()
+	{
+		
+	}
+
 	// TODO: 	Function for leavePage, go through each object and return them to the pool.
 	// 			Also, Get data from some settings or create a base MenuGroup to show always.
 }

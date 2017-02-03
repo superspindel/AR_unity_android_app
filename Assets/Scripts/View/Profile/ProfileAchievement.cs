@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProfileAchievement : MonoBehaviour {
+public class ProfileAchievement : Prefab {
 
 	public Transform achievementPanel;
 	public GameObject achievementGroup;
@@ -18,7 +18,7 @@ public class ProfileAchievement : MonoBehaviour {
 	*/
 
 	// Return the achievement prefabs to the pool
-	private void RemoveAchievements()
+	public override void ReturnChildren()
 	{
 		while (this.achievementPanel.childCount > 0)
 		{

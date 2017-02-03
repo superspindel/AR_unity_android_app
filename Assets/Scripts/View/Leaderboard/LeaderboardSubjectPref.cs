@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderboardSubjectPref : MonoBehaviour {
+public class LeaderboardSubjectPref : Prefab {
 
 	private string Title;
 	private List<LeaderboardUser> UserList;
@@ -41,6 +41,22 @@ public class LeaderboardSubjectPref : MonoBehaviour {
 			LeaderboardUserPref ldbUser = newUsObj.GetComponent<LeaderboardUserPref> ();
 			ldbUser.Setup (user, i == UserList.Count-1);
 			i++;
+		}
+	}
+
+	public override void ReturnChildren()
+	{
+		while (this.transform.childCount > 0)
+		{
+			PooledObject toRemove = this.transform.GetChild(0).gameObject;
+			if (toRemove.pool == this.TitleObjectPool) 
+			{
+				this.TitleObjectPool.ReturnObject (toRemove);
+			} 
+			else 
+			{
+				this.UserObjectPool.ReturnObject (toRemove);
+			}
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 
-public class ProfileBadge : MonoBehaviour {
+public class ProfileBadge : Prefab {
 
 	public Transform BadgeGroupPanel;
 	public SimpleObjectPool BadgePool;
@@ -19,7 +19,7 @@ public class ProfileBadge : MonoBehaviour {
 	*/
 
 	// Return object to the pool
-	public void RemoveBadges()
+	public override void ReturnChildren()
 	{
 		while (this.BadgeGroupPanel.childCount > 0) 
 		{

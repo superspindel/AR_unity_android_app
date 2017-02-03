@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class leaderboardTitle : MonoBehaviour {
+public class leaderboardTitle : Prefab {
 	public Text titleText;
 
 	public void Setup(string title)

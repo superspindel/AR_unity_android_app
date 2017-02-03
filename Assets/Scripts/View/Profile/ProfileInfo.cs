@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class ProfileInfo : MonoBehaviour {
+public class ProfileInfo : Prefab {
 
 	public Image ProfileImage;
 	public Text NameField;
