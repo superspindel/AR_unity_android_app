@@ -50,6 +50,8 @@ namespace Assets.SimpleAndroidNotifications
 				this.Send ();
 			}
 		}
+
+
 		// Send will send the notification, and activate the PopUp on screen of the device so that the user can notify application that it has been read.
 		public void Send()
 		{
