@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Script for the Extra menu panel, creates the menu when swapping to the panel. 
 public class SetupMenu : MonoBehaviour {
 
 	public SimpleObjectPool ButtonGroupPool;
@@ -11,7 +10,6 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool MainButtonPool;
 	public SimpleObjectPool SubMenuGroupPool;
 
-	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
 	public void createMenu(List<MenuGroup> MenuGroupList)
 	{
 		foreach (MenuGroup MenuGrp in MenuGroupList)
@@ -22,7 +20,4 @@ public class SetupMenu : MonoBehaviour {
 			btngrp.Setup (MenuGrp, this);
 		}
 	}
-
-	// TODO: 	Function for leavePage, go through each object and return them to the pool.
-	// 			Also, Get data from some settings or create a base MenuGroup to show always.
 }

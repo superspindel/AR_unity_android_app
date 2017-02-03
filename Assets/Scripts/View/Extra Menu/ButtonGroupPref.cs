@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Prefab configuration for the buttongroup containing the main button and its sub buttons.
 public class ButtonGroupPref : MonoBehaviour {
-	public List<SubMenu> SubMenuList { get; set; } 
-	public SetupMenu SetMenu { get; set; }	// The parent setup menu that its created inside, if need be.
-	public SimpleObjectPool SubButtonPool { get; set; }	
+	public List<SubMenu> SubMenuList { get; set; }
+	public SetupMenu SetMenu { get; set; }
+	public SimpleObjectPool SubButtonPool { get; set; }
 	public SimpleObjectPool MainButtonPool { get; set; }
 	public SimpleObjectPool SubMenuGroupPool { get; set; }
-	public GameObject SubMenugrp { get; set; } // The Gameobject that will contain the group of sub buttons
-	public SubMenuGroupPref SubMenuGroupScript { get; set; }  // The script of the sub menu group
+	public GameObject SubMenugrp { get; set; }
+	public SubMenuGroupPref SubMenuGroupScript { get; set; }
 
-	// Setup will instantiate the variables above and create the main button, sub menu group and toggle off the submenu. 
-	// Input is a MenuGroup that contains the information for the main button aswell as the list of sub buttons.
-	// Input is also a the parent Setup menu that contains the pools for the objects to be created.
 	public void Setup(MenuGroup MenuGrp, SetupMenu SetMenu)
 	{
 		this.SubMenuList = MenuGrp.SubMenus;
@@ -29,8 +25,7 @@ public class ButtonGroupPref : MonoBehaviour {
 		this.ToggleSubMenu ();
 	}
 		
-	// Creates the Main button
-	// Input is the Title of the button aswell as the icon for the button.
+
 	private void AddMainButton(string Title, Sprite Icon)
 	{
 		GameObject MainButton = this.MainButtonPool.GetObject ();
@@ -39,7 +34,6 @@ public class ButtonGroupPref : MonoBehaviour {
 		MBut.Setup (Title, Icon, this);
 	}
 
-	// Creates the sub menu group, and also calls setup on that gameobjects script to create the buttons within the group.
 	private void AddSubMenuGroup()
 	{
 		this.SubMenugrp = this.SubMenuGroupPool.GetObject ();
@@ -48,8 +42,6 @@ public class ButtonGroupPref : MonoBehaviour {
 		SubMenuGroupScript.Setup (this.SubMenuList, this.SubButtonPool);
 	}
 
-	// Script to toggle the sub menu group and display the buttons within the group. 
-	// Function gets called from the main button when clicked.
 	public void ToggleSubMenu()
 	{
 		if (this.SubMenugrp.activeSelf) 

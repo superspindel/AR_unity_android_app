@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// Class that contains the data for the different menu options. Is used to create buttons in the extra menu with sub buttons.
 public class MenuGroup {
 
 	public string Title { get; set; }
