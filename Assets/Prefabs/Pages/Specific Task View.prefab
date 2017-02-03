@@ -681,12 +681,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eefccde0ac46fd40a5e83ebdc7837cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testListSize: 9
-  subTaskGroup: {fileID: 1476326619271052}
-  subTaskList: []
-  pool: {fileID: 0}
-  regular: 0
-  bonus: 0
+  UseGeneratedTestList: 0
+  TestListSize: 0
+  SubTaskGroup: {fileID: 1476326619271052}
+  _subTaskList: []
+  _pool: {fileID: 0}
+  _regular: 0
+  _bonus: 0
+  _lastTaskViewed: -1
 --- !u!114 &114445013317496532
 MonoBehaviour:
   m_ObjectHideFlags: 1

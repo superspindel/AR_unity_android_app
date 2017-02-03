@@ -52,7 +52,7 @@ public class Pageswapper : MonoBehaviour {
 			gotoSettingsPage ();
 		}
 		if (this._activePage == SpecificTaskPage) {
-			gotoSpecificTaskPage (0); // should not happen?
+			gotoSpecificTaskPage ("0"); // should not happen?
 		}
 	}
 
@@ -142,8 +142,10 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	// SpecificTaskPage
-	public void gotoSpecificTaskPage(int taskId){
-		
+	public void gotoSpecificTaskPage(string taskId){
+		activePageForward (this.SpecificTaskPage);
+		this._activePage.SetActive (false);
+		this.SpecificTaskPage.SetActive (true);
 	}
 
 	private void leaveSpecificTaskPage(){

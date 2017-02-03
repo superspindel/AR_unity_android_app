@@ -9,7 +9,7 @@ public class ActiveTaskButton : MonoBehaviour {
 	public Button Butncmp;
 	public Button ArrowButton;
 	private int rotate = -1; // to create toggle behaviour when rotating arrowbutton
-
+	
 	public void Setup(string ATitle, ActiveButtonGroup Parent)
 	{
 		TextField.text = ATitle;
@@ -20,6 +20,7 @@ public class ActiveTaskButton : MonoBehaviour {
 
 	public void handleClick()
 	{
+		//GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ().gotoSpecificTaskPage ();
 		//TODO: show specific task view
 	}
 

@@ -28,6 +28,7 @@ namespace Application{
 			{
 				if (TaskList [i].UserId == 0) { // TODO: check if no one "has task"
 					Task task = TaskList [i];
+					task.Id = i.ToString (); //TODO REMOVE
 					GameObject newButton = ButtonObjectPool.GetObject ();
 					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
