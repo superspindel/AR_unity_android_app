@@ -1640,11 +1640,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7664d659d18554de8a1380429ef63455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProfileImage: {fileID: 0}
-  NameField: {fileID: 0}
+  ProfileImage: {fileID: 114763979550193470}
+  NameField: {fileID: 114664708685751096}
   DailyScoreField: {fileID: 114647404302175696}
   TotalScoreField: {fileID: 114070056097081278}
-  Slider: {fileID: 0}
+  Slider: {fileID: 224402690175912398}
 --- !u!114 &114869655108608806
 MonoBehaviour:
   m_ObjectHideFlags: 1
