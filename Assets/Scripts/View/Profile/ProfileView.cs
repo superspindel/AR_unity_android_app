@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 // profile panel script. Runs the profile view and sets up the components within the profile panel.
 
-public class ProfileView : Pagehandler {
+public class ProfileView : MonoBehaviour {
 
 	public Transform AchievementBox;
 	public Transform ProfileInfoBox;
@@ -14,6 +14,8 @@ public class ProfileView : Pagehandler {
 	private ProfileInfo _InfScript;
 	private ProfileAchievement _AchScript;
 	private ProfileBadge _BadgeScript;
+
+	private bool started = false;
 
 	// Awake will get the scripts for the transforms that was specified in the Unity control panel
 	void Awake() {
@@ -34,18 +36,30 @@ public class ProfileView : Pagehandler {
 		this._BadgeScript.AddBadges (BadgeList);
 	}
 
-	public override void LeavePage()
-	{
-		EnterPage <null>(null);
-	}
-	public void StartPage(User profile)
+	public void LeavePage()
 	{
 		
 	}
+	public void StartPage(User profile)
+	{
+		if (!this.started)
+		{
+			profile.Updated += o => {
+				this.reloadPage (profile);
+			};
+			this.started = true;
+		}
+	}
 
-	public override void EnterPage<T>(T userID)
+	public void EnterPage<T>(T userID)
 	{
 		Debug.Log (userID);
+	}
+
+	public void reloadPage(User newInfo)
+	{
+		LeavePage ();
+		StartPage (newInfo);
 	}
 
 }

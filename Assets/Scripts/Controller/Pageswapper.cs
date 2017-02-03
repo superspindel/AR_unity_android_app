@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Pagehandler : MonoBehaviour{
-	public abstract void LeavePage ();
-	public abstract void EnterPage <T>(T input);
-}
 
 public class Pageswapper : MonoBehaviour {
 
@@ -23,6 +19,7 @@ public class Pageswapper : MonoBehaviour {
 	public GameObject 	ActiveTasksPage;
 	public GameObject 	SettingsPage;
 	public GameObject 	SpecificTaskPage;
+	public GameObject 	LeaderBoardPage;
 
 	[Header("PopUp View")]
 	public GameObject 	PopUpWindow;
@@ -45,7 +42,7 @@ public class Pageswapper : MonoBehaviour {
 		unloadActivePage ();
 		activePageBack ();
 		if (this._activePage == ProfilePage) {
-			gotoProfilePage ();
+			GoToProfilePage ();
 		}
 		if (this._activePage == AvalibleTaskPage) {
 			gotoAvalibleTasksPage ();
@@ -79,9 +76,8 @@ public class Pageswapper : MonoBehaviour {
 
 	// unload assets and other page specific things
 	private void unloadActivePage(){
-		_activePage.transform.GetComponent<Pagehandler> ().LeavePage ();
 		if (this._activePage == ProfilePage) {
-			leaveProfilePage ();
+			LeaveProfilePage ();
 		}
 		if (this._activePage == AvalibleTaskPage) {
 			leaveAvalibleTasksPage ();
@@ -110,16 +106,33 @@ public class Pageswapper : MonoBehaviour {
 
 // Main View
 	// ProfilePage
-	public void gotoProfilePage(){
+	public void GoToProfilePage()
+	{
 		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
 		DataStore.Get<User> ("12345", o => {
-			script.StartPage (o);
+			o.Updated += i =>
+			{
+				script.reloadPage(o);
+			};
+			script.StartPage(o);			
 		});
 	}
 
-	private void leaveProfilePage(){
-		ProfilePage.SetActive (false);
+	private void LeaveProfilePage(){
+		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
+
 	}
+
+	public void GoToLeaderboardPage()
+	{
+		
+	}
+
+	private void LeaveLeaderboardPage()
+	{
+		
+	}
+		
 
 
 	// AvalibleTaskPage
