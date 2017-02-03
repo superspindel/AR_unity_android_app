@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public abstract class Pagehandler : MonoBehaviour{
+	public abstract void LeavePage ();
+	public abstract void EnterPage <T>(T input);
+}
+
 public class Pageswapper : MonoBehaviour {
 
 	[Header("Testing")]
@@ -74,6 +79,7 @@ public class Pageswapper : MonoBehaviour {
 
 	// unload assets and other page specific things
 	private void unloadActivePage(){
+		_activePage.transform.GetComponent<Pagehandler> ().LeavePage ();
 		if (this._activePage == ProfilePage) {
 			leaveProfilePage ();
 		}
@@ -106,7 +112,9 @@ public class Pageswapper : MonoBehaviour {
 	// ProfilePage
 	public void gotoProfilePage(){
 		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
-		ProfilePage.SetActive (true);
+		DataStore.Get<User> ("12345", o => {
+			script.StartPage (o);
+		});
 	}
 
 	private void leaveProfilePage(){

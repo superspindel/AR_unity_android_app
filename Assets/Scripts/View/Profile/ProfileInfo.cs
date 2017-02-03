@@ -14,7 +14,7 @@ public class ProfileInfo : MonoBehaviour {
 	private SliderScript _Slscrpt{ get; set; }
 
 	// initialize by getting the script from the slider game object
-	public void Start()
+	void Awake()
 	{
 		this._Slscrpt = Slider.GetComponent<SliderScript> ();
 	}
