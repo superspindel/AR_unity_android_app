@@ -28,11 +28,11 @@ public class ProfileView : MonoBehaviour {
 		this._BadgeScript.ReturnChildren ();
 	}
 
-	public void EnterPage(User Profile, List<Achievement> AchievementList, List<Badge> BadgeList)
+	public void EnterPage(User Profile)
 	{
 		this._InfScript.SetProfileInfo (Profile);
-		this._AchScript.AddAchievements (AchievementList);
-		this._BadgeScript.AddBadges (BadgeList);
+		//this._AchScript.AddAchievements (AchievementList);
+		//this._BadgeScript.AddBadges (BadgeList);
 	}
 
 	public void UpdatePage(User newInfo)

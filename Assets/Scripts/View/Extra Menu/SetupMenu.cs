@@ -25,12 +25,16 @@ public class SetupMenu : MonoBehaviour {
 
 	public void EnterPage()
 	{
-		
+		// read settings page
 	}
 
 	public void LeavePage()
 	{
-		
+		while (this.transform.childCount > 0) 
+		{
+			GameObject ToRemove = this.transform.GetChild (0).gameObject;
+			ToRemove.GetComponent<ButtonGroupPref> ().ReturnChildren ();
+		}
 	}
 
 	public void UpdatePage()

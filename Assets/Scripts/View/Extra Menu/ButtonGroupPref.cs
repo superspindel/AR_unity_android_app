@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Prefab configuration for the buttongroup containing the main button and its sub buttons.
-public class ButtonGroupPref : MonoBehaviour {
+public class ButtonGroupPref : Prefab {
 	public List<SubMenu> SubMenuList { get; set; }
 	public SetupMenu SetMenu { get; set; } // The parent setup menu that its created inside, if need be.
 	public SimpleObjectPool SubButtonPool { get; set; }
@@ -54,11 +54,28 @@ public class ButtonGroupPref : MonoBehaviour {
 		if (this.SubMenugrp.activeSelf) 
 		{
 			this.SubMenugrp.SetActive (false);
-			this.SubMenuGroupScript.RemoveSubs ();
+			this.SubMenuGroupScript.ReturnChildren ();
 		} else 
 		{
 			this.SubMenugrp.SetActive (true);
 			this.SubMenuGroupScript.AddSubMenus (SubMenuList);
+		}
+	}
+
+	public override void ReturnChildren()
+	{
+		while (this.transform.childCount > 0) 
+		{
+			GameObject toRemove = this.transform.GetChild (0).gameObject;
+			PooledObject script = toRemove.GetComponent<PooledObject> ();
+			if (script.pool == MainButtonPool) {
+				MainButtonPool.ReturnObject (toRemove);
+			} 
+			else 
+			{
+				toRemove.GetComponent<Prefab> ().ReturnChildren ();
+				SubMenuGroupPool.ReturnObject (toRemove);
+			}
 		}
 	}
 }

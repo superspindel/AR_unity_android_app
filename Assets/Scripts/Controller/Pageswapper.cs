@@ -112,9 +112,9 @@ public class Pageswapper : MonoBehaviour {
 		DataStore.Get<User> ("12345", o => {
 			o.Updated += i =>
 			{
-				script.reloadPage(o);
+				script.UpdatePage(o);
 			};
-			script.StartPage(o);			
+			script.EnterPage(o);			
 		});
 	}
 

@@ -27,7 +27,7 @@ public class LeaderboardSubjectPref : Prefab {
 	{
 		GameObject newTitle = this.TitleObjectPool.GetObject ();
 		newTitle.transform.SetParent (this.transform);
-		leaderboardTitle ldbttl = newTitle.GetComponent<leaderboardTitle> ();
+		leaderboardTitlePref ldbttl = newTitle.GetComponent<leaderboardTitlePref> ();
 		ldbttl.Setup (this.Title);
 	}
 
@@ -48,8 +48,9 @@ public class LeaderboardSubjectPref : Prefab {
 	{
 		while (this.transform.childCount > 0)
 		{
-			PooledObject toRemove = this.transform.GetChild(0).gameObject;
-			if (toRemove.pool == this.TitleObjectPool) 
+			GameObject toRemove = this.transform.GetChild(0).gameObject;
+			PooledObject script = toRemove.GetComponent<PooledObject> ();
+			if (script.pool == this.TitleObjectPool) 
 			{
 				this.TitleObjectPool.ReturnObject (toRemove);
 			} 

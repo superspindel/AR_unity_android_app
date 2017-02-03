@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 // Sub menu group prefab script, for setup of the group by adding the sub menus 
 // and possibly removing the sub menus by returning them to the pool.
-public class SubMenuGroupPref : MonoBehaviour {
+public class SubMenuGroupPref : Prefab {
 	
 	private SimpleObjectPool SubButtonPool;
 
@@ -29,7 +29,7 @@ public class SubMenuGroupPref : MonoBehaviour {
 		}
 	}
 	// RemoveSubs goes through the group object and returns all the children objects to the pool, the sub buttons.
-	public void RemoveSubs()
+	public override void ReturnChildren()
 	{
 		while (this.transform.childCount > 0)
 		{
