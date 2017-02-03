@@ -7,6 +7,7 @@
         Event,
         Heart,
         Message,
-        Star
+        Star,
+		Warning
     }
 }

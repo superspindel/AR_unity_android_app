@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114116868273873478}
   - component: {fileID: 114466974955531378}
   m_Layer: 5
-  m_Name: SubButtonGroup
+  m_Name: SubMenuGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

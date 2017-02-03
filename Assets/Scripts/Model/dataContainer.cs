@@ -14,11 +14,11 @@ public class DataContainer : MonoBehaviour {
 	public List<Task> avalibleTasks;
 
 	// Global Achivement / Badge
-	public List<AchievementObject> achievementList;
-	public List<BadgeObject> badgeList;
+	public List<Achievement> achievementList;
+	public List<Badge> badgeList;
 
 	// Personal Profile
-	public Profile activeProfile;
+	public User activeUser;
 
 	// Personal Settings
 	public ArrayList settingsArray;

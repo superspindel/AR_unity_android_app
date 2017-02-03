@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderBoardUser : MonoBehaviour {
+public class LeaderboardUserPref : MonoBehaviour {
 	public Text XpText;
 	public Text positionText;
 	public Image border;
 
-	public void Setup(leaderboardUserObject ldbUsObj, bool last)
+	public void Setup(LeaderboardUser ldbUser, bool last)
 	{
-		this.XpText.text = ldbUsObj.xp.ToString();
-		this.positionText.text = ldbUsObj.position;
+		this.XpText.text = ldbUser.Xp.ToString ();
+		this.positionText.text = ldbUser.Position.ToString ();
 
 		if (last) 
 		{
