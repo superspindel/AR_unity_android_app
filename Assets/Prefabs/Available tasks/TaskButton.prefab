@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1481569938592560
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 114937370165621522}
-  toggleComponent: {fileID: 114914719713170660}
+  ToggleComponent: {fileID: 114914719713170660}
 --- !u!114 &114003998690050444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,18 +358,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1290367054093214}
-        m_MethodName: 
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
@@ -384,10 +373,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9751907c510784ac5945ba8095ae645c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskLabel: {fileID: 114736247788288560}
-  xpLabel: {fileID: 114097743956683896}
-  taskToggle: {fileID: 0}
-  taskButton: {fileID: 0}
+  TaskLabel: {fileID: 114736247788288560}
+  XpLabel: {fileID: 114097743956683896}
+  TaskToggle: {fileID: 114002734187830662}
+  TaskButton: {fileID: 114018653965465118}
 --- !u!114 &114972329262622320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,10 +441,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 463, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 231.5, y: -50}
+  m_SizeDelta: {x: 463, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224524885836304026
 RectTransform:

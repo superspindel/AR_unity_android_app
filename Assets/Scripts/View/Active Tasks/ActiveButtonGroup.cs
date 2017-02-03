@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonGroup : MonoBehaviour {
-	public List<subMenus> lstsub { get; private set; }
-	public SetupMenu setMenu { get; private set; }
+public class ActiveButtonGroup : MonoBehaviour {
+	public List<SubTaskMenus> lstsub { get; private set; }
+	public ActiveTasksSetup setMenu { get; private set; }
 	public SimpleObjectPool subButtonPool { get; private set; }
 	public SimpleObjectPool mainButtonPool { get; private set; }
 	public SimpleObjectPool subButtonGroupPool { get; private set; }
 	public GameObject sbtgrp { get; private set; }
-	public subButtonGroup sbtgrpscr { get; private set; }
+	public ActiveSubButtonGroup SubButtonGroupScript { get; private set; }
 
-	public void Setup(List<subMenus> lstsub, string title, Sprite icon, SetupMenu setMenu)
+	public void Setup(List<SubTaskMenus> lstsub, string Title, ActiveTasksSetup setMenu)
 	{
 		this.lstsub = lstsub;
 		this.setMenu = setMenu;
@@ -20,40 +20,40 @@ public class ButtonGroup : MonoBehaviour {
 		this.mainButtonPool = setMenu.mainButtonPool;
 		this.subButtonGroupPool = setMenu.subButtonGroupPool;
 
-		this.addMainButton (title, icon);
-		this.addSubMenuGroup ();
-		this.toggleSubMenu ();
+		this.AddMainButton (Title);
+		this.AddSubMenuGroup ();
+		this.ToggleSubMenu ();
 	}
-		
 
-	private void addMainButton(string title, Sprite icon)
+
+	private void AddMainButton(string title)
 	{
 		GameObject MainButton = this.mainButtonPool.GetObject ();
 		MainButton.transform.SetParent (this.transform);
-		mainButton mbut = MainButton.GetComponent<mainButton> ();
-		mbut.Setup (title, icon, this);
+		ActiveTaskButton mbut = MainButton.GetComponent<ActiveTaskButton> ();
+		mbut.Setup (title, this);
 	}
 
-	private void addSubMenuGroup()
+	private void AddSubMenuGroup()
 	{
 		GameObject subButGrp = this.subButtonGroupPool.GetObject ();
 		subButGrp.transform.SetParent (this.transform);
-		subButtonGroup sbtg = subButGrp.GetComponent<subButtonGroup> ();
+		ActiveSubButtonGroup sbtg = subButGrp.GetComponent<ActiveSubButtonGroup> ();
 		sbtg.Setup (this.lstsub, this.subButtonPool);
 		this.sbtgrp = subButGrp;
-		this.sbtgrpscr = sbtgrp.GetComponent<subButtonGroup> ();
+		this.SubButtonGroupScript = sbtgrp.GetComponent<ActiveSubButtonGroup> ();
 	}
 
-	public void toggleSubMenu()
+	public void ToggleSubMenu()
 	{
 		if (this.sbtgrp.activeSelf) 
 		{
 			this.sbtgrp.SetActive (false);
-			this.sbtgrpscr.removeSubs ();
+			this.SubButtonGroupScript.removeSubs ();
 		} else 
 		{
 			this.sbtgrp.SetActive (true);
-			this.sbtgrpscr.AddSubMenus (lstsub);
+			this.SubButtonGroupScript.AddSubMenus (lstsub);
 		}
 	}
 }

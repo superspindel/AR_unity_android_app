@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace Application{
 	public class TaskScrollList : MonoBehaviour {
-		public List<Task> taskList;
-		public Transform contentPanel;
-		public SimpleObjectPool buttonObjectPool;
-		public AddTaskButtonScript addTaskButton;
-		private List<Task> checkedList;
-		private int checkedCount = 0;
+		public List<Task> TaskList;
+		public Transform ContentPanel;
+		public SimpleObjectPool ButtonObjectPool;
+		public AddTaskButtonScript AddTaskButton;
+		private List<Task> CheckedList;
+		private int _checkedCount = 0;
 
 		void Start () {
 				RefreshDisplay ();
@@ -24,12 +24,12 @@ namespace Application{
 
 		private void AddTaskButtons()
 		{
-			for (int i = 0; i < taskList.Count; i++)
+			for (int i = 0; i < TaskList.Count; i++)
 			{
-				if (taskList [i].UserId == 0) { // TODO: check if no one "has task"
-					Task task = taskList [i];
-					GameObject newButton = buttonObjectPool.GetObject ();
-					newButton.transform.SetParent (contentPanel);
+				if (TaskList [i].UserId == 0) { // TODO: check if no one "has task"
+					Task task = TaskList [i];
+					GameObject newButton = ButtonObjectPool.GetObject ();
+					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
 					taskButton.Setup (task, this);
 
@@ -39,10 +39,10 @@ namespace Application{
 
 		private void RemoveTaskButtons ()
 		{
-			while (contentPanel.childCount > 0) 
+			while (ContentPanel.childCount > 0) 
 			{
 				GameObject toRemove = transform.GetChild (0).gameObject;
-				buttonObjectPool.ReturnObject (toRemove);
+				ButtonObjectPool.ReturnObject (toRemove);
 			}
 		}
 
@@ -50,16 +50,16 @@ namespace Application{
 
 		private void addTask(Task taskToAdd, TaskScrollList scrollList)
 		{
-			scrollList.taskList.Add (taskToAdd);
+			scrollList.TaskList.Add (taskToAdd);
 		}
 
 		private void removeTask(Task taskToRemove, TaskScrollList scrollList)
 		{
-			for (int i = scrollList.taskList.Count - 1; i >= 0; i--) 
+			for (int i = scrollList.TaskList.Count - 1; i >= 0; i--) 
 			{
-				if(scrollList.taskList[i] == taskToRemove)
+				if(scrollList.TaskList[i] == taskToRemove)
 				{
-					scrollList.taskList.RemoveAt(i);
+					scrollList.TaskList.RemoveAt(i);
 				}
 			}
 		}
@@ -77,15 +77,15 @@ namespace Application{
 
 		public void showAddButton(bool toggle){
 			if (toggle) {
-				checkedCount++;
+				_checkedCount++;
 			} else {
-				checkedCount--;
+				_checkedCount--;
 			}
-			Debug.Log (checkedCount);
-			if (checkedCount > 0) {
-				addTaskButton.gameObject.SetActive(true);
+			Debug.Log (_checkedCount);
+			if (_checkedCount > 0) {
+				AddTaskButton.gameObject.SetActive(true);
 			} else {
-				addTaskButton.gameObject.SetActive(false);
+				AddTaskButton.gameObject.SetActive(false);
 			}
 			
 		}

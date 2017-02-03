@@ -124,10 +124,10 @@ RectTransform:
   m_Father: {fileID: 755166447}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 231.5, y: -633}
-  m_SizeDelta: {x: 463, y: 64}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 231.5, y: 40}
+  m_SizeDelta: {x: 463, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &113589616
 MonoBehaviour:
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65584faa9eac44055a251419fedfdce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollList: {fileID: 759525268}
-  ButtonComponent: {fileID: 113589617}
+  scrollList: {fileID: 0}
+  ButtonComponent: {fileID: 0}
 --- !u!114 &113589617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +275,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 507996398}
     m_Modifications:
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: TaskList.Array.size
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -373,6 +378,26 @@ Prefab:
     - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: addTaskButton
+      value: 
+      objectReference: {fileID: 113589616}
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: taskList.Array.data[0].title
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: ContentPanel
+      value: 
+      objectReference: {fileID: 1728646458}
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: ButtonObjectPool
+      value: 
+      objectReference: {fileID: 138507944}
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: AddTaskButton
       value: 
       objectReference: {fileID: 113589616}
     m_RemovedComponents: []
@@ -917,6 +942,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6828906c55093435f9b6f28bf5f1d013, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1728646458 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 406766958}
 --- !u!1 &1748223632
 GameObject:
   m_ObjectHideFlags: 0

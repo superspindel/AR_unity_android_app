@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Application{
-	public class taskToggleScript : MonoBehaviour {
+	public class TaskToggleScript : MonoBehaviour {
 		
 		public TaskButtonScript Parent;
-		public Toggle toggleComponent;
+		public Toggle ToggleComponent;
 				
 		public void HandleClick(bool Toggled){
 			//Debug.Log (Toggled);
@@ -18,12 +18,12 @@ namespace Application{
 
 		// Use this for initialization
 		void Start () {
-			toggleComponent.onValueChanged.AddListener (HandleClick);
+			ToggleComponent.onValueChanged.AddListener (HandleClick);
 		}
 
 		public void Setup(TaskButtonScript parent, bool check){
 			this.Parent = parent;
-			this.toggleComponent.isOn = check;
+			this.ToggleComponent.isOn = check;
 		}
 
 		// Update is called once per frame

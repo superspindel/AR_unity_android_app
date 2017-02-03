@@ -6,12 +6,12 @@ using UnityEngine.UI;
 namespace Application{
 	public class TaskButtonScript : MonoBehaviour {
 
-		public Text taskLabel;
-		public Text xpLabel;
-		public taskToggleScript taskToggle;
-		public Button taskButton;
+		public Text TaskLabel;
+		public Text XpLabel;
+		public TaskToggleScript TaskToggle;
+		public Button TaskButton;
 
-		private Task task;
+		private Task _task;
 		private TaskScrollList scrollList;
 
 		// Use this for initialization
@@ -26,11 +26,11 @@ namespace Application{
 
 		public void Setup(Task currentTask, TaskScrollList currentScrollList)
 		{
-			task = currentTask;
-			taskLabel.text = task.Title;
-			xpLabel.text = task.TotalXp.ToString() + "xp";
+			_task = currentTask;
+			TaskLabel.text = _task.Title;
+			XpLabel.text = _task.TotalXp.ToString() + "xp";
 			scrollList = currentScrollList;
-			taskToggle = this.GetComponentInChildren<taskToggleScript>();
+			TaskToggle = this.GetComponentInChildren<TaskToggleScript>();
 			// TODO: Check taskToggle.Setup (this, currentTask.check);
 		}
 	}

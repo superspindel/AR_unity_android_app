@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class subButtonGroup : MonoBehaviour {
+public class ActiveSubButtonGroup : MonoBehaviour {
 	private SimpleObjectPool subButtonPool;
 
-	public void Setup(List<subMenus> lst, SimpleObjectPool subButtonPool)
+	public void Setup(List<SubTaskMenus> lst, SimpleObjectPool subButtonPool)
 	{
 		this.subButtonPool = subButtonPool;
 		this.AddSubMenus (lst);
 	}
 
 
-	public void AddSubMenus(List<subMenus> lstsub)
+	public void AddSubMenus(List<SubTaskMenus> lstsub)
 	{
 		for (int i = 0; i < lstsub.Count; i++)
 		{
-			subMenus submenu = lstsub [i];
-			GameObject subButton = this.subButtonPool.GetObject ();
-			subButton.transform.SetParent (this.transform);
-			SubButton subBut = subButton.GetComponent<SubButton> ();
-			subBut.Setup (submenu.title, submenu.target, this);
+			SubTaskMenus Submenu = lstsub [i];
+			GameObject SubButton = this.subButtonPool.GetObject ();
+			SubButton.transform.SetParent (this.transform);
+			ActiveSubButton SubBut = SubButton.GetComponent<ActiveSubButton> ();
+			SubBut.Setup (Submenu.Title, Submenu.Target, this);
 		}
 	}
 
