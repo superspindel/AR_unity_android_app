@@ -161,7 +161,8 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	private void leaveSpecificTaskPage(){
-
+		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
+		script.LeavePage ();
 	}
 
 // PopUp View
