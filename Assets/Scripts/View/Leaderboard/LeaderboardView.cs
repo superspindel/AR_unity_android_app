@@ -11,17 +11,27 @@ public class LeaderBoardView : MonoBehaviour {
 
 	public List<Leaderboard> SubjectList;
 
+	private bool _Initialized = false;
+
 	// TODO: Have setup get information from the cache
 	public void EnterPage(List<Leaderboard> SubjectList)
 	{
 		this.SubjectList = SubjectList;
 		foreach (Leaderboard Ldb in this.SubjectList)
 		{
+			// TODO: Check Ldb.Available
+			if (!this._Initialized) 
+			{
+				Ldb.Updated += obj => {
+					this.UpdatePage(SubjectList);
+				};
+			}
 			GameObject newSubj = this.SubjectPool.GetObject ();
 			newSubj.transform.SetParent (this.transform);
 			LeaderboardSubjectPref ldbSubjScript = newSubj.GetComponent<LeaderboardSubjectPref> ();
 			ldbSubjScript.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, Ldb);
 		}
+		this._Initialized = true;
 	}
 
 	public void LeavePage()

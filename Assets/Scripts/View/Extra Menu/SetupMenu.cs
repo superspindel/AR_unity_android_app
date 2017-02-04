@@ -11,11 +11,13 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool MainButtonPool;
 	public SimpleObjectPool SubMenuGroupPool;
 
+
 	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
 	public void CreateMenu(List<MenuGroup> MenuGroupList)
 	{
 		foreach (MenuGroup MenuGrp in MenuGroupList)
 		{
+			// TODO: Check MenuGrp.Available
 			GameObject MenuGroupPrefab = this.ButtonGroupPool.GetObject ();
 			MenuGroupPrefab.transform.SetParent (this.transform);
 			ButtonGroupPref btngrp = MenuGroupPrefab.GetComponent<ButtonGroupPref> ();

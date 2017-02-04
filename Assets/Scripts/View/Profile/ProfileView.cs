@@ -33,6 +33,7 @@ public class ProfileView : MonoBehaviour {
 
 	public void EnterPage(User Profile)
 	{
+		// TODO: Check Profile.Available
 		this.gameObject.SetActive (true);
 		if (!this._Initialized) 
 		{

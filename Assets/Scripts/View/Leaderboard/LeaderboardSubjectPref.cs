@@ -11,6 +11,8 @@ public class LeaderboardSubjectPref : Prefab {
 	private SimpleObjectPool TitleObjectPool;
 	private SimpleObjectPool UserObjectPool;
 
+	private bool _Initialized = false;
+
 	// Creates the subject gameobject and sets the title and adds the users in the leaderboard.
 	public void Setup(SimpleObjectPool TitleObjectPool, SimpleObjectPool UserObjectPool, Leaderboard ldbSubObj)
 	{
@@ -36,12 +38,19 @@ public class LeaderboardSubjectPref : Prefab {
 		int i = 0;
 		foreach (LeaderboardUser user in UserList)
 		{
+			if (!this._Initialized) 
+			{
+				user.Updated += obj => {
+					this.UpdateSubject();
+				};
+			}
 			GameObject newUsObj = this.UserObjectPool.GetObject ();
 			newUsObj.transform.SetParent (this.transform);
 			LeaderboardUserPref ldbUser = newUsObj.GetComponent<LeaderboardUserPref> ();
 			ldbUser.Setup (user, i == UserList.Count-1);
 			i++;
 		}
+		this._Initialized = true;
 	}
 
 	public override void ReturnChildren()
@@ -59,5 +68,10 @@ public class LeaderboardSubjectPref : Prefab {
 				this.UserObjectPool.ReturnObject (toRemove);
 			}
 		}
+	}
+	public void UpdateSubject()
+	{
+		this.ReturnChildren ();
+		this.InsertLeaderboardUsers ();
 	}
 }
