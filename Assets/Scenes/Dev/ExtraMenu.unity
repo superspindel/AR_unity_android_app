@@ -357,21 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162a80f638be64ef4a42961671d0abee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test_nrOfSubTasks: 0
-  activeTasks: []
-  avalibleTasks: []
-  achievementList: []
-  badgeList: []
-  activeProfile:
-    <id>k__BackingField: 0
-    <profImg>k__BackingField: {fileID: 0}
-    <name>k__BackingField: 
-    <dailyScore>k__BackingField: 0
-    <TotalScore>k__BackingField: 0
-    <totalLevel>k__BackingField: 0
-    <badgeArray>k__BackingField: 
-    <achArray>k__BackingField: 
-  testTaskCount: 0
 --- !u!4 &1378633300
 Transform:
   m_ObjectHideFlags: 0
@@ -545,6 +530,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114989901200425430, guid: 47b876e75fae1419cb80eaf28e8ea789,
+        type: 2}
+      propertyPath: NotFound
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d1f4d726adb64c42b25372b8ddd2766,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47b876e75fae1419cb80eaf28e8ea789, type: 2}
   m_IsPrefabParent: 0
