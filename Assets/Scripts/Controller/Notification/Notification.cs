@@ -18,6 +18,13 @@ namespace Assets.SimpleAndroidNotifications
 
 		private NotificationParams _Parameters;
 
+		private Pageswapper _pageswapper;
+
+		// MonoBehav. Init
+		void Awake(){
+			_pageswapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
+		}
+
 		public Notification(NotificationType NotiType, string Message)
 		{
 			if ((int) NotiType < 5) // First 5 notification types are alarms, the rest are ordinary notifications
@@ -32,13 +39,17 @@ namespace Assets.SimpleAndroidNotifications
 
 		private void CreatePopUp(string Message, string Title, NotificationType NotiType)
 		{
-			GameObject NewPopUpObject = this.PopUpPool.GetObject ();
-			NewPopUpObject.transform.SetParent (this.Content);
-			PopUp PopUpScript = NewPopUpObject.GetComponent<PopUp> ();
-			PopUpScript.enterPopup ();
-			PopUpScript.setPanelTitle (NotiType.ToString ());
-			PopUpScript.setContentTitle (Title);
-			PopUpScript.setContentText (Message);
+			/* Changed by Emil */
+			//GameObject NewPopUpObject = this.PopUpPool.GetObject ();
+			//NewPopUpObject.transform.SetParent (this.Content);
+			//PopUp PopUpScript = NewPopUpObject.GetComponent<PopUp> ();
+			//PopUpScript.enterPopup ();
+			//PopUpScript.setPanelTitle (NotiType.ToString ());
+			//PopUpScript.setContentTitle (Title);
+			//PopUpScript.setContentText (Message);
+
+			_pageswapper.OpenPopup_General (Title, Message);
+
 			// Add onClick event to handle user clicking on the PopUp to cancel new notifications being sent.
 		}
 

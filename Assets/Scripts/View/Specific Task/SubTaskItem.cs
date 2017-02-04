@@ -9,6 +9,7 @@ public class SubTaskItem : MonoBehaviour {
 	public string Warning, Info;
 	public List<Tool> Tools;
 
+	private int			_id;
 	private Status 		_status;
 	private bool 		_hasTool, _hasHelp, _hasInfo, _hasWarning;
 	private bool 		_isBonus;
@@ -39,10 +40,10 @@ public class SubTaskItem : MonoBehaviour {
 		_bonusToggle.onValueChanged.AddListener (_toggleListener);
 
 		// TODO:
-		//_warningButton.onClick.AddListener 	(_pageSwapper.dostuff);
-		//_infoButton.onClick.AddListener 		(_pageSwapper.dostuff);
-		//_helpButton.onClick.AddListener 		(_pageSwapper.dostuff);
-		//_toolButton.onClick.AddListener 		(_pageSwapper.dostuff);
+		_warningButton.onClick.AddListener 	(_infoListener);
+		_infoButton.onClick.AddListener 	(_infoListener);
+		//_helpButton.onClick.AddListener 	(_pageSwapper.dostuff);
+		//_toolButton.onClick.AddListener 	(_pageSwapper.dostuff);
 	}
 
 	// Sets variables and de-/activate buttons
@@ -76,6 +77,10 @@ public class SubTaskItem : MonoBehaviour {
 		this._textField.color = _getTextColorByStatus();
 	}
 
+	public void SetId(int id){
+		this._id = id;
+	}
+
 	// Listeners
 	private void _toggleListener(bool b){
 		if (b) {
@@ -83,6 +88,10 @@ public class SubTaskItem : MonoBehaviour {
 		} else {
 			this.SetStatus(Status.InProgress);
 		}
+	}
+
+	private void _infoListener(){
+		_pageswapper.OpenPopup_SubTaskInformation (this._id.ToString());
 	}
 
 	// Returns a color depending on subtask status, Magenta = No status

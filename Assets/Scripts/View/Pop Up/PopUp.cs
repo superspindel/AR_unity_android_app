@@ -8,56 +8,53 @@ public enum PopUpType{general, startup, tools, reward};
 
 public class PopUp : MonoBehaviour {
 	
-	public GameObject 	StartupView;
-	public GameObject 	GeneralView;
-	public GameObject 	TopPanel;
+	public GameObject 	StartupRoutinePopupView, GeneralPopupView, SubTaskInformationPopupView, PopupTopPanel;
+	//private GameObject 	_activePopupView; 
 
 	private Button 		_exitButton;
-
 	private Pageswapper _pageswapper;
+	private Text 		_popUpPanelText;
 
 	void Awake(){
 		_pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
+		this._popUpPanelText = this.PopupTopPanel.transform.FindChild ("Title").GetComponent<Text> ();
+
+		// exit button
+		this._exitButton = PopupTopPanel.transform.FindChild("ExitButton").GetComponent<Button> ();
+		_exitButton.onClick.AddListener (_pageswapper.LeavePopup);
 	}
 
+	public void ClosePopup (){
+		this.gameObject.SetActive (false);
+	}
 
-	public void enterPopup(){
-		// setup exit button
-		this._exitButton = TopPanel.transform.FindChild("ExitButton").GetComponent<Button> ();
-		_exitButton.onClick.AddListener (_pageswapper.leavePopup);
-
+	public void OpenStartupRoutinePopup(){
 		// Setup Panel Title
-		setPanelTitle("Panel Title");
-		setContentTitle ("Content Title");
-
-
-		// 
-		setActivePopUpView (PopUpType.general);
+		_setPopupPanelTitle("Startup Routine");
 	}
 
-
-	private void setActivePopUpView(PopUpType type){
-		StartupView.gameObject.SetActive(false);
-		GeneralView.gameObject.SetActive(false);
-		if(type == PopUpType.general)
-			GeneralView.gameObject.SetActive(true);
-		if(type == PopUpType.startup)
-			StartupView.gameObject.SetActive(false);
+	public void OpenSubTaskInformationPopup(SubTask subTask){
+		_setActivePopupView(SubTaskInformationPopupView);
+		_setPopupPanelTitle("Information");
+		SubTaskInformationPopupView.transform.GetChild(0).GetComponent<Text> ().text = subTask.Title;
+		SubTaskInformationPopupView.transform.GetChild(1).GetComponent<Text> ().text = subTask.Warning;
+		SubTaskInformationPopupView.transform.GetChild(2).GetComponent<Text> ().text = subTask.Information;
 	}
 
-
-
-
-	public void setPanelTitle(string s){
-		this.TopPanel.transform.FindChild ("Title").GetComponent<Text> ().text = s;
+	// Use for notification
+	public void OpenGeneralPopup(string title, string content){
+		_setActivePopupView (GeneralPopupView);
+		_setPopupPanelTitle ("Notification");
+		GeneralPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
+		GeneralPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
 	}
 
-	public void setContentTitle(string s){
-		GeneralView.transform.FindChild ("Title").GetComponent<Text> ().text = s;
+	private void _setActivePopupView(GameObject popup){
+		//_activePopupView.SetActive(false);
+		popup.SetActive(true);
 	}
 
-	public void setContentText(string s){
-		GeneralView.transform.FindChild ("Content").GetComponent<Text> ().text = s;
+	private void _setPopupPanelTitle(string s){
+		_popUpPanelText.text = s;
 	}
-
 }

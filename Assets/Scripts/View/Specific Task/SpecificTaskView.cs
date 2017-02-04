@@ -110,6 +110,7 @@ public class SpecificTaskView : MonoBehaviour {
 
 		// Set parameters
 		SubTaskItem subTaskItem = subTaskGameObject.GetComponent<SubTaskItem>();
+		subTaskItem.SetId (subTask.Id);
 		subTaskItem.SetText (subTask.Title + "[" + subTask.Id + "]");
 		subTaskItem.SetBonus (subTask.IsBonus);
 		subTaskItem.SetStatus (subTask.Status);

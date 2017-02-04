@@ -23,9 +23,11 @@ public class Pageswapper : MonoBehaviour {
 
 	[Header("PopUp View")]
 	public GameObject 	PopUpWindow;
+	private PopUp		_popup;
 
 	void Start(){
-		_previousPages = new Stack<GameObject>();
+		_previousPages 	= new Stack<GameObject>();
+		_popup 		= PopUpWindow.GetComponent<PopUp> (); 
 	}
 		
 	void Update() {
@@ -48,6 +50,8 @@ public class Pageswapper : MonoBehaviour {
 			gotoSettingsPage ();
 		if (this._activePage == SpecificTaskPage)
 			gotoSpecificTaskPage ("0"); // TODO: should not happen?
+		if (this._activePage == LeaderBoardPage)
+			GoToLeaderboardPage ();
 	}
 
 	private void _activePageBack(){
@@ -67,15 +71,17 @@ public class Pageswapper : MonoBehaviour {
 	// unload assets and other page specific things
 	private void _unloadActivePage(){
 		if (this._activePage == ProfilePage)
-			LeaveProfilePage ();
+			_leaveProfilePage ();
 		else if (this._activePage == AvalibleTaskPage)
-			leaveAvalibleTasksPage ();
+			_leaveAvalibleTasksPage ();
 		else if (this._activePage == ActiveTasksPage)
-			leaveActiveTasksPage ();
+			_leaveActiveTasksPage ();
 		else if (this._activePage == SettingsPage)
-			leaveSettingsPage ();
+			_leaveSettingsPage ();
 		else if (this._activePage == SpecificTaskPage)
-			leaveSpecificTaskPage ();
+			_leaveSpecificTaskPage ();
+		else if (this._activePage == LeaderBoardPage)
+			_leaveLeaderboardPage ();
 	}
 
 	private void _showLoadScreen(){
@@ -92,7 +98,7 @@ public class Pageswapper : MonoBehaviour {
 		});
 	}
 
-	private void LeaveProfilePage()
+	private void _leaveProfilePage()
 	{
 		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
 		Script.LeavePage ();
@@ -106,7 +112,7 @@ public class Pageswapper : MonoBehaviour {
 		});
 	}
 
-	private void LeaveLeaderboardPage()
+	private void _leaveLeaderboardPage()
 	{
 		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
 		Script.LeavePage ();
@@ -119,7 +125,7 @@ public class Pageswapper : MonoBehaviour {
 
 	}
 
-	private void leaveAvalibleTasksPage(){
+	private void _leaveAvalibleTasksPage(){
 
 	}
 
@@ -128,7 +134,7 @@ public class Pageswapper : MonoBehaviour {
 		
 	}
 
-	private void leaveActiveTasksPage(){
+	private void _leaveActiveTasksPage(){
 
 	}
 
@@ -139,7 +145,7 @@ public class Pageswapper : MonoBehaviour {
 		Script.EnterPage();
 	}
 
-	private void leaveSettingsPage(){
+	private void _leaveSettingsPage(){
 		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
 		// Write to settings file
 		Script.LeavePage();
@@ -160,18 +166,24 @@ public class Pageswapper : MonoBehaviour {
 		});
 	}
 
-	private void leaveSpecificTaskPage(){
+	private void _leaveSpecificTaskPage(){
 		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
 		script.LeavePage ();
 	}
 
 // PopUp View
-	public void gotoPopup(PopUpType type, string panelTitle, string title, string content){
-		this.gameObject.SetActive (true);
-
+	public void OpenPopup_SubTaskInformation(string subTaskId){
+		DataStore.Get<SubTask> (subTaskId, subTask => {
+			// stuff
+			_popup.OpenSubTaskInformationPopup(subTask);
+		});
 	}
 
-	public void leavePopup(){
-		transform.gameObject.SetActive (false);
+	public void OpenPopup_General(string title, string content){
+		_popup.OpenGeneralPopup (title, content);
+	}
+
+	public void LeavePopup(){
+		PopUpWindow.GetComponent<PopUp>().ClosePopup ();
 	}
 }
