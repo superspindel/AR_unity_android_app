@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Script for the leaderboard panel, sets up the view of the leaderboards.
-public class leaderBoardView : MonoBehaviour {
+public class LeaderBoardView : MonoBehaviour {
 
 	public SimpleObjectPool SubjectPool;
 	public SimpleObjectPool LeaderboardTitlePool;

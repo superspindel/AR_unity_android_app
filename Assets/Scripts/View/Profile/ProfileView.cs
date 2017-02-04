@@ -15,6 +15,8 @@ public class ProfileView : MonoBehaviour {
 	private ProfileAchievement _AchScript;
 	private ProfileBadge _BadgeScript;
 
+	private bool _Initialized = false;
+
 	// Awake will get the scripts for the transforms that was specified in the Unity control panel
 	void Awake() {
 		this._AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
@@ -26,13 +28,23 @@ public class ProfileView : MonoBehaviour {
 	{
 		this._AchScript.ReturnChildren ();
 		this._BadgeScript.ReturnChildren ();
+		this.gameObject.SetActive (false);
 	}
 
 	public void EnterPage(User Profile)
 	{
+		this.gameObject.SetActive (true);
+		if (!this._Initialized) 
+		{
+			Profile.Updated += i =>
+			{
+				this.UpdatePage(Profile);
+			};
+			this._Initialized = true;
+		}
 		this._InfScript.SetProfileInfo (Profile);
-		//this._AchScript.AddAchievements (AchievementList);
-		//this._BadgeScript.AddBadges (BadgeList);
+		this._AchScript.AddAchievements (Profile.AchList);
+		this._BadgeScript.AddBadges (Profile.BadgeList);
 	}
 
 	public void UpdatePage(User newInfo)

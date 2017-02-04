@@ -86,29 +86,30 @@ public class Pageswapper : MonoBehaviour {
 	// ProfilePage
 	public void GoToProfilePage()
 	{
-		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
+		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
 		DataStore.Get<User> ("12345", o => {
-			o.Updated += i =>
-			{
-				script.UpdatePage(o);
-			};
-			script.EnterPage(o);			
+			Script.EnterPage(o);			
 		});
 	}
 
-	private void LeaveProfilePage(){
-		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
-
+	private void LeaveProfilePage()
+	{
+		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
+		Script.LeavePage ();
 	}
 
 	public void GoToLeaderboardPage()
 	{
-		
+		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		DataStore.List<Leaderboard> (list => {
+			Script.EnterPage(list as List<Leaderboard>);
+		});
 	}
 
 	private void LeaveLeaderboardPage()
 	{
-		
+		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		Script.LeavePage ();
 	}
 		
 
@@ -133,11 +134,15 @@ public class Pageswapper : MonoBehaviour {
 
 	// SettingsPage
 	public void gotoSettingsPage(){
-
+		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
+		// Read settings file
+		Script.EnterPage();
 	}
 
 	private void leaveSettingsPage(){
-
+		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
+		// Write to settings file
+		Script.LeavePage();
 	}
 
 	// SpecificTaskPage
