@@ -13,23 +13,28 @@ namespace Application{
 		private Pageswapper _pageswap;
 
 		private Task _task;
-		private TaskScrollList scrollList;
+		private TaskScrollList _scrollList;
 
 		// Use this for initialization
 		void Start () {
-			_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
+			//_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
 			TaskButton.onClick.AddListener (HandleClick);
 		}
 			
-		public void checkout(bool togglecheck){
-			// TODO: Task.check = togglecheck; 
-			scrollList.showAddButton (togglecheck);
+		public void checkout(bool togglecheck)
+		{
+			if (togglecheck) {
+				_scrollList.SelectTask (_task);
+			} else {
+				_scrollList.RemoveSelectedTask (_task);
+			}
+			//scrollList.showAddButton (togglecheck);
 		}
 
 		public void HandleClick()
 		{
 			Debug.Log ("1: Task ID: " + _task.Id);
-			_pageswap.gotoSpecificTaskPage (_task.Id);
+			//_pageswap.gotoSpecificTaskPage (_task.Id);
 			//TODO
 		}
 
@@ -38,9 +43,9 @@ namespace Application{
 			_task = currentTask;
 			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
 			XpLabel.text = _task.TotalXp.ToString() + "xp";
-			scrollList = currentScrollList;
+			_scrollList = currentScrollList;
 			TaskToggle = this.GetComponentInChildren<TaskToggleScript>();
-			// TODO: Check taskToggle.Setup (this, currentTask.check);
+			TaskToggle.Setup (this);
 		}
 	}
 }

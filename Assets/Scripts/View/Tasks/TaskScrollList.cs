@@ -9,18 +9,20 @@ namespace Application{
 		public Transform ContentPanel;
 		public SimpleObjectPool ButtonObjectPool;
 		public AddTaskButtonScript AddTaskButton;
-		private List<Task> CheckedList;
-		private int _checkedCount = 0;
+		private List<Task> CheckedList = new List<Task>();
 
 		void Start () {
 				RefreshDisplay ();
+
 		}
-		
+
+		// Removes and adds buttons
 		public void RefreshDisplay()
 		{
 			RemoveTaskButtons ();
 			AddTaskButtons ();
 		}
+
 
 		private void AddTaskButtons()
 		{
@@ -33,7 +35,6 @@ namespace Application{
 					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
 					taskButton.Setup (task, this);
-
 				}
 			}
 		}
@@ -49,46 +50,57 @@ namespace Application{
 
 
 
-		private void addTask(Task taskToAdd, TaskScrollList scrollList)
+		private void addTask(Task taskToAdd)
 		{
-			scrollList.TaskList.Add (taskToAdd);
+			this.TaskList.Add (taskToAdd);
 		}
 
-		private void removeTask(Task taskToRemove, TaskScrollList scrollList)
+	
+		private void removeTask(Task taskToRemove)
 		{
-			for (int i = scrollList.TaskList.Count - 1; i >= 0; i--) 
+			for (int i = this.TaskList.Count - 1; i >= 0; i--) 
 			{
-				if(scrollList.TaskList[i] == taskToRemove)
+				if(this.TaskList[i] == taskToRemove)
 				{
-					scrollList.TaskList.RemoveAt(i);
+					this.TaskList.RemoveAt(i);
 				}
 			}
 		}
 
-		public void addCheckedTasks(){
-			/* TODO: for (int i = 0; i < taskList.Count; i++) {
-				if (taskList [i].check) {
-					//Debug.Log (taskList [i].title);
-					taskList [i].available = false;
-					checkedCount--;
-				}
-				RefreshDisplay ();
-			}*/ 
+		public void SelectTask(Task taskToAdd)
+		{
+			Debug.Log ("added: " + taskToAdd.Id + " To list");
+			CheckedList.Add (taskToAdd);
+
 		}
+
+
+		public void RemoveSelectedTask(Task taskToRemove)
+		{
+			for (int i = this.CheckedList.Count - 1; i >= 0; i--) 
+			{
+				if(this.CheckedList[i] == taskToRemove)
+				{
+					this.CheckedList.RemoveAt(i);
+				}
+			}
+			Debug.Log ("Removed : " + taskToRemove.Id + " from list");
+		}
+
+
+		// Adds checked tasks
+		public void AddCheckedTasks(){
+			foreach (Task taskToAdd in CheckedList) {
+				Debug.Log ("Added task: " + taskToAdd.Id + " to your active tasks");
+				taskToAdd.UserId = 123; // TODO: get the real userID
+			}
+			RefreshDisplay ();
+		}
+
 
 		public void showAddButton(bool toggle){
-			if (toggle) {
-				_checkedCount++;
-			} else {
-				_checkedCount--;
-			}
-			Debug.Log (_checkedCount);
-			if (_checkedCount > 0) {
-				AddTaskButton.gameObject.SetActive(true);
-			} else {
-				AddTaskButton.gameObject.SetActive(false);
-			}
-			
+						
 		}
+
 	}
 }

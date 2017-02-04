@@ -10,7 +10,7 @@ namespace Application{
 		public Toggle ToggleComponent;
 				
 		public void HandleClick(bool Toggled){
-			//Debug.Log (Toggled);
+			Debug.Log (Toggled);
 			Parent.checkout (Toggled);
 			//Debug.Log(toggleComponent.isOn);
 			//Debug.Log (Parent.taskLabel.text);
@@ -21,9 +21,8 @@ namespace Application{
 			ToggleComponent.onValueChanged.AddListener (HandleClick);
 		}
 
-		public void Setup(TaskButtonScript parent, bool check){
+		public void Setup(TaskButtonScript parent){
 			this.Parent = parent;
-			this.ToggleComponent.isOn = check;
 		}
 
 		// Update is called once per frame
