@@ -145,7 +145,7 @@ public class Pageswapper : MonoBehaviour {
 		_activePageForward (this.SpecificTaskPage);
 		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
 
-		DataStore.Get<User> (taskId, task => {
+		DataStore.Get<Task> (taskId, task => {
 			// if task gets updated??
 			task.Updated += i =>
 			{
@@ -153,8 +153,6 @@ public class Pageswapper : MonoBehaviour {
 			};
 			script.EnterPage(task);			
 		});
-
-		script.EnterPage ();
 	}
 
 	private void leaveSpecificTaskPage(){
