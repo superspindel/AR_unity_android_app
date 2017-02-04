@@ -16,129 +16,114 @@ public class SpecificTaskView : MonoBehaviour {
 	[Header("Private Variable Debug")]
 	[SerializeField] private List<GameObject> _subTaskList;
 	[SerializeField] private SimpleObjectPool _pool;
-	[SerializeField] private float _regular;
-	[SerializeField] private float _bonus;
 	[SerializeField] private int _lastTaskViewed = -1;
 
+	private Text 	_taskTilteText, _taskDescriptionText;
+	private Slider 	_regularSlider, _bonusSlider;
 
-	// Use this for initialization (WHEN FIRST ENABLED)
-	void Start () {
-		// Init List for reference and _pool for getting the prefabs.
+	// Use this for initialization
+	void Awake () {
 		_subTaskList = new List<GameObject> ();
 		_pool = SubTaskGroup.GetComponent<SimpleObjectPool> ();
-
-		// Test
-		if (UseGeneratedTestList) {
-			generateTestList ();
-		} else {
-			// get data from datacontainer
-			enterPage (0);
-		}
-		refresh ();
+		_taskTilteText = transform.FindChild ("Title").GetComponent<Text> ();
+		_taskDescriptionText = transform.FindChild ("Description").GetComponent<Text> ();
 	}
 
-	// When opened
-	void enterPage(int taskId){
+	// EnterPage with Task (Controller gets task via ID from API)
+	public void EnterPage(Task task){
+		// Activate gameObject
+		this.gameObject.SetActive (true);
 
-		// if not the same page, rebuild page
-		if (taskId != _lastTaskViewed) {
-			// if not first time return subtasks to pool
-			if (_lastTaskViewed != -1) {
-				foreach (Transform child in transform) {
-					_pool.ReturnObject (child.gameObject);
-				}
-			}
-
-			// get data from dataContainer
-			DataContainer data = GameObject.Find ("DataContainer").GetComponent<DataContainer> ();
-			Task taskData = data.activeTasks[0];
-
-			// Set Task Variables
-			transform.FindChild ("Title").GetComponent<Text> ().text = taskData.Title;
-			transform.FindChild ("Description").GetComponent<Text> ().text = taskData.Description;
-
-			// Set subtasks
-			int i = 0;
-			foreach (SubTask subTaskData in taskData.SubTasks) {
-				addSubTask (i++, subTaskData.Title, subTaskData.IsBonus, subTaskData.Tools, subTaskData.Information, subTaskData.Warning);
-			}
-		}
-
-		// no need to rebuild, just enable do nothing
-		this.gameObject.SetActive(true);
-		_lastTaskViewed = taskId;
+		// render page
+		UpdatePage (task);
+		_lastTaskViewed = int.Parse(task.Id);
 	}
 
-	// When leaving page
-	void leavePage(){
+	// UpdatePage()
+	public void UpdatePage(Task task){
+		// Clear page info
+		_clearPage ();
+
+		// Set Task Text Fields
+		_taskTilteText.text = task.Title;
+		_taskDescriptionText.text = task.Description;
+
+		// Update Progress Sliders
+		_refreshProgress();
+
+		// Create subtasks items
+		foreach (SubTask subTask in task.SubTasks) {
+			_addSubTask (subTask);
+		}
+	}
+
+	// LeavePage()
+	public void LeavePage(){
+		// Clear page
+		_clearPage ();
+
+		// Deactivate Page
 		this.gameObject.SetActive (false);
 	}
 
-	public void refresh(){
-		refreshProgress ();
+	private void _clearPage(){
+		_taskTilteText.text = "";
+		_taskDescriptionText.text = "";
+
+		// Return Subtask Items To Pool
+		foreach (GameObject subTaskItem in _subTaskList) {
+			_pool.ReturnObject (subTaskItem);
+		}
 	}
 
 	// refreshes sliders
-	void refreshProgress (){
-		float r_t = 0f; // regular total
-		float r_c = 0f; // regular completed
-		float b_t = 0f; // bonus total
-		float b_c = 0f; // bonus completed
+	private void _refreshProgress (){
+		// counting variables
+		float regularTotal, regularCompleted, bonusTotal, bonusCompleted; 
+		regularTotal = regularCompleted = bonusTotal = bonusCompleted = 0f;
+
+		// get data [0-100] %
 		foreach (GameObject g in _subTaskList) {
 			SubTask subTask = g.GetComponent<SubTask> ();
 			if (!subTask.IsBonus) {
-				if (subTask.Status == Status.Completed) {
-					r_c++;
-				}
-				r_t++;
+				if (subTask.Status == Status.Completed)
+					regularCompleted++;
+				regularTotal++;
 			} else {
-				if (subTask.Status == Status.Completed) {
-					b_c++;
-				}
-				b_t++;
+				if (subTask.Status == Status.Completed)
+					bonusCompleted++;
+				bonusTotal++;
 			}
-
 		}
-		_regular = (r_c / r_t);
-		_bonus = (b_c / b_t);
 
-		GameObject.Find ("Progress Slider").GetComponent<Slider> ().value = _regular;
-		GameObject.Find ("_bonus Slider").GetComponent<Slider> ().value = _bonus;
+		// fill sliders
+		_regularSlider.value 	= (regularCompleted / regularTotal);
+		_bonusSlider.value  	= (bonusCompleted / bonusTotal);
 	}
 
-	void addSubTask(int id, string name, bool isBonus, List<Tool> tools, string info, string warning){
+	private void _addSubTask(SubTask subTask){
 		// get prefab from objectpool
-		GameObject g = _pool.GetObject ();
+		GameObject subTaskGameObject = _pool.GetObject ();
+
 		// attach to subTaskGroup LayoutGroup
-		g.transform.SetParent(SubTaskGroup.transform);
+		subTaskGameObject.transform.SetParent(SubTaskGroup.transform);
+
 		// Set parameters
-		SubTaskItem st = g.GetComponent<SubTaskItem>();
-		st.setText (name + "[" + id + "]");
-		st.setBonus (isBonus);
-		st.setStatus (Status.InProgress);
+		SubTaskItem subTaskItem = subTaskGameObject.GetComponent<SubTaskItem>();
+		subTaskItem.SetText (subTask.Title + "[" + subTask.Id + "]");
+		subTaskItem.SetBonus (subTask.IsBonus);
+		subTaskItem.SetStatus (subTask.Status);
 
 		// Set buttons and data (Help should always be avalible)
-		g.GetComponent<SubTaskItem>().setAvalibeButtons ((warning != null), (tools != null), (info != null), true);
-		if (tools != null)
-			st.Tools = tools;
-		if (warning != null)
-			st.Warning = warning;
-		if (info != null)
-			st.Info = info;
+		subTaskItem.SetAvalibeButtons ((subTask.Warning != null), (subTask.Tools != null), (subTask.Information != null), true);
+		if (subTask.Tools != null)
+			subTaskItem.Tools = subTaskItem.Tools;
+		if (subTask.Warning != null)
+			subTaskItem.Warning = subTask.Warning;
+		if (subTask.Information != null)
+			subTaskItem.Info = subTask.Information;
 
-		_subTaskList.Add (g);
+		// Add to private list for removal later
+		_subTaskList.Add (subTaskGameObject);
 	}
-
-
-	// Used for testing
-	void generateTestList(){
-		for (int i = 0; i < TestListSize; i++) {
-			addSubTask (i++, "SubTask",  r(), null, null, null);
-		}
-	}
-
-	private bool r(){
-		return(Random.value > 0.5);
-	}
-
 }

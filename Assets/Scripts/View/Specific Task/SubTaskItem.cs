@@ -6,114 +6,93 @@ using UnityEngine.UI;
 
 public class SubTaskItem : MonoBehaviour {
 
-	private Status 	_status;
-	private bool 	_hasTool, _hasHelp, _hasInfo, _hasWarning;
-	private bool 	_isBonus;
-
-	private GameObject 	_buttonGroup;
-	private Text 		_textField;
-	private Toggle 		_progressToggle;
-	private Toggle 		_bonusToggle;
-
-	private Button 		_warningButton, _infoButton, _helpButton, _toolButton;
-
-	private Pageswapper _pageSwapper;
-
 	public string Warning, Info;
 	public List<Tool> Tools;
+
+	private Status 		_status;
+	private bool 		_hasTool, _hasHelp, _hasInfo, _hasWarning;
+	private bool 		_isBonus;
+	private GameObject 	_buttonGroup;
+	private Text 		_textField;
+	private Toggle 		_regularToggle;
+	private Toggle 		_bonusToggle;
+	private Button 		_warningButton, _infoButton, _helpButton, _toolButton;
+
+	private SpecificTaskView 	_page;
+	private Pageswapper			_pageswapper;
+
 
 	// Use this for initialization
 	void Awake () {
 		this._buttonGroup 		= this.transform.FindChild ("ButtonGroup").gameObject;
 		this._textField 		= this.transform.FindChild ("Name").GetComponent<Text>();
-		this._progressToggle 	= this.transform.FindChild ("Toggle").GetComponent<Toggle>();
+		this._regularToggle 	= this.transform.FindChild ("Toggle").GetComponent<Toggle>();
 		this._bonusToggle		= this.transform.FindChild ("Toggle-Bonus").GetComponent<Toggle>();
 		this._warningButton 	= this._buttonGroup.transform.FindChild("Warning").GetComponent<Button> ();
 		this._infoButton 		= this._buttonGroup.transform.FindChild("Info").GetComponent<Button> ();
 		this._helpButton 		= this._buttonGroup.transform.FindChild("Help").GetComponent<Button> ();
 		this._toolButton 		= this._buttonGroup.transform.FindChild("Tool").GetComponent<Button> ();
+		this._page 				= GameObject.Find ("Specific Task View").transform.GetComponent<SpecificTaskView> ();
+		this._pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper>();
 
-		_progressToggle.onValueChanged.AddListener (toggleListener);
-		_bonusToggle.onValueChanged.AddListener (toggleListener);
+		_regularToggle.onValueChanged.AddListener (_toggleListener);
+		_bonusToggle.onValueChanged.AddListener (_toggleListener);
 
 		// TODO:
 		//_warningButton.onClick.AddListener 	(_pageSwapper.dostuff);
-		//_infoButton.onClick.AddListener 	(_pageSwapper.dostuff);
-		//_helpButton.onClick.AddListener 	(_pageSwapper.dostuff);
-		//_toolButton.onClick.AddListener 	(_pageSwapper.dostuff);
-
-		this._pageSwapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper>();
+		//_infoButton.onClick.AddListener 		(_pageSwapper.dostuff);
+		//_helpButton.onClick.AddListener 		(_pageSwapper.dostuff);
+		//_toolButton.onClick.AddListener 		(_pageSwapper.dostuff);
 	}
 
-	// When first enabled
-	void Start () {
-		refresh ();
-	}
-
-	public void setBonus(bool b){
-		_isBonus = b;
-		refreshBonus ();
-	}
-
-	// Sets variables and refresh button grp();
-	public void setAvalibeButtons(bool w, bool t, bool i, bool h){
+	// Sets variables and de-/activate buttons
+	public void SetAvalibeButtons(bool w, bool t, bool i, bool h){
 		this._hasWarning = w;
 		this._hasTool = t;
 		this._hasInfo = i;
 		this._hasHelp = h;
 
-		refreshButtonGroup ();
+		_toolButton.gameObject.SetActive 	(_hasTool);
+		_helpButton.gameObject.SetActive 	(_hasHelp);
+		_infoButton.gameObject.SetActive 	(_hasInfo);
+		_warningButton.gameObject.SetActive (_hasWarning);
 	}
 
-	// Sets title text
-	public void setText(string s){
+	// Set isBonus and activate the right toggle
+	public void SetBonus(bool b){
+		this._isBonus = b;
+		this._regularToggle.gameObject.SetActive(!_isBonus);
+		this._bonusToggle.gameObject.SetActive	( _isBonus);
+	}
+
+	// Sets SubTask Text
+	public void SetText(string s){
 		this._textField.text = s;
 	}
 
-	public void toggleListener(bool b){
-		if (b) {
-			setStatus(Status.Completed);
-		} else {
-			setStatus(Status.InProgress);
-		}
-	}
-		
-	// Status
-	public void setStatus(Status s){
+	// Set Status and text color
+	public void SetStatus(Status s){
 		this._status = s;
-		refreshTextColor ();
-		GameObject.Find ("Specific Task View").transform.GetComponent<SpecificTaskView>().refresh ();
+		this._textField.color = _getTextColorByStatus();
 	}
 
-
-	// Refresh UI
-	public void refresh(){
-		refreshButtonGroup ();
-		refreshTextColor ();
-	}
-
-	private void refreshButtonGroup (){
-		this._buttonGroup.transform.Find ("Tool").gameObject.SetActive (_hasTool);
-		this._buttonGroup.transform.Find ("Help").gameObject.SetActive (_hasHelp);
-		this._buttonGroup.transform.Find ("Info").gameObject.SetActive (_hasInfo);
-		this._buttonGroup.transform.Find ("Warning").gameObject.SetActive (_hasWarning);
-	}
-
-	private void refreshTextColor(){
-		if (_status == Status.InProgress) {
-			this._textField.color = Color.black;
-		}
-		if (_status == Status.Completed) {
-			this._textField.color = Color.green;
-		}
-		if (_status == Status.Aborted) {
-			this._textField.color = Color.red;
+	// Listeners
+	private void _toggleListener(bool b){
+		if (b) {
+			this.SetStatus(Status.Completed);
+		} else {
+			this.SetStatus(Status.InProgress);
 		}
 	}
 
-	private void refreshBonus(){
-		this.transform.FindChild ("Toggle").gameObject.SetActive(!_isBonus);
-		this.transform.FindChild ("Toggle-Bonus").gameObject.SetActive(_isBonus);
+	// Returns a color depending on subtask status, Magenta = No status
+	private Color _getTextColorByStatus(){
+		if (_status == Status.InProgress)
+			 return Color.black;
+		if (_status == Status.Completed)
+			return Color.green;
+		if (_status == Status.Aborted)
+			return Color.red;
+		return Color.magenta;
 	}
-
 }
