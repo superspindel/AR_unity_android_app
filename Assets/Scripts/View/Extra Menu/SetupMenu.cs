@@ -12,7 +12,7 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool SubMenuGroupPool;
 
 	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
-	public void createMenu(List<MenuGroup> MenuGroupList)
+	public void CreateMenu(List<MenuGroup> MenuGroupList)
 	{
 		foreach (MenuGroup MenuGrp in MenuGroupList)
 		{

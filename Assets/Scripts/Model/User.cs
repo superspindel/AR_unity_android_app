@@ -11,8 +11,8 @@ public class User : NetworkDataObject
 	public int TotalScore { get; set;}
 	public int TotalLevel { get; set;}
 
-	public Achievement[] BadgeArray { get; set;}
-	public Achievement[] AchArray { get; set;}
+	public List<Badge> BadgeList { get; set;}
+	public List<Achievement> AchList { get; set;}
 
 	// Badge data
 	// store on server? int for example: tasksCompleted, nrOfDaysInTime etc.;

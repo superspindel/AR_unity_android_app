@@ -19,11 +19,11 @@ public class LeaderboardSubjectPref : Prefab {
 		this.Title = ldbSubObj.Title;
 		this.UserList = ldbSubObj.LeaderboardUsers;
 
-		this.createTitle ();
-		this.insertLeaderboardUsers ();
+		this.CreateTitle ();
+		this.InsertLeaderboardUsers ();
 	}
 
-	private void createTitle()
+	private void CreateTitle()
 	{
 		GameObject newTitle = this.TitleObjectPool.GetObject ();
 		newTitle.transform.SetParent (this.transform);
@@ -31,7 +31,7 @@ public class LeaderboardSubjectPref : Prefab {
 		ldbttl.Setup (this.Title);
 	}
 
-	private void insertLeaderboardUsers()
+	private void InsertLeaderboardUsers()
 	{
 		int i = 0;
 		foreach (LeaderboardUser user in UserList)
