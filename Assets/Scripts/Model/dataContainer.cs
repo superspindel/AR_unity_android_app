@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// User server
+// TODO: REMOVE CLASS USE API
 
 public class DataContainer : MonoBehaviour {
 

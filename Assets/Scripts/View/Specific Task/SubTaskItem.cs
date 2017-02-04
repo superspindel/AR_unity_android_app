@@ -33,7 +33,7 @@ public class SubTaskItem : MonoBehaviour {
 		this._helpButton 		= this._buttonGroup.transform.FindChild("Help").GetComponent<Button> ();
 		this._toolButton 		= this._buttonGroup.transform.FindChild("Tool").GetComponent<Button> ();
 		this._page 				= GameObject.Find ("Specific Task View").transform.GetComponent<SpecificTaskView> ();
-		this._pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper>();
+		this._pageswapper 		= GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
 
 		_regularToggle.onValueChanged.AddListener (_toggleListener);
 		_bonusToggle.onValueChanged.AddListener (_toggleListener);

@@ -27,82 +27,60 @@ public class Pageswapper : MonoBehaviour {
 	void Start(){
 		_previousPages = new Stack<GameObject>();
 	}
-
-
-// Functions for Navigation
+		
 	void Update() {
 		// Listen for Back button on Android
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Debug.Log ("Back Pressed");
-			goBack ();
+			_goBack ();
 		}
 	}
 
-	private void goBack(){
-		unloadActivePage ();
-		activePageBack ();
-		if (this._activePage == ProfilePage) {
+	private void _goBack(){
+		_activePageBack ();
+		if (this._activePage == ProfilePage)
 			GoToProfilePage ();
-		}
-		if (this._activePage == AvalibleTaskPage) {
+		if (this._activePage == AvalibleTaskPage)
 			gotoAvalibleTasksPage ();
-		}
-		if (this._activePage == ActiveTasksPage) {
+		if (this._activePage == ActiveTasksPage)
 			gotoActiveTasksPage ();
-		}
-		if (this._activePage == SettingsPage) {
+		if (this._activePage == SettingsPage)
 			gotoSettingsPage ();
-		}
-		if (this._activePage == SpecificTaskPage) {
-			gotoSpecificTaskPage ("0"); // should not happen?
-		}
+		if (this._activePage == SpecificTaskPage)
+			gotoSpecificTaskPage ("0"); // TODO: should not happen?
 	}
 
-	private void activePageBack(){
+	private void _activePageBack(){
 		if (_previousPages.Count != 0) {
-			unloadActivePage ();
-			_activePage.SetActive (false);
+			_unloadActivePage ();
 			_activePage = _previousPages.Pop ();
 		}
 	}
 
-	private void activePageForward(GameObject page){
-		unloadActivePage ();
+	private void _activePageForward(GameObject page){
+		_unloadActivePage ();
 		_previousPages.Push (_activePage);
-		_activePage.SetActive (false);
 		_activePage = page;
 		// limit size of stack / queue?
 	}
 
 	// unload assets and other page specific things
-	private void unloadActivePage(){
-		if (this._activePage == ProfilePage) {
+	private void _unloadActivePage(){
+		if (this._activePage == ProfilePage)
 			LeaveProfilePage ();
-		}
-		if (this._activePage == AvalibleTaskPage) {
+		else if (this._activePage == AvalibleTaskPage)
 			leaveAvalibleTasksPage ();
-		}
-		if (this._activePage == ActiveTasksPage) {
+		else if (this._activePage == ActiveTasksPage)
 			leaveActiveTasksPage ();
-		}
-		if (this._activePage == SettingsPage) {
+		else if (this._activePage == SettingsPage)
 			leaveSettingsPage ();
-		}
-		if (this._activePage == SpecificTaskPage) {
+		else if (this._activePage == SpecificTaskPage)
 			leaveSpecificTaskPage ();
-		}
 	}
 
-	public void showLoadScreen(){
+	private void _showLoadScreen(){
 		
 	}
-
-	// EXAMPLE 
-	// - Get script from Page
-	// - Get data from Model / API
-	// - Show loading page while waiting
-	// - run enterPage on page
-	// - activate page?
 
 // Main View
 	// ProfilePage
@@ -164,9 +142,19 @@ public class Pageswapper : MonoBehaviour {
 
 	// SpecificTaskPage
 	public void gotoSpecificTaskPage(string taskId){
-		activePageForward (this.SpecificTaskPage);
-		this._activePage.SetActive (false);
-		this.SpecificTaskPage.SetActive (true);
+		_activePageForward (this.SpecificTaskPage);
+		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
+
+		DataStore.Get<User> (taskId, task => {
+			// if task gets updated??
+			task.Updated += i =>
+			{
+				script.UpdatePage(task);
+			};
+			script.EnterPage(task);			
+		});
+
+		script.EnterPage ();
 	}
 
 	private void leaveSpecificTaskPage(){
