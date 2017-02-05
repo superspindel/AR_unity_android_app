@@ -1844,11 +1844,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 382560820}
     m_Modifications:
-    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: TaskList.Array.size
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -1939,6 +1934,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: PageSwapperReference
+      value: 
+      objectReference: {fileID: 37959294}
     - target: {fileID: 224165427302037900, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: m_AnchorMax.x
@@ -1948,46 +1948,6 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224553711372066450, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224553711372066450, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224553711372066450, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 114927272365366862, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: ButtonComponent
-      value: 
-      objectReference: {fileID: 114018653965465118, guid: 6828906c55093435f9b6f28bf5f1d013,
-        type: 2}
-    - target: {fileID: 114927272365366862, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: scrollList
-      value: 
-      objectReference: {fileID: 2121626757}
-    - target: {fileID: 1439277285860504, guid: 6d5893283f0fc47578c0dd9177f428e5, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224667070903958512, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224667070903958512, guid: 6d5893283f0fc47578c0dd9177f428e5,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d5893283f0fc47578c0dd9177f428e5, type: 2}
@@ -2461,12 +2421,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1439277285860504, guid: 6d5893283f0fc47578c0dd9177f428e5,
     type: 2}
   m_PrefabInternal: {fileID: 1751701131}
---- !u!114 &2121626757 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1751701131}
-  m_Script: {fileID: 11500000, guid: 8f0d1abfcf8774cfc903ec8475539e98, type: 3}
 --- !u!1001 &2136472010
 Prefab:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ namespace App{
 
 
 		void Start () {
+            Debug.Log("HEJ");
 			ButtonComponent.onClick.AddListener (HandleClick);
 		}
 

@@ -36,7 +36,6 @@ namespace App{
 			{
 				if (TaskList [i].UserId == null) { // TODO: check if no one "has task"
 					Task task = TaskList [i];
-					task.Id = i.ToString (); //TODO REMOVE
 					GameObject newButton = ButtonObjectPool.GetObject ();
 					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
@@ -96,6 +95,7 @@ namespace App{
 
 		// Adds checked tasks
 		public void AddCheckedTasks(){
+            Debug.Log("HEJHEJ");
 			foreach (Task taskToAdd in _checkedList) {
 				Debug.Log ("Added task: " + taskToAdd.Id + " to your active tasks");
 				taskToAdd.UserId = "123"; // TODO: get the real userID

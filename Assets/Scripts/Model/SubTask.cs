@@ -5,11 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class SubTask : NetworkDataObject {
 
-	//public bool Available { get; set; }
-	//public string Id { get; set; }
-	//public DateTime LastModified { get; private set; }
-    
-	public Status 	Status { get; set; }
+    //public bool Available { get; set; }
+    //public string Id { get; set; }
+    //public DateTime LastModified { get; private set; }
+    public int RawStatus
+    {
+        get { return (int)Status; }
+        set { Status = (Status)value; }
+    }
+    public Status 	Status { get; set; }
 	public string 	Title { get; set; }
 	public bool 	IsBonus { get; set; }
 	public int 		Xp { get; set; }
