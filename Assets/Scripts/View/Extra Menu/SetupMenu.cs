@@ -32,11 +32,6 @@ public class SetupMenu : MonoBehaviour {
 		//EnterPage ();
 	}
 
-	void FixedUpdate()
-	{
-		Settings.SaveFile ();
-	}
-
 	public void EnterPage()
 	{
 		this.gameObject.SetActive (true);
