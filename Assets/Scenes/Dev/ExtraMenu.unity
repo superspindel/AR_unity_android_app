@@ -443,7 +443,7 @@ Prefab:
     - target: {fileID: 114989901200425430, guid: 47b876e75fae1419cb80eaf28e8ea789,
         type: 2}
       propertyPath: Sprites.Array.size
-      value: 31
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114479760087584490, guid: 47b876e75fae1419cb80eaf28e8ea789,
         type: 2}
@@ -533,7 +533,7 @@ Prefab:
     - target: {fileID: 224422795682195600, guid: 47b876e75fae1419cb80eaf28e8ea789,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224422795682195600, guid: 47b876e75fae1419cb80eaf28e8ea789,
         type: 2}
@@ -543,7 +543,7 @@ Prefab:
     - target: {fileID: 224422795682195600, guid: 47b876e75fae1419cb80eaf28e8ea789,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224422795682195600, guid: 47b876e75fae1419cb80eaf28e8ea789,
         type: 2}
