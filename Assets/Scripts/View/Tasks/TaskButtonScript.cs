@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class TaskButtonScript : MonoBehaviour {
 
 		public Text TaskLabel;
@@ -18,7 +18,7 @@ namespace Application{
 		// Use this for initialization
 		void Start () {
 			//_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
-			TaskButton.onClick.AddListener (HandleClick);
+			//TaskButton.onClick.AddListener (HandleClick);
 		}
 			
 		public void Checkout(bool togglecheck)
@@ -38,8 +38,10 @@ namespace Application{
 			//TODO
 		}
 
-		public void Setup(Task currentTask, TaskScrollList currentScrollList)
+		public void Setup(Task currentTask, TaskScrollList currentScrollList, Pageswapper pageswapper)
 		{
+			TaskButton.onClick.AddListener (HandleClick);
+			_pageswap = pageswapper;
 			_task = currentTask;
 			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
 			XpLabel.text = _task.TotalXp.ToString() + "xp";

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class TaskToggleScript : MonoBehaviour {
 		
 		public TaskButtonScript Parent;
@@ -23,6 +23,7 @@ namespace Application{
 
 		public void Setup(TaskButtonScript parent){
 			this.Parent = parent;
+			this.ToggleComponent.isOn = false;
 		}
 
 		// Update is called once per frame

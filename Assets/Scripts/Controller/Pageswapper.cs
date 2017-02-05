@@ -43,13 +43,13 @@ public class Pageswapper : MonoBehaviour {
 		if (this._activePage == ProfilePage)
 			GoToProfilePage ();
 		if (this._activePage == AvalibleTaskPage)
-			GotoAvalibleTasksPage ();
+			gotoAvalibleTasksPage ();
 		if (this._activePage == ActiveTasksPage)
-			GotoActiveTasksPage ();
+			gotoActiveTasksPage ();
 		if (this._activePage == SettingsPage)
-			GotoSettingsPage ();
+			gotoSettingsPage ();
 		if (this._activePage == SpecificTaskPage)
-			GotoSpecificTaskPage ("0"); // TODO: should not happen?
+			gotoSpecificTaskPage ("0"); // TODO: should not happen?
 		if (this._activePage == LeaderBoardPage)
 			GoToLeaderboardPage ();
 	}
@@ -92,37 +92,40 @@ public class Pageswapper : MonoBehaviour {
 	// ProfilePage
 	public void GoToProfilePage()
 	{
-		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
-		DataStore.Get<User> ("test-user", o => {
-			script.EnterPage(o);			
+		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
+		DataStore.Get<User> ("12345", o => {
+			Script.EnterPage(o);			
 		});
 	}
 
 	private void _leaveProfilePage()
 	{
-		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
-		script.LeavePage ();
+		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
+		Script.LeavePage ();
 	}
 
 	public void GoToLeaderboardPage()
 	{
-		LeaderBoardView script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
 		DataStore.List<Leaderboard> (list => {
-			script.EnterPage(list as List<Leaderboard>);
+			Script.EnterPage(list as List<Leaderboard>);
 		});
 	}
 
 	private void _leaveLeaderboardPage()
 	{
-		LeaderBoardView script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
-		script.LeavePage ();
+		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		Script.LeavePage ();
 	}
 		
 
 
 	// AvalibleTaskPage
-	public void GotoAvalibleTasksPage(){
-
+	public void gotoAvalibleTasksPage(){
+		TaskScrollList script AvalibleTaskPage.GetComponent<TaskScrollList> ();
+		DataStore.List<Task> (list => {
+			Script.EnterPage(list as List<Task>);
+		});
 	}
 
 	private void _leaveAvalibleTasksPage(){
@@ -130,7 +133,7 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	// ActiveTasksPage
-	public void GotoActiveTasksPage(){
+	public void gotoActiveTasksPage(){
 		
 	}
 
@@ -139,20 +142,20 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	// SettingsPage
-	public void GotoSettingsPage(){
-		SetupMenu script = SettingsPage.GetComponent<SetupMenu> ();
+	public void gotoSettingsPage(){
+		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
 		// Read settings file
-		script.EnterPage();
+		Script.EnterPage();
 	}
 
 	private void _leaveSettingsPage(){
-		SetupMenu script = SettingsPage.GetComponent<SetupMenu> ();
+		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
 		// Write to settings file
-		script.LeavePage();
+		Script.LeavePage();
 	}
 
 	// SpecificTaskPage
-	public void GotoSpecificTaskPage(string taskId){
+	public void gotoSpecificTaskPage(string taskId){
 		_activePageForward (this.SpecificTaskPage);
 		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
 

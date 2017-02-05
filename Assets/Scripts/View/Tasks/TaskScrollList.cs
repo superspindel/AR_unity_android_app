@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class TaskScrollList : MonoBehaviour {
-		public List<Task> TaskList;
+		public GameObject ThisPage;
+		private List<Task> TaskList;
 		public Transform ContentPanel;
 		public SimpleObjectPool ButtonObjectPool;
 		public AddTaskButtonScript AddTaskButton;
-		private List<Task> _checkedList = new List<Task>();
+		public Pageswapper PageSwapperReference;
+		private List<Task> CheckedList = new List<Task>();
 
 		/*void Start () {
 				RefreshDisplay ();
@@ -23,6 +25,10 @@ namespace Application{
 			AddTaskButtons ();
 		}
 
+		public void GetTaskList()
+		{
+			
+		}
 
 		private void AddTaskButtons()
 		{
@@ -34,7 +40,7 @@ namespace Application{
 					GameObject newButton = ButtonObjectPool.GetObject ();
 					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
-					taskButton.Setup (task, this);
+					taskButton.Setup (task, this, this.PageSwapperReference);
 				}
 			}
 		}
@@ -43,7 +49,7 @@ namespace Application{
 		{
 			while (ContentPanel.childCount > 0) 
 			{
-				GameObject toRemove = transform.GetChild (0).gameObject;
+				GameObject toRemove = ContentPanel.GetChild (0).gameObject;
 				ButtonObjectPool.ReturnObject (toRemove);
 			}
 		}
@@ -102,5 +108,15 @@ namespace Application{
 						
 		}
 
+		public void EnterPage(List<Task> taskList){
+			this.TaskList = taskList;
+			this.ThisPage.SetActive (true);
+			AddTaskButtons ();
+		}
+
+		public void LeavePage(){
+			RemoveTaskButtons ();
+			this.ThisPage.SetActive (false);
+		}
 	}
 }
