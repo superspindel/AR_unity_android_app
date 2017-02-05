@@ -16,7 +16,7 @@ namespace Assets.SimpleAndroidNotifications
 
 		private bool _resend;
 
-		private NotificationParams _Parameters;
+		private NotificationParams _parameters;
 
 		private Pageswapper _pageswapper;
 
@@ -25,19 +25,19 @@ namespace Assets.SimpleAndroidNotifications
 			_pageswapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
 		}
 
-		public Notification(NotificationType NotiType, string Message)
+		public Notification(NotificationType notiType, string message)
 		{
-			if ((int) NotiType < 5) // First 5 notification types are alarms, the rest are ordinary notifications
+			if ((int) notiType < 5) // First 5 notification types are alarms, the rest are ordinary notifications
 			{
-				AlarmParams (Titles [(int) NotiType], Message); 
+				AlarmParams (Titles [(int) notiType], message); 
 			} 
 			else 
 			{
-				NotificationParams (Titles [(int) NotiType], Message);
+				NotificationParams (Titles [(int) notiType], message);
 			}
 		}
 
-		private void CreatePopUp(string Message, string Title, NotificationType NotiType)
+		private void CreatePopUp(string message, string title, NotificationType notiType)
 		{
 			/* Changed by Emil */
 			//GameObject NewPopUpObject = this.PopUpPool.GetObject ();
@@ -48,7 +48,7 @@ namespace Assets.SimpleAndroidNotifications
 			//PopUpScript.setContentTitle (Title);
 			//PopUpScript.setContentText (Message);
 
-			_pageswapper.OpenPopup_General (Title, Message);
+			_pageswapper.OpenPopup_General (title, message);
 
 			// Add onClick event to handle user clicking on the PopUp to cancel new notifications being sent.
 		}
@@ -57,7 +57,7 @@ namespace Assets.SimpleAndroidNotifications
 		{
 			if (_resend) 
 			{
-				NotificationManager.Cancel (this._Parameters.Id);
+				NotificationManager.Cancel (this._parameters.Id);
 				this.Send ();
 			}
 		}
@@ -66,18 +66,18 @@ namespace Assets.SimpleAndroidNotifications
 		// Send will send the notification, and activate the PopUp on screen of the device so that the user can notify application that it has been read.
 		public void Send()
 		{
-			NotificationManager.SendCustom (this._Parameters);
+			NotificationManager.SendCustom (this._parameters);
 		}
 		// Creates a Notification params object with the values of a alarm notification
-		private void AlarmParams(string Title, String Message)
+		private void AlarmParams(string title, String message)
 		{
-			this._Parameters = new NotificationParams
+			this._parameters = new NotificationParams
 			{
 				Id = UnityEngine.Random.Range(0, int.MaxValue),
 				Delay = TimeSpan.FromSeconds(1),
-				Title = Title,
-				Message = Message,
-				Ticker = Message,
+				Title = title,
+				Message = message,
+				Ticker = message,
 				Sound = true,
 				Vibrate = true,
 				Light = true,
@@ -87,15 +87,15 @@ namespace Assets.SimpleAndroidNotifications
 			};
 		}
 		// Creates a Notification params object with the values of a normal notification
-		private void NotificationParams(string Title, string Message)
+		private void NotificationParams(string title, string message)
 		{
-			this._Parameters = new NotificationParams
+			this._parameters = new NotificationParams
 			{
 				Id = UnityEngine.Random.Range(0, int.MaxValue),
 				Delay = TimeSpan.FromSeconds(3),
-				Title = Title,
-				Message = Message,
-				Ticker = Message,
+				Title = title,
+				Message = message,
+				Ticker = message,
 				Sound = true,
 				Vibrate = true,
 				Light = true,
@@ -107,7 +107,7 @@ namespace Assets.SimpleAndroidNotifications
 		// Cancels the active notification
 		public void CancelNotification()
 		{
-			NotificationManager.Cancel (this._Parameters.Id);
+			NotificationManager.Cancel (this._parameters.Id);
 			this._resend = false;
 		}
 	}

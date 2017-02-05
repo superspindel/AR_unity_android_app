@@ -9,10 +9,10 @@ public class SubTaskMenus
 	public string Title;// { get; private set; }
 	public Transform Target;// { get; private set; }
 
-	public SubTaskMenus(string STitle, Transform STarget)
+	public SubTaskMenus(string sTitle, Transform sTarget)
 	{
-		this.Title = STitle;
-		this.Target = STarget;
+		this.Title = sTitle;
+		this.Target = sTarget;
 	}
 }
 [System.Serializable]
@@ -22,31 +22,31 @@ public class ActiveTasksGroup
 	public Sprite Icon;// { get; private set; }
 	public List<SubTaskMenus> SubMenus;// { get; private set; }
 
-	public ActiveTasksGroup(string ATitle, Sprite AIcon, List<SubTaskMenus> SubMenus)
+	public ActiveTasksGroup(string aTitle, Sprite aIcon, List<SubTaskMenus> subMenus)
 	{
-		this.Title = ATitle;
-		this.Icon = AIcon;
-		this.SubMenus = SubMenus;
+		this.Title = aTitle;
+		this.Icon = aIcon;
+		this.SubMenus = subMenus;
 	}
 }
 
 
 public class ActiveTasksSetup : MonoBehaviour {
 
-	public List<ActiveTasksGroup> menuGroupList;
-	public SimpleObjectPool buttonGroupPool;
-	public SimpleObjectPool subButtonPool;
-	public SimpleObjectPool mainButtonPool;
-	public SimpleObjectPool subButtonGroupPool;
+	public List<ActiveTasksGroup> MenuGroupList;
+	public SimpleObjectPool ButtonGroupPool;
+	public SimpleObjectPool SubButtonPool;
+	public SimpleObjectPool MainButtonPool;
+	public SimpleObjectPool SubButtonGroupPool;
 
 
 
 	public void CreateMenu()
 	{
-		for (int i = 0; i < menuGroupList.Count; i++)
+		for (int i = 0; i < MenuGroupList.Count; i++)
 		{
-			ActiveTasksGroup menuGroup = this.menuGroupList [i];
-			GameObject menuGroupPrefab = this.buttonGroupPool.GetObject ();
+			ActiveTasksGroup menuGroup = this.MenuGroupList [i];
+			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
 			menuGroupPrefab.transform.SetParent (this.transform);
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
 			btngrp.Setup (menuGroup.SubMenus, menuGroup.Title, this);

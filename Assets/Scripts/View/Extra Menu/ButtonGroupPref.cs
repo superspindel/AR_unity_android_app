@@ -17,27 +17,27 @@ public class ButtonGroupPref : Prefab {
 	// Setup will instantiate the variables above and create the main button, sub menu group and toggle off the submenu. 
 	// Input is a MenuGroup that contains the information for the main button aswell as the list of sub buttons.
 	// Input is also a the parent Setup menu that contains the pools for the objects to be created.
-	public void Setup(MenuGroup MenuGrp, SetupMenu SetMenu)
+	public void Setup(MenuGroup menuGrp, SetupMenu setMenu)
 	{
-		this.SubMenuList = MenuGrp.SubMenus;
-		this.SetMenu = SetMenu;
-		this.SubButtonPool = SetMenu.SubButtonPool;
-		this.MainButtonPool = SetMenu.MainButtonPool;
-		this.SubMenuGroupPool = SetMenu.SubMenuGroupPool;
+		this.SubMenuList = menuGrp.SubMenus;
+		this.SetMenu = setMenu;
+		this.SubButtonPool = setMenu.SubButtonPool;
+		this.MainButtonPool = setMenu.MainButtonPool;
+		this.SubMenuGroupPool = setMenu.SubMenuGroupPool;
 
-		this.AddMainButton (MenuGrp.Title, MenuGrp.Icon);
+		this.AddMainButton (menuGrp.Title, menuGrp.Icon);
 		this.AddSubMenuGroup ();
 		this.ToggleSubMenu ();
 	}
 		
 	// Creates the Main button
 	// Input is the Title of the button aswell as the icon for the button.
-	private void AddMainButton(string Title, Sprite Icon)
+	private void AddMainButton(string title, Sprite icon)
 	{
-		GameObject MainButton = this.MainButtonPool.GetObject ();
-		MainButton.transform.SetParent (this.transform);
-		MainButtonPref MBut = MainButton.GetComponent<MainButtonPref> ();
-		MBut.Setup (Title, Icon, this);
+		GameObject mainButton = this.MainButtonPool.GetObject ();
+		mainButton.transform.SetParent (this.transform);
+		MainButtonPref mBut = mainButton.GetComponent<MainButtonPref> ();
+		mBut.Setup (title, icon, this);
 	}
 	// Creates the sub menu group, and also calls setup on that gameobjects script to create the buttons within the group.
 	private void AddSubMenuGroup()
@@ -68,7 +68,7 @@ public class ButtonGroupPref : Prefab {
 		{
 			GameObject toRemove = this.transform.GetChild (0).gameObject;
 			PooledObject script = toRemove.GetComponent<PooledObject> ();
-			if (script.pool == MainButtonPool) {
+			if (script.Pool == MainButtonPool) {
 				MainButtonPool.ReturnObject (toRemove);
 			} 
 			else 

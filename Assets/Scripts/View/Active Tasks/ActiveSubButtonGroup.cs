@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActiveSubButtonGroup : MonoBehaviour {
-	private SimpleObjectPool subButtonPool;
+	private SimpleObjectPool _subButtonPool;
 
 	public void Setup(List<SubTaskMenus> lst, SimpleObjectPool subButtonPool)
 	{
-		this.subButtonPool = subButtonPool;
+		this._subButtonPool = subButtonPool;
 		this.AddSubMenus (lst);
 	}
 
@@ -17,20 +17,20 @@ public class ActiveSubButtonGroup : MonoBehaviour {
 	{
 		for (int i = 0; i < lstsub.Count; i++)
 		{
-			SubTaskMenus Submenu = lstsub [i];
-			GameObject SubButton = this.subButtonPool.GetObject ();
-			SubButton.transform.SetParent (this.transform);
-			ActiveSubButton SubBut = SubButton.GetComponent<ActiveSubButton> ();
-			SubBut.Setup (Submenu.Title, Submenu.Target, this);
+			SubTaskMenus submenu = lstsub [i];
+			GameObject subButton = this._subButtonPool.GetObject ();
+			subButton.transform.SetParent (this.transform);
+			ActiveSubButton subBut = subButton.GetComponent<ActiveSubButton> ();
+			subBut.Setup (submenu.Title, submenu.Target, this);
 		}
 	}
 
-	public void removeSubs()
+	public void RemoveSubs()
 	{
 		while (this.transform.childCount > 0)
 		{
 			GameObject toRemove = this.transform.GetChild(0).gameObject;
-			this.subButtonPool.ReturnObject(toRemove);
+			this._subButtonPool.ReturnObject(toRemove);
 		}
 	}
 }

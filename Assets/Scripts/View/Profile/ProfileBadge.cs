@@ -29,14 +29,14 @@ public class ProfileBadge : Prefab {
 	}
 
 	// Add objects from pool to the scene and call setup on them
-	public void AddBadges(List<Badge> BadgeList)
+	public void AddBadges(List<Badge> badgeList)
 	{
-		foreach (Badge Bdg in BadgeList)
+		foreach (Badge bdg in badgeList)
 		{
 			GameObject newBadge = this.BadgePool.GetObject ();
 			newBadge.transform.SetParent (this.BadgeGroupPanel);
 			BdgPref badgePref = newBadge.GetComponent<BdgPref> ();
-			badgePref.Setup (Bdg, this);
+			badgePref.Setup (bdg, this);
 		}
 	}
 }

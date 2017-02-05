@@ -4,23 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActiveButtonGroup : MonoBehaviour {
-	public List<SubTaskMenus> lstsub { get; private set; }
-	public ActiveTasksSetup setMenu { get; private set; }
-	public SimpleObjectPool subButtonPool { get; private set; }
-	public SimpleObjectPool mainButtonPool { get; private set; }
-	public SimpleObjectPool subButtonGroupPool { get; private set; }
-	public GameObject sbtgrp { get; private set; }
+	public List<SubTaskMenus> Lstsub { get; private set; }
+	public ActiveTasksSetup SetMenu { get; private set; }
+	public SimpleObjectPool SubButtonPool { get; private set; }
+	public SimpleObjectPool MainButtonPool { get; private set; }
+	public SimpleObjectPool SubButtonGroupPool { get; private set; }
+	public GameObject Sbtgrp { get; private set; }
 	public ActiveSubButtonGroup SubButtonGroupScript { get; private set; }
 
-	public void Setup(List<SubTaskMenus> lstsub, string Title, ActiveTasksSetup setMenu)
+	public void Setup(List<SubTaskMenus> lstsub, string title, ActiveTasksSetup setMenu)
 	{
-		this.lstsub = lstsub;
-		this.setMenu = setMenu;
-		this.subButtonPool = setMenu.subButtonPool;
-		this.mainButtonPool = setMenu.mainButtonPool;
-		this.subButtonGroupPool = setMenu.subButtonGroupPool;
+		this.Lstsub = lstsub;
+		this.SetMenu = setMenu;
+		this.SubButtonPool = setMenu.SubButtonPool;
+		this.MainButtonPool = setMenu.MainButtonPool;
+		this.SubButtonGroupPool = setMenu.SubButtonGroupPool;
 
-		this.AddMainButton (Title);
+		this.AddMainButton (title);
 		this.AddSubMenuGroup ();
 		this.ToggleSubMenu ();
 	}
@@ -28,32 +28,32 @@ public class ActiveButtonGroup : MonoBehaviour {
 
 	private void AddMainButton(string title)
 	{
-		GameObject MainButton = this.mainButtonPool.GetObject ();
-		MainButton.transform.SetParent (this.transform);
-		ActiveTaskButton mbut = MainButton.GetComponent<ActiveTaskButton> ();
+		GameObject mainButton = this.MainButtonPool.GetObject ();
+		mainButton.transform.SetParent (this.transform);
+		ActiveTaskButton mbut = mainButton.GetComponent<ActiveTaskButton> ();
 		mbut.Setup (title, this);
 	}
 
 	private void AddSubMenuGroup()
 	{
-		GameObject subButGrp = this.subButtonGroupPool.GetObject ();
+		GameObject subButGrp = this.SubButtonGroupPool.GetObject ();
 		subButGrp.transform.SetParent (this.transform);
 		ActiveSubButtonGroup sbtg = subButGrp.GetComponent<ActiveSubButtonGroup> ();
-		sbtg.Setup (this.lstsub, this.subButtonPool);
-		this.sbtgrp = subButGrp;
-		this.SubButtonGroupScript = sbtgrp.GetComponent<ActiveSubButtonGroup> ();
+		sbtg.Setup (this.Lstsub, this.SubButtonPool);
+		this.Sbtgrp = subButGrp;
+		this.SubButtonGroupScript = Sbtgrp.GetComponent<ActiveSubButtonGroup> ();
 	}
 
 	public void ToggleSubMenu()
 	{
-		if (this.sbtgrp.activeSelf) 
+		if (this.Sbtgrp.activeSelf) 
 		{
-			this.sbtgrp.SetActive (false);
-			this.SubButtonGroupScript.removeSubs ();
+			this.Sbtgrp.SetActive (false);
+			this.SubButtonGroupScript.RemoveSubs ();
 		} else 
 		{
-			this.sbtgrp.SetActive (true);
-			this.SubButtonGroupScript.AddSubMenus (lstsub);
+			this.Sbtgrp.SetActive (true);
+			this.SubButtonGroupScript.AddSubMenus (Lstsub);
 		}
 	}
 }

@@ -10,18 +10,18 @@ public class DataContainer : MonoBehaviour {
 	public int UserId;
 
 	// Personal Tasks
-	public List<Task> activeTasks;
-	public List<Task> avalibleTasks;
+	public List<Task> ActiveTasks;
+	public List<Task> AvalibleTasks;
 
 	// Global Achivement / Badge
-	public List<Achievement> achievementList;
-	public List<Badge> badgeList;
+	public List<Achievement> AchievementList;
+	public List<Badge> BadgeList;
 
 	// Personal Profile
-	public User activeUser;
+	public User ActiveUser;
 
 	// Personal Settings
-	public ArrayList settingsArray;
+	public ArrayList SettingsArray;
 
 
 // Functions for testing

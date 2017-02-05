@@ -5,22 +5,22 @@ using UnityEngine;
 
 public static class OfflineCache {
 
-    private static readonly Dictionary<int, string> _fakeOfflineCache = new Dictionary<int, string>();
+    private static readonly Dictionary<int, string> FakeOfflineCache = new Dictionary<int, string>();
 
     public static void QueueStore(int hash, object obj)
     {
         // TODO: actual offline storage
-        _fakeOfflineCache[hash] = SimpleJson.SimpleJson.SerializeObject(obj);
+        FakeOfflineCache[hash] = SimpleJson.SimpleJson.SerializeObject(obj);
     }
 
     public static T Fetch<T>(int hash)
     {
         // TODO: actual offline storage
-        return SimpleJson.SimpleJson.DeserializeObject<T>(_fakeOfflineCache[hash]);
+        return SimpleJson.SimpleJson.DeserializeObject<T>(FakeOfflineCache[hash]);
     }
 
     public static void Purge(int hash)
     {
-        _fakeOfflineCache.Remove(hash);
+        FakeOfflineCache.Remove(hash);
     }
 }

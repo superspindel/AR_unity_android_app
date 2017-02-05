@@ -27,13 +27,13 @@ public class SliderScript : MonoBehaviour {
 	// SetData takes the user level and total xp as input
 	// The function calculates the xp that the user has on the current level by calculating the Xp needed to gain the level and the Xp
 	// needed to get to the next level. Then it sets the values in the object.
-	private void SetData(int Level, int TotalXp)
+	private void SetData(int level, int totalXp)
 	{
-		int Bottom = (10 * ((int)Mathf.Pow ((float)1.2, (float)(Level)))); // The xp needed to reach the current level of the user
-		int Top = (10 * ((int)Mathf.Pow ((float)1.2, (float)Level+1))); // The xp need to reach the next level
-		this.MaxXp = Top - Bottom; // MaxXp of the slider should be the xp difference between the next level and the current level
-		this.Xp = TotalXp - Bottom; // The current xp for the user on this level should be the total xp - the xp needed to get to the current level
-		this.UserLevel = Level;
+		int bottom = (10 * ((int)Mathf.Pow ((float)1.2, (float)(level)))); // The xp needed to reach the current level of the user
+		int top = (10 * ((int)Mathf.Pow ((float)1.2, (float)level+1))); // The xp need to reach the next level
+		this.MaxXp = top - bottom; // MaxXp of the slider should be the xp difference between the next level and the current level
+		this.Xp = totalXp - bottom; // The current xp for the user on this level should be the total xp - the xp needed to get to the current level
+		this.UserLevel = level;
 	}
 		
 
@@ -48,9 +48,9 @@ public class SliderScript : MonoBehaviour {
 
 	// AddXp takes the Xp gained from a task and updates the variables for the script.
 	// TODO: Set the values of the User object instead so that the database can be updated with new Xp information?
-	public void AddXp (int XpToAdd) 
+	public void AddXp (int xpToAdd) 
 	{
-		this.Xp += XpToAdd;
+		this.Xp += xpToAdd;
 		if (this.Xp >= this.MaxXp) 
 		{
 			this.Xp = this.Xp - this.MaxXp;

@@ -11,41 +11,41 @@ public class ProfileView : MonoBehaviour {
 	public Transform ProfileInfoBox;
 	public Transform BadgeBox;
 
-	private ProfileInfo _InfScript;
-	private ProfileAchievement _AchScript;
-	private ProfileBadge _BadgeScript;
+	private ProfileInfo _infScript;
+	private ProfileAchievement _achScript;
+	private ProfileBadge _badgeScript;
 
-	private bool _Initialized = false;
+	private bool _initialized = false;
 
 	// Awake will get the scripts for the transforms that was specified in the Unity control panel
 	void Awake() {
-		this._AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
-		this._BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
-		this._InfScript = ProfileInfoBox.GetComponent<ProfileInfo> ();
+		this._achScript = AchievementBox.GetComponent<ProfileAchievement> ();
+		this._badgeScript = BadgeBox.GetComponent<ProfileBadge> ();
+		this._infScript = ProfileInfoBox.GetComponent<ProfileInfo> ();
 	}
 
 	public void LeavePage()
 	{
-		this._AchScript.ReturnChildren ();
-		this._BadgeScript.ReturnChildren ();
+		this._achScript.ReturnChildren ();
+		this._badgeScript.ReturnChildren ();
 		this.gameObject.SetActive (false);
 	}
 
-	public void EnterPage(User Profile)
+	public void EnterPage(User profile)
 	{
 		// TODO: Check Profile.Available
 		this.gameObject.SetActive (true);
-		if (!this._Initialized) 
+		if (!this._initialized) 
 		{
-			Profile.Updated += i =>
+			profile.Updated += i =>
 			{
-				this.UpdatePage(Profile);
+				this.UpdatePage(profile);
 			};
-			this._Initialized = true;
+			this._initialized = true;
 		}
-		this._InfScript.SetProfileInfo (Profile);
-		this._AchScript.AddAchievements (Profile.AchList);
-		this._BadgeScript.AddBadges (Profile.BadgeList);
+		this._infScript.SetProfileInfo (profile);
+		this._achScript.AddAchievements (profile.Achivements);
+		this._badgeScript.AddBadges (profile.Badges);
 	}
 
 	public void UpdatePage(User newInfo)

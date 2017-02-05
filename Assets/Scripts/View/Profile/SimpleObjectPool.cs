@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public class SimpleObjectPool : MonoBehaviour
 {
 	// the prefab that this object pool returns instances of
-	public GameObject prefab;
+	public GameObject Prefab;
 	// collection of currently inactive instances of the prefab
-	private Stack<GameObject> inactiveInstances = new Stack<GameObject>();
+	private Stack<GameObject> _inactiveInstances = new Stack<GameObject>();
 
 	// Returns an instance of the prefab
 	public GameObject GetObject() 
@@ -15,19 +15,19 @@ public class SimpleObjectPool : MonoBehaviour
 		GameObject spawnedGameObject;
 
 		// if there is an inactive instance of the prefab ready to return, return that
-		if (inactiveInstances.Count > 0) 
+		if (_inactiveInstances.Count > 0) 
 		{
 			// remove the instance from teh collection of inactive instances
-			spawnedGameObject = inactiveInstances.Pop();
+			spawnedGameObject = _inactiveInstances.Pop();
 		}
 		// otherwise, create a new instance
 		else 
 		{
-			spawnedGameObject = (GameObject)GameObject.Instantiate(prefab);
+			spawnedGameObject = (GameObject)GameObject.Instantiate(Prefab);
 
 			// add the PooledObject component to the prefab so we know it came from this pool
 			PooledObject pooledObject = spawnedGameObject.AddComponent<PooledObject>();
-			pooledObject.pool = this;
+			pooledObject.Pool = this;
 		}
 
 		// put the instance in the root of the scene and enable it
@@ -44,14 +44,14 @@ public class SimpleObjectPool : MonoBehaviour
 		PooledObject pooledObject = toReturn.GetComponent<PooledObject>();
 
 		// if the instance came from this pool, return it to the pool
-		if(pooledObject != null && pooledObject.pool == this)
+		if(pooledObject != null && pooledObject.Pool == this)
 		{
 			// make the instance a child of this and disable it
 			toReturn.transform.SetParent(transform);
 			toReturn.SetActive(false);
 
 			// add the instance to the collection of inactive instances
-			inactiveInstances.Push(toReturn);
+			_inactiveInstances.Push(toReturn);
 		}
 		// otherwise, just destroy it
 		else
@@ -65,5 +65,5 @@ public class SimpleObjectPool : MonoBehaviour
 // a component that simply identifies the pool that a GameObject came from
 public class PooledObject : MonoBehaviour
 {
-	public SimpleObjectPool pool;
+	public SimpleObjectPool Pool;
 }

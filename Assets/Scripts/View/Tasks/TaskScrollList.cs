@@ -9,7 +9,7 @@ namespace Application{
 		public Transform ContentPanel;
 		public SimpleObjectPool ButtonObjectPool;
 		public AddTaskButtonScript AddTaskButton;
-		private List<Task> CheckedList = new List<Task>();
+		private List<Task> _checkedList = new List<Task>();
 
 		void Start () {
 				RefreshDisplay ();
@@ -50,13 +50,13 @@ namespace Application{
 
 
 
-		private void addTask(Task taskToAdd)
+		private void AddTask(Task taskToAdd)
 		{
 			this.TaskList.Add (taskToAdd);
 		}
 
 	
-		private void removeTask(Task taskToRemove)
+		private void RemoveTask(Task taskToRemove)
 		{
 			for (int i = this.TaskList.Count - 1; i >= 0; i--) 
 			{
@@ -70,18 +70,18 @@ namespace Application{
 		public void SelectTask(Task taskToAdd)
 		{
 			Debug.Log ("added: " + taskToAdd.Id + " To list");
-			CheckedList.Add (taskToAdd);
+			_checkedList.Add (taskToAdd);
 
 		}
 
 
 		public void RemoveSelectedTask(Task taskToRemove)
 		{
-			for (int i = this.CheckedList.Count - 1; i >= 0; i--) 
+			for (int i = this._checkedList.Count - 1; i >= 0; i--) 
 			{
-				if(this.CheckedList[i] == taskToRemove)
+				if(this._checkedList[i] == taskToRemove)
 				{
-					this.CheckedList.RemoveAt(i);
+					this._checkedList.RemoveAt(i);
 				}
 			}
 			Debug.Log ("Removed : " + taskToRemove.Id + " from list");
@@ -90,7 +90,7 @@ namespace Application{
 
 		// Adds checked tasks
 		public void AddCheckedTasks(){
-			foreach (Task taskToAdd in CheckedList) {
+			foreach (Task taskToAdd in _checkedList) {
 				Debug.Log ("Added task: " + taskToAdd.Id + " to your active tasks");
 				taskToAdd.UserId = 123; // TODO: get the real userID
 			}
@@ -98,7 +98,7 @@ namespace Application{
 		}
 
 
-		public void showAddButton(bool toggle){
+		public void ShowAddButton(bool toggle){
 						
 		}
 

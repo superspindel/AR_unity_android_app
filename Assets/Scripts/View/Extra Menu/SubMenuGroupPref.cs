@@ -7,25 +7,25 @@ using UnityEngine.UI;
 // and possibly removing the sub menus by returning them to the pool.
 public class SubMenuGroupPref : Prefab {
 	
-	private SimpleObjectPool SubButtonPool;
+	private SimpleObjectPool _subButtonPool;
 
 	// Setup, takes a list of sub menus and a pool to get the button objects from.
 	// Runs the add sub menus function that creates the sub buttons.
-	public void Setup(List<SubMenu> SubMenuList, SimpleObjectPool SubButtonPool)
+	public void Setup(List<SubMenu> subMenuList, SimpleObjectPool subButtonPool)
 	{
-		this.SubButtonPool = SubButtonPool;
-		this.AddSubMenus (SubMenuList);
+		this._subButtonPool = subButtonPool;
+		this.AddSubMenus (subMenuList);
 	}
 
 	// AddSubMenus takes a list of the sub menus to be created and instantiates the objects and adds them to the scene from the pool.
-	public void AddSubMenus(List<SubMenu> SubMenuList)
+	public void AddSubMenus(List<SubMenu> subMenuList)
 	{
-		foreach (SubMenu SbMenu in SubMenuList)
+		foreach (SubMenu sbMenu in subMenuList)
 		{
-			GameObject subButton = this.SubButtonPool.GetObject ();
+			GameObject subButton = this._subButtonPool.GetObject ();
 			subButton.transform.SetParent (this.transform);
 			SubButtonPref subBut = subButton.GetComponent<SubButtonPref> ();
-			subBut.Setup (SbMenu, this);
+			subBut.Setup (sbMenu, this);
 		}
 	}
 	// RemoveSubs goes through the group object and returns all the children objects to the pool, the sub buttons.
@@ -34,7 +34,7 @@ public class SubMenuGroupPref : Prefab {
 		while (this.transform.childCount > 0)
 		{
 			GameObject toRemove = this.transform.GetChild(0).gameObject;
-			this.SubButtonPool.ReturnObject(toRemove);
+			this._subButtonPool.ReturnObject(toRemove);
 		}
 	}
 }

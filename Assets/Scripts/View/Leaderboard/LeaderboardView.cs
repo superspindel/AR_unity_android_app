@@ -11,42 +11,42 @@ public class LeaderBoardView : MonoBehaviour {
 
 	public List<Leaderboard> SubjectList;
 
-	private bool _Initialized = false;
+	private bool _initialized = false;
 
 	// TODO: Have setup get information from the cache
-	public void EnterPage(List<Leaderboard> SubjectList)
+	public void EnterPage(List<Leaderboard> subjectList)
 	{
-		this.SubjectList = SubjectList;
-		foreach (Leaderboard Ldb in this.SubjectList)
+		this.SubjectList = subjectList;
+		foreach (Leaderboard ldb in this.SubjectList)
 		{
 			// TODO: Check Ldb.Available
-			if (!this._Initialized) 
+			if (!this._initialized) 
 			{
-				Ldb.Updated += obj => {
-					this.UpdatePage(SubjectList);
+				ldb.Updated += obj => {
+					this.UpdatePage(subjectList);
 				};
 			}
 			GameObject newSubj = this.SubjectPool.GetObject ();
 			newSubj.transform.SetParent (this.transform);
 			LeaderboardSubjectPref ldbSubjScript = newSubj.GetComponent<LeaderboardSubjectPref> ();
-			ldbSubjScript.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, Ldb);
+			ldbSubjScript.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, ldb);
 		}
-		this._Initialized = true;
+		this._initialized = true;
 	}
 
 	public void LeavePage()
 	{
 		while (this.transform.childCount > 0)
 		{
-			GameObject ToRemove = this.transform.GetChild(0).gameObject;
-			Prefab Script = ToRemove.GetComponent<Prefab> ();
-			Script.ReturnChildren ();
+			GameObject toRemove = this.transform.GetChild(0).gameObject;
+			Prefab script = toRemove.GetComponent<Prefab> ();
+			script.ReturnChildren ();
 		}
 	}
 
-	public void UpdatePage(List<Leaderboard> UpdatedSubjectList)
+	public void UpdatePage(List<Leaderboard> updatedSubjectList)
 	{
 		this.LeavePage ();
-		this.EnterPage (UpdatedSubjectList);
+		this.EnterPage (updatedSubjectList);
 	}
 }

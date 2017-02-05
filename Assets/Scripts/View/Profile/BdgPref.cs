@@ -8,8 +8,8 @@ public class BdgPref : MonoBehaviour {
 	public Image BadgeIcon;
 	public Button ButtonComponent;
 
-	private ProfileBadge _Parent;
-	private int _UserId;
+	private ProfileBadge _parent;
+	private int _userId;
 
 	public BadgeDict BadgeDictionary;
 
@@ -17,7 +17,7 @@ public class BdgPref : MonoBehaviour {
 	public void Setup(Badge bdg, ProfileBadge profBdg)
 	{
 		this.BadgeIcon.sprite = BadgeDictionary.GetSprite (bdg.SpriteId);
-		this._Parent = profBdg;
-		this._UserId = bdg.userID;
+		this._parent = profBdg;
+		this._userId = bdg.UserId;
 	}
 }

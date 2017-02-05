@@ -13,15 +13,15 @@ public class SetupMenu : MonoBehaviour {
 
 
 	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
-	public void CreateMenu(List<MenuGroup> MenuGroupList)
+	public void CreateMenu(List<MenuGroup> menuGroupList)
 	{
-		foreach (MenuGroup MenuGrp in MenuGroupList)
+		foreach (MenuGroup menuGrp in menuGroupList)
 		{
 			// TODO: Check MenuGrp.Available
-			GameObject MenuGroupPrefab = this.ButtonGroupPool.GetObject ();
-			MenuGroupPrefab.transform.SetParent (this.transform);
-			ButtonGroupPref btngrp = MenuGroupPrefab.GetComponent<ButtonGroupPref> ();
-			btngrp.Setup (MenuGrp, this);
+			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
+			menuGroupPrefab.transform.SetParent (this.transform);
+			ButtonGroupPref btngrp = menuGroupPrefab.GetComponent<ButtonGroupPref> ();
+			btngrp.Setup (menuGrp, this);
 		}
 	}
 
@@ -34,8 +34,8 @@ public class SetupMenu : MonoBehaviour {
 	{
 		while (this.transform.childCount > 0) 
 		{
-			GameObject ToRemove = this.transform.GetChild (0).gameObject;
-			ToRemove.GetComponent<ButtonGroupPref> ().ReturnChildren ();
+			GameObject toRemove = this.transform.GetChild (0).gameObject;
+			toRemove.GetComponent<ButtonGroupPref> ().ReturnChildren ();
 		}
 	}
 

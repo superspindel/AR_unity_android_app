@@ -43,13 +43,13 @@ public class Pageswapper : MonoBehaviour {
 		if (this._activePage == ProfilePage)
 			GoToProfilePage ();
 		if (this._activePage == AvalibleTaskPage)
-			gotoAvalibleTasksPage ();
+			GotoAvalibleTasksPage ();
 		if (this._activePage == ActiveTasksPage)
-			gotoActiveTasksPage ();
+			GotoActiveTasksPage ();
 		if (this._activePage == SettingsPage)
-			gotoSettingsPage ();
+			GotoSettingsPage ();
 		if (this._activePage == SpecificTaskPage)
-			gotoSpecificTaskPage ("0"); // TODO: should not happen?
+			GotoSpecificTaskPage ("0"); // TODO: should not happen?
 		if (this._activePage == LeaderBoardPage)
 			GoToLeaderboardPage ();
 	}
@@ -92,36 +92,36 @@ public class Pageswapper : MonoBehaviour {
 	// ProfilePage
 	public void GoToProfilePage()
 	{
-		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
+		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
 		DataStore.Get<User> ("12345", o => {
-			Script.EnterPage(o);			
+			script.EnterPage(o);			
 		});
 	}
 
 	private void _leaveProfilePage()
 	{
-		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
-		Script.LeavePage ();
+		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
+		script.LeavePage ();
 	}
 
 	public void GoToLeaderboardPage()
 	{
-		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		LeaderBoardView script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
 		DataStore.List<Leaderboard> (list => {
-			Script.EnterPage(list as List<Leaderboard>);
+			script.EnterPage(list as List<Leaderboard>);
 		});
 	}
 
 	private void _leaveLeaderboardPage()
 	{
-		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
-		Script.LeavePage ();
+		LeaderBoardView script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		script.LeavePage ();
 	}
 		
 
 
 	// AvalibleTaskPage
-	public void gotoAvalibleTasksPage(){
+	public void GotoAvalibleTasksPage(){
 
 	}
 
@@ -130,7 +130,7 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	// ActiveTasksPage
-	public void gotoActiveTasksPage(){
+	public void GotoActiveTasksPage(){
 		
 	}
 
@@ -139,20 +139,20 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	// SettingsPage
-	public void gotoSettingsPage(){
-		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
+	public void GotoSettingsPage(){
+		SetupMenu script = SettingsPage.GetComponent<SetupMenu> ();
 		// Read settings file
-		Script.EnterPage();
+		script.EnterPage();
 	}
 
 	private void _leaveSettingsPage(){
-		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
+		SetupMenu script = SettingsPage.GetComponent<SetupMenu> ();
 		// Write to settings file
-		Script.LeavePage();
+		script.LeavePage();
 	}
 
 	// SpecificTaskPage
-	public void gotoSpecificTaskPage(string taskId){
+	public void GotoSpecificTaskPage(string taskId){
 		_activePageForward (this.SpecificTaskPage);
 		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
 

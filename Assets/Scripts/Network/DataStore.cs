@@ -69,10 +69,10 @@ public class DataStore
     /// <summary>
     /// Internal tracking dictionary for storing objects
     /// </summary>
-    private static readonly Dictionary<int, NetworkDataObject> _objectTracker 
+    private static readonly Dictionary<int, NetworkDataObject> ObjectTracker 
         = new Dictionary<int, NetworkDataObject>();
     
-    private static readonly List<QueuedRequest> _queuedRequests
+    private static readonly List<QueuedRequest> QueuedRequests
         = new List<QueuedRequest>();
 
     /// <summary>
@@ -89,10 +89,10 @@ public class DataStore
         int hash = GetHashCode(typeof(T), id);
         // if object was last modified less than a minute ago, return instantly and queue an update
         bool fast = false;
-        if (_objectTracker.ContainsKey(hash) && _objectTracker[hash].LastModified > DateTime.UtcNow - TimeSpan.FromMinutes(1))
+        if (ObjectTracker.ContainsKey(hash) && ObjectTracker[hash].LastModified > DateTime.UtcNow - TimeSpan.FromMinutes(1))
         {
             if (callback != null)
-                callback(_objectTracker[hash] as T);
+                callback(ObjectTracker[hash] as T);
             fast = true;
         }
         if (CommunicationsApi.IsAvailable)
@@ -101,13 +101,13 @@ public class DataStore
             CommunicationsApi.Socket.Emit(eventName, id, "", o =>
             {
                 // New object? create empty instance and merge data to it
-                if (!_objectTracker.ContainsKey(hash))
-                    _objectTracker[hash] = new T();
-                _objectTracker[hash].Merge((o as JsonEncodedEventMessage).GetFirstArgAs<T>());
+                if (!ObjectTracker.ContainsKey(hash))
+                    ObjectTracker[hash] = new T();
+                ObjectTracker[hash].Merge((o as JsonEncodedEventMessage).GetFirstArgAs<T>());
                 // Update Offline Cache, is done async so it doesn't block
-                OfflineCache.QueueStore(hash, _objectTracker[hash]);
+                OfflineCache.QueueStore(hash, ObjectTracker[hash]);
                 if (!fast && callback != null)
-                    callback(_objectTracker[hash] as T);
+                    callback(ObjectTracker[hash] as T);
 
             });
         }
@@ -116,16 +116,16 @@ public class DataStore
             if (fast) // fast cache but API offline? not our problem for now
                 return;
             // Got an object tracked but older than a minute? lets just use it
-            if (_objectTracker.ContainsKey(hash))
+            if (ObjectTracker.ContainsKey(hash))
             {
                 if (callback != null)
-                    callback(_objectTracker[hash] as T);
+                    callback(ObjectTracker[hash] as T);
             }
             // Attempt to fetch sync from Offline Cache
             var cache = OfflineCache.Fetch<T>(hash);
             if (cache != null)
             {
-                _objectTracker[hash] = cache;
+                ObjectTracker[hash] = cache;
                 if (callback != null)
                     callback(cache);
             }
@@ -210,11 +210,11 @@ public class DataStore
         {
             var obj = message.Json.GetFirstArgAs<T>();
             int hash = GetHashCode(typeof(T), obj.Id);
-            if (!_objectTracker.ContainsKey(hash))
-                _objectTracker[hash] = new T();
-            _objectTracker[hash].Merge(obj);
+            if (!ObjectTracker.ContainsKey(hash))
+                ObjectTracker[hash] = new T();
+            ObjectTracker[hash].Merge(obj);
             // Update Offline Cache, is done async so it doesn't block
-            OfflineCache.QueueStore(hash, _objectTracker[hash]);
+            OfflineCache.QueueStore(hash, ObjectTracker[hash]);
         });   
     }
     public static void Update<T>(T obj, Action<bool> callback) where T : NetworkDataObject, new()
@@ -231,7 +231,7 @@ public class DataStore
         else
         {
             // queue for update
-            _queuedRequests.Add(new QueuedRequest(QueuedRequestType.Update, emitCallback));
+            QueuedRequests.Add(new QueuedRequest(QueuedRequestType.Update, emitCallback));
         }
     }
 
@@ -241,12 +241,12 @@ public class DataStore
         {
             var created = (o as JsonEncodedEventMessage).GetFirstArgAs<T>();
             int hash = GetHashCode(typeof(T), created.Id);
-            if (!_objectTracker.ContainsKey(hash))
-                _objectTracker[hash] = new T();
-            _objectTracker[hash].Merge(created);
-            OfflineCache.QueueStore(hash, _objectTracker[hash]);
+            if (!ObjectTracker.ContainsKey(hash))
+                ObjectTracker[hash] = new T();
+            ObjectTracker[hash].Merge(created);
+            OfflineCache.QueueStore(hash, ObjectTracker[hash]);
             if (callback != null)
-                callback(_objectTracker[hash] as T);
+                callback(ObjectTracker[hash] as T);
         };
         string eventName = typeof(T).Name + ".create";
         if (CommunicationsApi.IsAvailable)
@@ -256,7 +256,7 @@ public class DataStore
         else
         {
             // queue for update
-            _queuedRequests.Add(new QueuedRequest(QueuedRequestType.Create, emitCallback));
+            QueuedRequests.Add(new QueuedRequest(QueuedRequestType.Create, emitCallback));
         }
     }
 
@@ -265,7 +265,7 @@ public class DataStore
         int hash = GetHashCode(typeof(T), obj.Id);
         Action<object> emitCallback = o =>
         {
-            _objectTracker.Remove(hash);
+            ObjectTracker.Remove(hash);
             OfflineCache.Purge(hash);
             if (callback != null)
                 callback(true);
@@ -277,7 +277,7 @@ public class DataStore
         }
         else
         {
-            _queuedRequests.Add(new QueuedRequest(QueuedRequestType.Delete, emitCallback));
+            QueuedRequests.Add(new QueuedRequest(QueuedRequestType.Delete, emitCallback));
         }
     }
 }

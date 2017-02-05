@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public enum PopUpType{general, startup, tools, reward};
+public enum PopUpType{General, Startup, Tools, Reward};
 
 public class PopUp : MonoBehaviour {
 	

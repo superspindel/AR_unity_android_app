@@ -11,23 +11,23 @@ public class ProfileInfo : MonoBehaviour {
 	public Text DailyScoreField;
 	public Text TotalScoreField;
 	public Transform Slider;
-	private SliderScript _Slscrpt{ get; set; }
+	private SliderScript Slscrpt{ get; set; }
 
 	// initialize by getting the script from the slider game object
 	void Awake()
 	{
-		this._Slscrpt = Slider.GetComponent<SliderScript> ();
+		this.Slscrpt = Slider.GetComponent<SliderScript> ();
 	}
 
 	// Set the profile view up with the information from the User object passed in
 	// Setup the slider with the same user object
-	public void SetProfileInfo(User PlayerProfile)
+	public void SetProfileInfo(User playerProfile)
 	{
-		this.ProfileImage.sprite = PlayerProfile.profImg;
-		this.NameField.text = "Name: \n" + PlayerProfile.Name;
-		this.DailyScoreField.text = "Daily: \n" + PlayerProfile.DailyScore.ToString ();
-		this.TotalScoreField.text = "Total: \n" + PlayerProfile.TotalScore.ToString ();
-		this._Slscrpt.SetSlider (PlayerProfile);
+		this.ProfileImage.sprite = playerProfile.ProfImg;
+		this.NameField.text = "Name: \n" + playerProfile.Name;
+		this.DailyScoreField.text = "Daily: \n" + playerProfile.DailyScore.ToString ();
+		this.TotalScoreField.text = "Total: \n" + playerProfile.TotalScore.ToString ();
+		this.Slscrpt.SetSlider (playerProfile);
 	}
 
 }

@@ -21,7 +21,7 @@ namespace Application{
 			TaskButton.onClick.AddListener (HandleClick);
 		}
 			
-		public void checkout(bool togglecheck)
+		public void Checkout(bool togglecheck)
 		{
 			if (togglecheck) {
 				_scrollList.SelectTask (_task);

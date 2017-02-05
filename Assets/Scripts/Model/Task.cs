@@ -20,13 +20,13 @@ public class Task : NetworkDataObject {
 	public int 			TotalXp { get; set; } 		// get from subtasks
 	public Vector3 		Location { get; set; }
 	public List<Tool> 	Tools { get; set; } 		// TODO: add Tool class, helm etc . + get from subtask
-	public int 			UserId { get; set; } 		// User has this as active task
+	public string 		UserId { get; set; } 		// User has this as active task
 	public List<string> Hints { get; set; }
 
 	public List<SubTask> SubTasks { get; set; }
 
-	public Task () {
-		
+	public Task ()
+	{
 	}
 		
 }

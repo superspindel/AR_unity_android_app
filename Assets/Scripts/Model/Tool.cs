@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tool : MonoBehaviour {
-	string name;
-	public Tool(string name)
+public class Tool {
+	public string Name { get; set; }
+	public Tool()
 	{
-		this.name = name;
 	}
 
 	public override string ToString()
 	{
-		return this.name;
+	    return Name;
 	}
 
 

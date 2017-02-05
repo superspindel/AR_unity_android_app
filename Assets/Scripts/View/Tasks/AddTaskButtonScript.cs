@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Application{
 	public class AddTaskButtonScript : MonoBehaviour {
-		public TaskScrollList scrollList;
+		public TaskScrollList ScrollList;
 		public Button ButtonComponent;
 
 
@@ -15,7 +15,7 @@ namespace Application{
 
 
 		public void HandleClick(){
-			scrollList.AddCheckedTasks ();
+			ScrollList.AddCheckedTasks ();
 		}
 
 		void Update () {

@@ -5,7 +5,7 @@ namespace Assets.SimpleAndroidNotifications
 {
     public class NotificationExample : MonoBehaviour
     {
-        public void OnGUI ()
+        public void OnGui ()
         {
             if (GUILayout.Button("Simple 5 sec", GUILayout.Height(Screen.height * 0.2f), GUILayout.Width(Screen.width)))
             {

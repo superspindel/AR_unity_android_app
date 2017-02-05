@@ -9,10 +9,10 @@ public class MenuGroup {
 	public Sprite Icon { get; set; }
 	public List<SubMenu> SubMenus { get; set; }
 
-	public MenuGroup(string Title, Sprite Icon, List<SubMenu> SubMenus)
+	public MenuGroup(string title, Sprite icon, List<SubMenu> subMenus)
 	{
-		this.Title = Title;
-		this.Icon = Icon;
-		this.SubMenus = SubMenus;
+		this.Title = title;
+		this.Icon = icon;
+		this.SubMenus = subMenus;
 	}
 }

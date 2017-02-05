@@ -7,21 +7,21 @@ using UnityEngine.UI;
 public class MainButtonPref : MonoBehaviour {
 	public Text TextField;
 	public Image ImageIcon;
-	private ButtonGroupPref Parent; // Parent script to call for toggle.
+	private ButtonGroupPref _parent; // Parent script to call for toggle.
 	public Button Butncmp;
 
 	// Setup takes a title, a icon and the parent script.
 	// Sets the gameobject variables and adds the onClick event.
-	public void Setup(string Title, Sprite Icon, ButtonGroupPref Parent)
+	public void Setup(string title, Sprite icon, ButtonGroupPref parent)
 	{
-		ImageIcon.sprite = Icon;
-		TextField.text = Title;
-		this.Parent = Parent;
+		ImageIcon.sprite = icon;
+		TextField.text = title;
+		this._parent = parent;
 		Butncmp.onClick.AddListener (HandleClick);
 	}
 	// Calls function in parent to toggle the submenugroups active variable.
 	public void HandleClick()
 	{
-		this.Parent.ToggleSubMenu ();
+		this._parent.ToggleSubMenu ();
 	}
 }
