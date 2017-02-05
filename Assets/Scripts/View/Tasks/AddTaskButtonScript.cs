@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class AddTaskButtonScript : MonoBehaviour {
 		public TaskScrollList scrollList;
 		public Button ButtonComponent;

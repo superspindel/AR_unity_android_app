@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class TaskScrollList : MonoBehaviour {
-		public List<Task> TaskList;
+		public GameObject ThisPage;
+		private List<Task> TaskList;
 		public Transform ContentPanel;
 		public SimpleObjectPool ButtonObjectPool;
 		public AddTaskButtonScript AddTaskButton;
+		public Pageswapper PageSwapperReference;
 		private List<Task> CheckedList = new List<Task>();
 
 		void Start () {
 				RefreshDisplay ();
-
 		}
 
 		// Removes and adds buttons
@@ -23,18 +24,22 @@ namespace Application{
 			AddTaskButtons ();
 		}
 
+		public void GetTaskList()
+		{
+			
+		}
 
 		private void AddTaskButtons()
 		{
 			for (int i = 0; i < TaskList.Count; i++)
 			{
 				if (TaskList [i].UserId == 0) { // TODO: check if no one "has task"
-					Task task = TaskList [i];
+					Task task = TaskList [i]; 
 					task.Id = i.ToString (); //TODO REMOVE
 					GameObject newButton = ButtonObjectPool.GetObject ();
 					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
-					taskButton.Setup (task, this);
+					taskButton.Setup (task, this, this.PageSwapperReference);
 				}
 			}
 		}
@@ -43,7 +48,7 @@ namespace Application{
 		{
 			while (ContentPanel.childCount > 0) 
 			{
-				GameObject toRemove = transform.GetChild (0).gameObject;
+				GameObject toRemove = ContentPanel.GetChild (0).gameObject;
 				ButtonObjectPool.ReturnObject (toRemove);
 			}
 		}
@@ -92,7 +97,7 @@ namespace Application{
 		public void AddCheckedTasks(){
 			foreach (Task taskToAdd in CheckedList) {
 				Debug.Log ("Added task: " + taskToAdd.Id + " to your active tasks");
-				taskToAdd.UserId = 123; // TODO: get the real userID
+				taskToAdd.UserId = "123"; // TODO: get the real userID
 			}
 			RefreshDisplay ();
 		}
@@ -102,5 +107,15 @@ namespace Application{
 						
 		}
 
+		public void EnterPage(List<Task> taskList){
+			this.TaskList = taskList;
+			this.ThisPage.SetActive (true);
+			AddTaskButtons ();
+		}
+
+		public void LeavePage(){
+			RemoveTaskButtons ();
+			this.ThisPage.SetActive (false);
+		}
 	}
 }

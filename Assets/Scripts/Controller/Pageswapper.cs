@@ -122,7 +122,10 @@ public class Pageswapper : MonoBehaviour {
 
 	// AvalibleTaskPage
 	public void gotoAvalibleTasksPage(){
-
+		TaskScrollList script AvalibleTaskPage.GetComponent<TaskScrollList> ();
+		DataStore.List<Task> (list => {
+			Script.EnterPage(list as List<Task>);
+		});
 	}
 
 	private void _leaveAvalibleTasksPage(){

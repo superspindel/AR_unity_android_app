@@ -34,11 +34,12 @@ public class ActiveTasksGroup
 public class ActiveTasksSetup : MonoBehaviour {
 
 	public List<ActiveTasksGroup> menuGroupList;
+	//public List<Task> ActiveTaskList;
 	public SimpleObjectPool buttonGroupPool;
 	public SimpleObjectPool subButtonPool;
 	public SimpleObjectPool mainButtonPool;
 	public SimpleObjectPool subButtonGroupPool;
-
+	public Transform ContentPanel;
 
 
 	public void CreateMenu()
@@ -53,8 +54,23 @@ public class ActiveTasksSetup : MonoBehaviour {
 		}
 	}
 
+	public void RemoveMenu()
+	{
+		
+	}
+
 	public void Start()
 	{
 		this.CreateMenu ();
+	}
+
+	public void EnterPage()
+	{
+		this.ContentPanel.gameObject.SetActive (true);
+	}
+
+	public void LeavePage()
+	{
+		this.ContentPanel.gameObject.SetActive (false);
 	}
 }
