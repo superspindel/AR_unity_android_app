@@ -29,7 +29,7 @@ public class SetupMenu : MonoBehaviour {
 
 	void Start()
 	{
-		EnterPage ();
+		//EnterPage ();
 	}
 
 	void FixedUpdate()
