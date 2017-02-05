@@ -17,6 +17,7 @@ public class MainButtonPref : MonoBehaviour {
 		ImageIcon.sprite = icon;
 		TextField.text = title;
 		this._parent = parent;
+		Butncmp.onClick.RemoveAllListeners ();
 		Butncmp.onClick.AddListener (HandleClick);
 	}
 	// Calls function in parent to toggle the submenugroups active variable.

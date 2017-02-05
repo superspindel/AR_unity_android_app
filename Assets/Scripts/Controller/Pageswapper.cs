@@ -93,6 +93,7 @@ public class Pageswapper : MonoBehaviour {
 	// ProfilePage
 	public void GoToProfilePage()
 	{
+		_activePageForward (this.ProfilePage);
 		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
 		DataStore.Get<User> ("12345", o => {
 			Script.EnterPage(o);			
@@ -107,6 +108,7 @@ public class Pageswapper : MonoBehaviour {
 
 	public void GoToLeaderboardPage()
 	{
+		_activePageForward (this.LeaderBoardPage);
 		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
 		DataStore.List<Leaderboard> (list => {
 			Script.EnterPage(list as List<Leaderboard>);
@@ -123,6 +125,7 @@ public class Pageswapper : MonoBehaviour {
 
 	// AvalibleTaskPage
 	public void gotoAvalibleTasksPage(){
+		_activePageForward (this.AvalibleTaskPage);
 		TaskScrollList script = AvalibleTaskPage.GetComponent<TaskScrollList> ();
 		DataStore.List<Task> (list => {
 			script.EnterPage(list as List<Task>);
@@ -144,6 +147,7 @@ public class Pageswapper : MonoBehaviour {
 
 	// SettingsPage
 	public void gotoSettingsPage(){
+		_activePageForward (this.SettingsPage);
 		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
 		// Read settings file
 		Script.EnterPage();

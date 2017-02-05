@@ -51,8 +51,8 @@ public class ProfileView : MonoBehaviour {
 			this._Initialized = true;
 		}
 		this._InfScript.SetProfileInfo (Profile);
-		this._AchScript.AddAchievements (Profile.Achievements);
 		this._BadgeScript.AddBadges (Profile.Badges);
+		this._AchScript.AddAchievements (Profile.Achievements);
 		this._Profile = Profile;
 	}
 

@@ -52,6 +52,7 @@ public class PopUp : MonoBehaviour {
 	private void _setActivePopupView(GameObject popup){
 		//_activePopupView.SetActive(false);
 		popup.SetActive(true);
+		this.gameObject.SetActive (true);
 	}
 
 	private void _setPopupPanelTitle(string s){

@@ -22,7 +22,7 @@ public class BadgePrefab : MonoBehaviour {
 	// Setup of the prefab
 	public void Setup(Badge Bdg, ProfileBadge ProfBdg)
 	{
-		this.BadgeIcon.sprite = BadgeDictionary.GetSprite (Bdg.SpriteId);
+		this.BadgeIcon.sprite = BadgeDict.GetSprite (Bdg.SpriteId);
 		this._Parent = ProfBdg;
 		this._Badge = Bdg;
 		this.ButtonComponent.onClick.AddListener (this.PopUp);

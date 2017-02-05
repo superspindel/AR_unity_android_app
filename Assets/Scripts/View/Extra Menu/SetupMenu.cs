@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // Script for the Extra menu panel, creates the menu when swapping to the panel. 
 public class SetupMenu : MonoBehaviour {
@@ -10,6 +11,8 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool SubButtonPool;
 	public SimpleObjectPool MainButtonPool;
 	public SimpleObjectPool SubMenuGroupPool;
+
+	public Transform group;
 
 	public List<MenuGroup> MenuData;
 
@@ -21,15 +24,10 @@ public class SetupMenu : MonoBehaviour {
 		{
 			// TODO: Check MenuGrp.Available
 			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
-			menuGroupPrefab.transform.SetParent (this.transform);
+			menuGroupPrefab.transform.SetParent (this.group);
 			ButtonGroupPref btngrp = menuGroupPrefab.GetComponent<ButtonGroupPref> ();
 			btngrp.Setup (menuGrp, this);
 		}
-	}
-
-	void Start()
-	{
-		//EnterPage ();
 	}
 
 	public void EnterPage()
@@ -40,11 +38,14 @@ public class SetupMenu : MonoBehaviour {
 
 	public void LeavePage()
 	{
-		while (this.transform.childCount > 0) 
+		while (this.group.childCount > 0) 
 		{
-			GameObject toRemove = this.transform.GetChild (0).gameObject;
-			toRemove.GetComponent<ButtonGroupPref> ().ReturnChildren ();
+			GameObject toRemove = this.group.GetChild (0).gameObject;
+			ButtonGroupPref test = toRemove.transform.GetComponent<ButtonGroupPref> ();
+			test.ReturnChildren ();
+			ButtonGroupPool.ReturnObject (toRemove);
 		}
+		this.gameObject.SetActive (false);
 	}
 
 	public void UpdatePage()
@@ -70,6 +71,4 @@ public class SetupMenu : MonoBehaviour {
 		}
 		return Menus;
 	}
-	// TODO: 	Function for leavePage, go through each object and return them to the pool.
-	// 			Also, Get data from some settings or create a base MenuGroup to show always.
 }
