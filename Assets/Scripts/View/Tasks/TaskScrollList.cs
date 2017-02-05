@@ -11,7 +11,7 @@ namespace App{
 		public SimpleObjectPool ButtonObjectPool;
 		public AddTaskButtonScript AddTaskButton;
 		public Pageswapper PageSwapperReference;
-		private List<Task> CheckedList = new List<Task>();
+		private List<Task> _checkedList = new List<Task>();
 
 		/*void Start () {
 				RefreshDisplay ();

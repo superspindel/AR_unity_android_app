@@ -35,10 +35,10 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public List<ActiveTasksGroup> menuGroupList;
 	//public List<Task> ActiveTaskList;
-	public SimpleObjectPool buttonGroupPool;
-	public SimpleObjectPool subButtonPool;
-	public SimpleObjectPool mainButtonPool;
-	public SimpleObjectPool subButtonGroupPool;
+	public SimpleObjectPool ButtonGroupPool;
+	public SimpleObjectPool SubButtonPool;
+	public SimpleObjectPool MainButtonPool;
+	public SimpleObjectPool SubButtonGroupPool;
 	public Transform ContentPanel;
 
 
@@ -47,7 +47,7 @@ public class ActiveTasksSetup : MonoBehaviour {
 		for (int i = 0; i < menuGroupList.Count; i++)
 		{
 			ActiveTasksGroup menuGroup = this.menuGroupList [i];
-			GameObject menuGroupPrefab = this.buttonGroupPool.GetObject ();
+			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
 			menuGroupPrefab.transform.SetParent (this.transform);
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
 			btngrp.Setup (menuGroup.SubMenus, menuGroup.Title, this);

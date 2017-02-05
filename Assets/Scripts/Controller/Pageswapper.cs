@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using App;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -122,9 +123,9 @@ public class Pageswapper : MonoBehaviour {
 
 	// AvalibleTaskPage
 	public void gotoAvalibleTasksPage(){
-		TaskScrollList script AvalibleTaskPage.GetComponent<TaskScrollList> ();
+		TaskScrollList script = AvalibleTaskPage.GetComponent<TaskScrollList> ();
 		DataStore.List<Task> (list => {
-			Script.EnterPage(list as List<Task>);
+			script.EnterPage(list as List<Task>);
 		});
 	}
 
