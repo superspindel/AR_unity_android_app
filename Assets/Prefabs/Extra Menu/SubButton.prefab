@@ -168,9 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4422078c84fea4f44acca0d06f48f0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textField: {fileID: 114367791404840230}
-  target: {fileID: 0}
-  parentGroup: {fileID: 0}
+  TextField: {fileID: 114367791404840230}
 --- !u!114 &114676410761064462
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,6 +11,8 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool MainButtonPool;
 	public SimpleObjectPool SubMenuGroupPool;
 
+	public List<MenuGroup> MenuData;
+
 
 	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
 	public void CreateMenu(List<MenuGroup> menuGroupList)
@@ -25,9 +27,20 @@ public class SetupMenu : MonoBehaviour {
 		}
 	}
 
+	void Start()
+	{
+		EnterPage ();
+	}
+
+	void FixedUpdate()
+	{
+		Settings.SaveFile ();
+	}
+
 	public void EnterPage()
 	{
-		// read settings page
+		this.gameObject.SetActive (true);
+		CreateMenu (this.GetMenu ());
 	}
 
 	public void LeavePage()
@@ -41,9 +54,27 @@ public class SetupMenu : MonoBehaviour {
 
 	public void UpdatePage()
 	{
-		
+		this.LeavePage ();
+		this.EnterPage ();
 	}
 
+	private List<MenuGroup> GetMenu()
+	{
+		List<MenuGroup> Menus = new List<MenuGroup> ();
+		if (Settings.application.Account) 
+		{
+			Menus.Add (this.MenuData [0]);
+		}
+		if (Settings.application.Help) 
+		{
+			Menus.Add (this.MenuData [1]);
+		}
+		if (Settings.application.Remote) 
+		{
+			Menus.Add (this.MenuData [2]);
+		}
+		return Menus;
+	}
 	// TODO: 	Function for leavePage, go through each object and return them to the pool.
 	// 			Also, Get data from some settings or create a base MenuGroup to show always.
 }
