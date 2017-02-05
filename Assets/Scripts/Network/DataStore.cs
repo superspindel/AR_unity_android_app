@@ -143,8 +143,9 @@ public class DataStore
     /// Gets a list of objects corresponding to the relevancy of the request. Is async with callback in most cases.
     /// </summary>
     /// <typeparam name="T">The type of objects to list</typeparam>
+    /// <param name="list">The list to fetch</param>
     /// <param name="callback">A callback to handle the requested data. Can be null to just queue update from server or heat up data from disk cache.</param>
-    public static void List<T>(Action<IEnumerable<T>> callback) where T: NetworkDataObject, new()
+    public static void List<T>(string list, Action<IEnumerable<T>> callback) where T: NetworkDataObject, new()
     {
         string eventName = typeof(T).Name + ".list";
         int hash = eventName.GetHashCode();
@@ -202,6 +203,11 @@ public class DataStore
                     callback(new T[0]);
             }
         }
+    }
+
+    public static void List<T>(Action<IEnumerable<T>> callback) where T : NetworkDataObject, new()
+    {
+        List<T>("all", callback);
     }
 
     /// <summary>
