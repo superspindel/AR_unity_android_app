@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class User : NetworkDataObject
 {
-	public Sprite profImg { get; set ;} 		// how?
+	//public Sprite profImg { get; set ;} 		// how?
 	public int UserIcon { get; set; }
 	public string Name { get; set;}
 	public int DailyScore { get; set;}

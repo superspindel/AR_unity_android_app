@@ -23,7 +23,7 @@ public class ProfileInfo : MonoBehaviour {
 	// Setup the slider with the same user object
 	public void SetProfileInfo(User PlayerProfile)
 	{
-		this.ProfileImage.sprite = PlayerProfile.profImg;
+		//this.ProfileImage.sprite = PlayerProfile.profImg;
 		this.NameField.text = "Name: \n" + PlayerProfile.Name;
 		this.DailyScoreField.text = "Daily: \n" + PlayerProfile.DailyScore.ToString ();
 		this.TotalScoreField.text = "Total: \n" + PlayerProfile.TotalScore.ToString ();

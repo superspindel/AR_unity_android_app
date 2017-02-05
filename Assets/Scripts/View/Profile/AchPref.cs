@@ -9,6 +9,13 @@ public class AchievementPrefab : MonoBehaviour {
 	public Button ButtonComponent;
 	private ProfileAchievement _ProfileAch;
 	private string _UserId { get; set;}
+	private Pageswapper _PageSwapper;
+	private Achievement _Achievement;
+
+	void Awake()
+	{
+		this._PageSwapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper> ();
+	}
 
 	// Setup of the prefab
 	public void Setup(Achievement Achiev, ProfileAchievement ProfAch)
@@ -16,5 +23,17 @@ public class AchievementPrefab : MonoBehaviour {
 		this.AchText.text = Achiev.Information;
 		this._UserId = Achiev.userID.ToString ();
 		this._ProfileAch = ProfAch;
+		this._Achievement = Achiev;
+		this.ButtonComponent.onClick.AddListener (this.PopUp);
+	}
+
+	private void PopUp()
+	{
+		this._PageSwapper.OpenPopup_General (this._Achievement.Title, this.GetInformation ());
+	}
+
+	private string GetInformation()
+	{
+		return this._Achievement.Information + "\n" + this._Achievement.Completed.ToString() +" completed out of " + this._Achievement.Needed.ToString();
 	}
 }
