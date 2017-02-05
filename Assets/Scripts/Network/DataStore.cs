@@ -100,15 +100,17 @@ public class DataStore
             // Queue update from server
             CommunicationsApi.Socket.Emit(eventName, id, "", o =>
             {
-                // New object? create empty instance and merge data to it
-                if (!ObjectTracker.ContainsKey(hash))
-                    ObjectTracker[hash] = new T();
-                ObjectTracker[hash].Merge((o as JsonEncodedEventMessage).GetFirstArgAs<T>());
-                // Update Offline Cache, is done async so it doesn't block
-                OfflineCache.QueueStore(hash, ObjectTracker[hash]);
-                if (!fast && callback != null)
-                    callback(ObjectTracker[hash] as T);
-
+                CommunicationsApi.RunOnMainThread(() =>
+                {
+                    // New object? create empty instance and merge data to it
+                    if (!ObjectTracker.ContainsKey(hash))
+                        ObjectTracker[hash] = new T();
+                    ObjectTracker[hash].Merge((o as JsonEncodedEventMessage).GetFirstArgAs<T>());
+                    // Update Offline Cache, is done async so it doesn't block
+                    OfflineCache.QueueStore(hash, ObjectTracker[hash]);
+                    if (!fast && callback != null)
+                        callback(ObjectTracker[hash] as T);
+                });
             });
         }
         else
@@ -151,22 +153,25 @@ public class DataStore
             // fetch array with ids, then Get each object (allows us to fetch from local cache instead of sending buttloads of data over net by default)
             CommunicationsApi.Socket.Emit(eventName, null, "", o =>
             {
-                List<T> returns = new List<T>();
-                var got = (o as JsonEncodedEventMessage).GetFirstArgAs<string[]>();
-                int i = got.Length;
-                foreach (var id in got)
+                CommunicationsApi.RunOnMainThread(() =>
                 {
-                    Get<T>(id, obj =>
+                    List<T> returns = new List<T>();
+                    var got = (o as JsonEncodedEventMessage).GetFirstArgAs<string[]>();
+                    int i = got.Length;
+                    foreach (var id in got)
                     {
-                        returns.Add(obj);
-                        i--;
-                        if (i == 0)
+                        Get<T>(id, obj =>
                         {
-                            if (callback != null)
-                                callback(returns);
-                        }
-                    });
-                }
+                            returns.Add(obj);
+                            i--;
+                            if (i == 0)
+                            {
+                                if (callback != null)
+                                    callback(returns);
+                            }
+                        });
+                    }
+                });
             });
         }
         else
@@ -208,13 +213,15 @@ public class DataStore
         var eventName = typeof(T).Name + ".update";
         CommunicationsApi.Socket.On(eventName, message =>
         {
-            var obj = message.Json.GetFirstArgAs<T>();
-            int hash = GetHashCode(typeof(T), obj.Id);
-            if (!ObjectTracker.ContainsKey(hash))
-                ObjectTracker[hash] = new T();
-            ObjectTracker[hash].Merge(obj);
-            // Update Offline Cache, is done async so it doesn't block
-            OfflineCache.QueueStore(hash, ObjectTracker[hash]);
+            CommunicationsApi.RunOnMainThread(() => {
+                var obj = message.Json.GetFirstArgAs<T>();
+                int hash = GetHashCode(typeof(T), obj.Id);
+                if (!ObjectTracker.ContainsKey(hash))
+                    ObjectTracker[hash] = new T();
+                ObjectTracker[hash].Merge(obj);
+                // Update Offline Cache, is done async so it doesn't block
+                OfflineCache.QueueStore(hash, ObjectTracker[hash]);
+            });
         });   
     }
     public static void Update<T>(T obj, Action<bool> callback) where T : NetworkDataObject, new()
@@ -239,14 +246,16 @@ public class DataStore
     {
         Action<object> emitCallback = o =>
         {
-            var created = (o as JsonEncodedEventMessage).GetFirstArgAs<T>();
-            int hash = GetHashCode(typeof(T), created.Id);
-            if (!ObjectTracker.ContainsKey(hash))
-                ObjectTracker[hash] = new T();
-            ObjectTracker[hash].Merge(created);
-            OfflineCache.QueueStore(hash, ObjectTracker[hash]);
-            if (callback != null)
-                callback(ObjectTracker[hash] as T);
+            CommunicationsApi.RunOnMainThread(() => {
+                var created = (o as JsonEncodedEventMessage).GetFirstArgAs<T>();
+                int hash = GetHashCode(typeof(T), created.Id);
+                if (!ObjectTracker.ContainsKey(hash))
+                    ObjectTracker[hash] = new T();
+                ObjectTracker[hash].Merge(created);
+                OfflineCache.QueueStore(hash, ObjectTracker[hash]);
+                if (callback != null)
+                    callback(ObjectTracker[hash] as T);
+            });
         };
         string eventName = typeof(T).Name + ".create";
         if (CommunicationsApi.IsAvailable)
@@ -265,10 +274,12 @@ public class DataStore
         int hash = GetHashCode(typeof(T), obj.Id);
         Action<object> emitCallback = o =>
         {
-            ObjectTracker.Remove(hash);
-            OfflineCache.Purge(hash);
-            if (callback != null)
-                callback(true);
+            CommunicationsApi.RunOnMainThread(() => {
+                ObjectTracker.Remove(hash);
+                OfflineCache.Purge(hash);
+                if (callback != null)
+                    callback(true);
+            });
         };
         string eventName = typeof(T).Name + ".delete";
         if (CommunicationsApi.IsAvailable)

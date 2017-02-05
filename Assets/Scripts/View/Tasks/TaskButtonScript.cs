@@ -44,7 +44,7 @@ namespace Application{
 			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
 			XpLabel.text = _task.TotalXp.ToString() + "xp";
 			_scrollList = currentScrollList;
-			TaskToggle = this.GetComponentInChildren<TaskToggleScript>();
+			TaskToggle = this.transform.FindChild("Toggle").GetComponent<TaskToggleScript>();
 			TaskToggle.Setup (this);
 		}
 	}

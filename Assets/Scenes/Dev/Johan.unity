@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9580cfa9cac58471087488ea9e1af25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1832517736838146, guid: c355c8884ce584c74b849962850a12e0, type: 2}
+  Prefab: {fileID: 0}
 --- !u!4 &585317228
 Transform:
   m_ObjectHideFlags: 0
@@ -2030,7 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9580cfa9cac58471087488ea9e1af25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1544141410799212, guid: 99e7bdf3499084947964e091f02a06b3, type: 2}
+  Prefab: {fileID: 0}
 --- !u!4 &1209407466
 Transform:
   m_ObjectHideFlags: 0
@@ -3224,10 +3224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cc87d06fe9240ce9d2380075c4a03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achievementObjectList: []
-  achievementPanel: {fileID: 1781681411}
-  achievementGroup: {fileID: 0}
-  achievementObjectPool: {fileID: 1209407465}
 --- !u!114 &1781681414
 MonoBehaviour:
   m_ObjectHideFlags: 0

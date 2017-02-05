@@ -13,7 +13,7 @@ public class DataContainer : MonoBehaviour {
 	public List<Task> ActiveTasks;
 	public List<Task> AvalibleTasks;
 
-	// Global Achivement / Badge
+	// Global achievement / Badge
 	public List<Achievement> AchievementList;
 	public List<Badge> BadgeList;
 

@@ -93,7 +93,7 @@ public class Pageswapper : MonoBehaviour {
 	public void GoToProfilePage()
 	{
 		ProfileView script = ProfilePage.GetComponent<ProfileView> ();
-		DataStore.Get<User> ("12345", o => {
+		DataStore.Get<User> ("test-user", o => {
 			script.EnterPage(o);			
 		});
 	}

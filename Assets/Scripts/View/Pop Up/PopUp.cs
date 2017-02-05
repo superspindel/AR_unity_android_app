@@ -17,7 +17,7 @@ public class PopUp : MonoBehaviour {
 
 	void Awake(){
 		_pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
-		this._popUpPanelText = this.PopupTopPanel.transform.FindChild ("Title").GetComponent<Text> ();
+		this._popUpPanelText = PopupTopPanel.transform.FindChild ("Title").GetComponent<Text> ();
 
 		// exit button
 		this._exitButton = PopupTopPanel.transform.FindChild("ExitButton").GetComponent<Button> ();

@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using SocketIOClient;
 
 public class CommunicationsApi : MonoBehaviour
@@ -14,6 +16,8 @@ public class CommunicationsApi : MonoBehaviour
     public static Client Socket { get; private set; }
 
     private bool _shouldReconnect = true;
+
+    private static List<Action> _queuedTasks = new List<Action>();
 
     // Use this for initialization
 	void Start ()
@@ -63,8 +67,25 @@ public class CommunicationsApi : MonoBehaviour
     {
         Debug.Log("Opened connection!");
     }
-    
+
+    public static void RunOnMainThread(Action run)
+    {
+        lock (_queuedTasks)
+        {
+            _queuedTasks.Add(run);
+        }
+
+    }
     // Update is called once per frame
 	void Update () {
+	    lock (_queuedTasks)
+	    {
+	        var tasks = _queuedTasks.ToArray();
+            _queuedTasks.Clear();
+	        foreach(var action in tasks)
+	        {
+	            action.Invoke();
+	        }
+	    }
 	}
 }

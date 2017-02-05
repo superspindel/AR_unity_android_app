@@ -11,10 +11,10 @@ namespace Application{
 		public AddTaskButtonScript AddTaskButton;
 		private List<Task> _checkedList = new List<Task>();
 
-		void Start () {
+		/*void Start () {
 				RefreshDisplay ();
 
-		}
+		}*/
 
 		// Removes and adds buttons
 		public void RefreshDisplay()
@@ -28,7 +28,7 @@ namespace Application{
 		{
 			for (int i = 0; i < TaskList.Count; i++)
 			{
-				if (TaskList [i].UserId == 0) { // TODO: check if no one "has task"
+				if (TaskList [i].UserId == null) { // TODO: check if no one "has task"
 					Task task = TaskList [i];
 					task.Id = i.ToString (); //TODO REMOVE
 					GameObject newButton = ButtonObjectPool.GetObject ();
@@ -92,7 +92,7 @@ namespace Application{
 		public void AddCheckedTasks(){
 			foreach (Task taskToAdd in _checkedList) {
 				Debug.Log ("Added task: " + taskToAdd.Id + " to your active tasks");
-				taskToAdd.UserId = 123; // TODO: get the real userID
+				taskToAdd.UserId = "123"; // TODO: get the real userID
 			}
 			RefreshDisplay ();
 		}

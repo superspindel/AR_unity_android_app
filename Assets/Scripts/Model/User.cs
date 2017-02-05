@@ -12,7 +12,7 @@ public class User : NetworkDataObject
 	public int TotalLevel { get; set;}
 
 	public List<Badge> Badges { get; set;}
-	public List<Achievement> Achivements { get; set;}
+	public List<Achievement> Achievements { get; set;}
 
 	// Badge data
 	// store on server? int for example: tasksCompleted, nrOfDaysInTime etc.;

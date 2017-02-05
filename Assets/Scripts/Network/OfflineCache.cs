@@ -16,7 +16,14 @@ public static class OfflineCache {
     public static T Fetch<T>(int hash)
     {
         // TODO: actual offline storage
-        return SimpleJson.SimpleJson.DeserializeObject<T>(FakeOfflineCache[hash]);
+        try
+        {
+            return SimpleJson.SimpleJson.DeserializeObject<T>(FakeOfflineCache[hash]);
+        }
+        catch (Exception)
+        {
+            return default(T);
+        }
     }
 
     public static void Purge(int hash)

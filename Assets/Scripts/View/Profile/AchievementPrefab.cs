@@ -20,13 +20,14 @@ public class AchievementPrefab : MonoBehaviour {
 	// Setup of the prefab
 	public void Setup(Achievement Achiev, ProfileAchievement ProfAch)
 	{
+        /*
 		this.AchText.text = Achiev.Information;
-		this._UserId = Achiev.userID.ToString ();
+		this._UserId = Achiev.UserId.ToString ();
 		this._ProfileAch = ProfAch;
 		this._Achievement = Achiev;
-		this.ButtonComponent.onClick.AddListener (this.PopUp);
+		this.ButtonComponent.onClick.AddListener (this.PopUp);*/
 	}
-
+    /*
 	private void PopUp()
 	{
 		this._PageSwapper.OpenPopup_General (this._Achievement.Title, this.GetInformation ());
@@ -35,5 +36,5 @@ public class AchievementPrefab : MonoBehaviour {
 	private string GetInformation()
 	{
 		return this._Achievement.Information + "\n" + this._Achievement.Completed.ToString() +" completed out of " + this._Achievement.Needed.ToString();
-	}
+	}*/
 }

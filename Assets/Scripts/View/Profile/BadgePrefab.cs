@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BdgPref : MonoBehaviour {
+public class BadgePrefab : MonoBehaviour {
 
 	public Image BadgeIcon;
 	public Button ButtonComponent;

@@ -9,7 +9,7 @@ public class SubTaskItem : MonoBehaviour {
 	public string Warning, Info;
 	public List<Tool> Tools;
 
-	private int			_id;
+	private string			_id;
 	private Status 		_status;
 	private bool 		_hasTool, _hasHelp, _hasInfo, _hasWarning;
 	private bool 		_isBonus;
@@ -77,7 +77,7 @@ public class SubTaskItem : MonoBehaviour {
 		this._textField.color = _getTextColorByStatus();
 	}
 
-	public void SetId(int id){
+	public void SetId(string id){
 		this._id = id;
 	}
 

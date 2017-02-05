@@ -35,7 +35,7 @@ public class ProfileBadge : Prefab {
 		{
 			GameObject newBadge = this.BadgePool.GetObject ();
 			newBadge.transform.SetParent (this.BadgeGroupPanel);
-			BdgPref badgePref = newBadge.GetComponent<BdgPref> ();
+			BadgePrefab badgePref = newBadge.GetComponent<BadgePrefab> ();
 			badgePref.Setup (bdg, this);
 		}
 	}
