@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Profile : NetworkDataObject
+public class User : NetworkDataObject
 {
-	public int UserId { get; set;} // userID
 	public Sprite profImg { get; set ;} 		// how?
 	public int UserIcon { get; set; }
 	public string Name { get; set;}
@@ -12,8 +11,8 @@ public class Profile : NetworkDataObject
 	public int TotalScore { get; set;}
 	public int TotalLevel { get; set;}
 
-	public Achievement[] BadgeArray { get; set;}
-	public Achievement[] AchArray { get; set;}
+	public List<Badge> BadgeList { get; set;}
+	public List<Achievement> AchList { get; set;}
 
 	// Badge data
 	// store on server? int for example: tasksCompleted, nrOfDaysInTime etc.;
@@ -23,7 +22,7 @@ public class Profile : NetworkDataObject
 	//public List<int> achiId
 	//public List<int> badgeId
 
-	public Profile()
+	public User()
 	{
 	}
 }

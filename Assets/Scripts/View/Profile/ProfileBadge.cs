@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 
-public class ProfileBadge : MonoBehaviour {
+public class ProfileBadge : Prefab {
 
 	public Transform BadgeGroupPanel;
 	public SimpleObjectPool BadgePool;
@@ -18,7 +18,8 @@ public class ProfileBadge : MonoBehaviour {
 	}
 	*/
 
-	public void RemoveBadges()
+	// Return object to the pool
+	public override void ReturnChildren()
 	{
 		while (this.BadgeGroupPanel.childCount > 0) 
 		{
@@ -27,6 +28,7 @@ public class ProfileBadge : MonoBehaviour {
 		}
 	}
 
+	// Add objects from pool to the scene and call setup on them
 	public void AddBadges(List<Badge> BadgeList)
 	{
 		foreach (Badge Bdg in BadgeList)

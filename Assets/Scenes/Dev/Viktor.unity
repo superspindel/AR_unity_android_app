@@ -222,11 +222,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63541775}
---- !u!224 &259835267 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1841631421}
 --- !u!1 &337081284
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,47 +327,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &585317226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 585317228}
-  - component: {fileID: 585317227}
-  m_Layer: 0
-  m_Name: BadgePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &585317227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 585317226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9580cfa9cac58471087488ea9e1af25a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 1832517736838146, guid: c355c8884ce584c74b849962850a12e0, type: 2}
---- !u!4 &585317228
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 585317226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 242.5, y: 412.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &638560001
 Prefab:
   m_ObjectHideFlags: 0
@@ -545,6 +499,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &715548339 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224927619128105390, guid: a0f12360fdcb34de8a1443637b68a52a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1841631421}
 --- !u!1001 &759669067
 Prefab:
   m_ObjectHideFlags: 0
@@ -1122,89 +1081,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e29ef3be12254c9fac54aeac349d8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achievementBox: {fileID: 1781681411}
-  profileInfo: {fileID: 259835267}
-  BadgesBox: {fileID: 1509681990}
-  achievementObjectList:
-  - id: 1
-    achievementText: Bra gurka till frukost
-  - id: 2
-    achievementText: "Sover aldrig p\xE5 jobbet"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  - id: 3
-    achievementText: "Tittar inte ut fr\xE5n sin grotta"
-  badgeObjectList:
-  - id: 1
-    iconImage: {fileID: 21300000, guid: f9e30604603bdce458e0af50dbbd7a9e, type: 3}
-    color: {r: 0.7794118, g: 0.58455884, b: 0.58455884, a: 1}
-  - id: 2
-    iconImage: {fileID: 21300000, guid: f04977876c742454e830520575ced8bd, type: 3}
-    color: {r: 0.72794116, g: 0.3693231, b: 0.3693231, a: 1}
-  - id: 3
-    iconImage: {fileID: 21300000, guid: 8292ed206eba29c4ea5618684df1ba3a, type: 3}
-    color: {r: 0, g: 1, b: 0.13103461, a: 1}
---- !u!1 &1209407464
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1209407466}
-  - component: {fileID: 1209407465}
-  m_Layer: 0
-  m_Name: AchievementPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1209407465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1209407464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9580cfa9cac58471087488ea9e1af25a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 1544141410799212, guid: 99e7bdf3499084947964e091f02a06b3, type: 2}
---- !u!4 &1209407466
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1209407464}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 242.5, y: 412.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  AchievementBox: {fileID: 715548339}
+  ProfileInfoBox: {fileID: 1662553697}
+  BadgeBox: {fileID: 1992065169}
 --- !u!224 &1293402839 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224873340915384724, guid: 1ed658fafae7449379f0ed7236ebadf2,
@@ -1310,11 +1189,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!224 &1509681990 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224080121891987354, guid: a0f12360fdcb34de8a1443637b68a52a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1841631421}
 --- !u!1 &1526842019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,9 +1345,9 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1566693393}
---- !u!224 &1781681411 stripped
+--- !u!224 &1662553697 stripped
 RectTransform:
-  m_PrefabParentObject: {fileID: 224927619128105390, guid: a0f12360fdcb34de8a1443637b68a52a,
+  m_PrefabParentObject: {fileID: 224009765031859234, guid: a0f12360fdcb34de8a1443637b68a52a,
     type: 2}
   m_PrefabInternal: {fileID: 1841631421}
 --- !u!1001 &1841631421
@@ -1573,25 +1447,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114769461189327244, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: BadgePool
-      value: 
-      objectReference: {fileID: 585317227}
-    - target: {fileID: 114017405377130218, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: achievementObjectPool
-      value: 
-      objectReference: {fileID: 1209407465}
-    - target: {fileID: 224423975924129768, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.45549738
-      objectReference: {fileID: 0}
     - target: {fileID: 224423975924129768, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224054609207995004, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
@@ -1823,6 +1682,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 224595461734834482, guid: a0f12360fdcb34de8a1443637b68a52a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 224927619128105390, guid: a0f12360fdcb34de8a1443637b68a52a,
         type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -1832,16 +1696,6 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224595461734834482, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 224701328248366086, guid: a0f12360fdcb34de8a1443637b68a52a,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 232
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0f12360fdcb34de8a1443637b68a52a, type: 2}
@@ -2049,6 +1903,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1992065169 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224080121891987354, guid: a0f12360fdcb34de8a1443637b68a52a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1841631421}
 --- !u!1 &2063361950
 GameObject:
   m_ObjectHideFlags: 0

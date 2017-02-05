@@ -7,13 +7,17 @@ public class BdgPref : MonoBehaviour {
 
 	public Image BadgeIcon;
 	public Button ButtonComponent;
-	public ProfileBadge Parent;
+
+	private ProfileBadge _Parent;
+	private int _UserId;
+
 	public BadgeDict BadgeDictionary;
 
-	// Use this for initialization
+	// Setup of the prefab
 	public void Setup(Badge bdg, ProfileBadge profBdg)
 	{
 		this.BadgeIcon.sprite = BadgeDictionary.GetSprite (bdg.SpriteId);
-		this.Parent = profBdg;
+		this._Parent = profBdg;
+		this._UserId = bdg.userID;
 	}
 }

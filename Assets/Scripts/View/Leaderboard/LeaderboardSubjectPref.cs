@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderboardSubjectPref : MonoBehaviour {
+public class LeaderboardSubjectPref : Prefab {
 
 	private string Title;
 	private List<LeaderboardUser> UserList;
@@ -11,7 +11,9 @@ public class LeaderboardSubjectPref : MonoBehaviour {
 	private SimpleObjectPool TitleObjectPool;
 	private SimpleObjectPool UserObjectPool;
 
+	private bool _Initialized = false;
 
+	// Creates the subject gameobject and sets the title and adds the users in the leaderboard.
 	public void Setup(SimpleObjectPool TitleObjectPool, SimpleObjectPool UserObjectPool, Leaderboard ldbSubObj)
 	{
 		this.TitleObjectPool = TitleObjectPool;
@@ -19,28 +21,57 @@ public class LeaderboardSubjectPref : MonoBehaviour {
 		this.Title = ldbSubObj.Title;
 		this.UserList = ldbSubObj.LeaderboardUsers;
 
-		this.createTitle ();
-		this.insertLeaderboardUsers ();
+		this.CreateTitle ();
+		this.InsertLeaderboardUsers ();
 	}
 
-	private void createTitle()
+	private void CreateTitle()
 	{
 		GameObject newTitle = this.TitleObjectPool.GetObject ();
 		newTitle.transform.SetParent (this.transform);
-		leaderboardTitle ldbttl = newTitle.GetComponent<leaderboardTitle> ();
+		leaderboardTitlePref ldbttl = newTitle.GetComponent<leaderboardTitlePref> ();
 		ldbttl.Setup (this.Title);
 	}
 
-	private void insertLeaderboardUsers()
+	private void InsertLeaderboardUsers()
 	{
 		int i = 0;
 		foreach (LeaderboardUser user in UserList)
 		{
+			if (!this._Initialized) 
+			{
+				user.Updated += obj => {
+					this.UpdateSubject();
+				};
+			}
 			GameObject newUsObj = this.UserObjectPool.GetObject ();
 			newUsObj.transform.SetParent (this.transform);
 			LeaderboardUserPref ldbUser = newUsObj.GetComponent<LeaderboardUserPref> ();
 			ldbUser.Setup (user, i == UserList.Count-1);
 			i++;
 		}
+		this._Initialized = true;
+	}
+
+	public override void ReturnChildren()
+	{
+		while (this.transform.childCount > 0)
+		{
+			GameObject toRemove = this.transform.GetChild(0).gameObject;
+			PooledObject script = toRemove.GetComponent<PooledObject> ();
+			if (script.pool == this.TitleObjectPool) 
+			{
+				this.TitleObjectPool.ReturnObject (toRemove);
+			} 
+			else 
+			{
+				this.UserObjectPool.ReturnObject (toRemove);
+			}
+		}
+	}
+	public void UpdateSubject()
+	{
+		this.ReturnChildren ();
+		this.InsertLeaderboardUsers ();
 	}
 }

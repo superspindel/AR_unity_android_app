@@ -2,23 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class leaderBoardView : MonoBehaviour {
+// Script for the leaderboard panel, sets up the view of the leaderboards.
+public class LeaderBoardView : MonoBehaviour {
 
 	public SimpleObjectPool SubjectPool;
 	public SimpleObjectPool LeaderboardTitlePool;
 	public SimpleObjectPool LeaderboardUserPool;
 
-	public List<Leaderboard> subjectList;
+	public List<Leaderboard> SubjectList;
 
-	public void Setup()
+	private bool _Initialized = false;
+
+	// TODO: Have setup get information from the cache
+	public void EnterPage(List<Leaderboard> SubjectList)
 	{
-		foreach (Leaderboard Ldb in subjectList)
+		this.SubjectList = SubjectList;
+		foreach (Leaderboard Ldb in this.SubjectList)
 		{
+			// TODO: Check Ldb.Available
+			if (!this._Initialized) 
+			{
+				Ldb.Updated += obj => {
+					this.UpdatePage(SubjectList);
+				};
+			}
 			GameObject newSubj = this.SubjectPool.GetObject ();
 			newSubj.transform.SetParent (this.transform);
 			LeaderboardSubjectPref ldbSubjScript = newSubj.GetComponent<LeaderboardSubjectPref> ();
 			ldbSubjScript.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, Ldb);
 		}
+		this._Initialized = true;
+	}
+
+	public void LeavePage()
+	{
+		while (this.transform.childCount > 0)
+		{
+			GameObject ToRemove = this.transform.GetChild(0).gameObject;
+			Prefab Script = ToRemove.GetComponent<Prefab> ();
+			Script.ReturnChildren ();
+		}
+	}
+
+	public void UpdatePage(List<Leaderboard> UpdatedSubjectList)
+	{
+		this.LeavePage ();
+		this.EnterPage (UpdatedSubjectList);
 	}
 }

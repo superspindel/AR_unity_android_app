@@ -6,32 +6,46 @@ using UnityEngine.UI;
 namespace Application{
 	public class TaskButtonScript : MonoBehaviour {
 
-		public Text taskLabel;
-		public Text xpLabel;
-		public taskToggleScript taskToggle;
-		public Button taskButton;
+		public Text TaskLabel;
+		public Text XpLabel;
+		public TaskToggleScript TaskToggle;
+		public Button TaskButton;
+		private Pageswapper _pageswap;
 
-		private Task task;
-		private TaskScrollList scrollList;
+		private Task _task;
+		private TaskScrollList _scrollList;
 
 		// Use this for initialization
 		void Start () {
-			
+			//_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
+			TaskButton.onClick.AddListener (HandleClick);
 		}
 			
-		public void checkout(bool togglecheck){
-			// TODO: Task.check = togglecheck; 
-			scrollList.showAddButton (togglecheck);
+		public void checkout(bool togglecheck)
+		{
+			if (togglecheck) {
+				_scrollList.SelectTask (_task);
+			} else {
+				_scrollList.RemoveSelectedTask (_task);
+			}
+			//scrollList.showAddButton (togglecheck);
+		}
+
+		public void HandleClick()
+		{
+			Debug.Log ("1: Task ID: " + _task.Id);
+			//_pageswap.gotoSpecificTaskPage (_task.Id);
+			//TODO
 		}
 
 		public void Setup(Task currentTask, TaskScrollList currentScrollList)
 		{
-			task = currentTask;
-			taskLabel.text = task.Title;
-			xpLabel.text = task.TotalXp.ToString() + "xp";
-			scrollList = currentScrollList;
-			taskToggle = this.GetComponentInChildren<taskToggleScript>();
-			// TODO: Check taskToggle.Setup (this, currentTask.check);
+			_task = currentTask;
+			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
+			XpLabel.text = _task.TotalXp.ToString() + "xp";
+			_scrollList = currentScrollList;
+			TaskToggle = this.GetComponentInChildren<TaskToggleScript>();
+			TaskToggle.Setup (this);
 		}
 	}
 }
