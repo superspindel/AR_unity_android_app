@@ -152,7 +152,7 @@ public class DataStore
         if (CommunicationsApi.IsAvailable)
         {
             // fetch array with ids, then Get each object (allows us to fetch from local cache instead of sending buttloads of data over net by default)
-            CommunicationsApi.Socket.Emit(eventName, null, "", o =>
+            CommunicationsApi.Socket.Emit(eventName, list, "", o =>
             {
                 CommunicationsApi.RunOnMainThread(() =>
                 {
