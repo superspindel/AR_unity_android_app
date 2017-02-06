@@ -36,7 +36,7 @@ public abstract class NetworkDataObject
         }
         if (Updated != null)
             Updated(this);
-		Available = true;
+        Available = true;
     }
     public override int GetHashCode()
     {
