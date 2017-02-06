@@ -62,4 +62,11 @@ public class ProfileView : MonoBehaviour {
 		this.EnterPage (newInfo);
 	}
 
+	public void NotAvailable()
+	{
+		User profile = new User ();
+		profile.Name = "?";
+		EnterPage (profile);
+	}
+
 }

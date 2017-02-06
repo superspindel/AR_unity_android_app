@@ -12,6 +12,7 @@ public class AppSettings {
 	public int UserID{ get; set; }
 	public int AchievementTracker { get; set; }
 	public int BadgeTracker { get; set; }
+	public bool Leaderboard { get; set; }
 
 }
 public class Settings : MonoBehaviour {
@@ -49,6 +50,7 @@ public class Settings : MonoBehaviour {
 		{
 			_settings = new AppSettings ();
 			_settings.Account = true;
+			_settings.Leaderboard = true;
 			_settings.UserID = 0;
 			_settings.ImagePath = "";
 			_settings.Help = true;

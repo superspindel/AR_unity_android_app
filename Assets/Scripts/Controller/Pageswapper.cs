@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Pageswapper : MonoBehaviour {
 
+
 	[Header("Testing")]
 	[SerializeField] private Stack<GameObject> _previousPages;
 
@@ -96,7 +97,16 @@ public class Pageswapper : MonoBehaviour {
 		_activePageForward (this.ProfilePage);
 		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
 		DataStore.Get<User> ("12345", o => {
-			Script.EnterPage(o);			
+			Debug.Log(o.Available);
+			Debug.Log(o.Name);
+			if(o.Available)
+			{
+				Script.EnterPage(o);
+			}
+			else
+			{
+				Script.NotAvailable();
+			}
 		});
 	}
 
@@ -194,4 +204,5 @@ public class Pageswapper : MonoBehaviour {
 	public void LeavePopup(){
 		PopUpWindow.GetComponent<PopUp>().ClosePopup ();
 	}
+
 }
