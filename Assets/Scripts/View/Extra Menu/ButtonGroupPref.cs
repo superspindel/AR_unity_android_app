@@ -67,7 +67,6 @@ public class ButtonGroupPref : Prefab {
 		while (this.transform.childCount > 0) 
 		{
 			GameObject toRemove = this.transform.GetChild (0).gameObject;
-			Debug.Log ("Inside");
 			PooledObject script = toRemove.GetComponent<PooledObject> ();
 			if (script.Pool == MainButtonPool) {
 				MainButtonPool.ReturnObject (toRemove);

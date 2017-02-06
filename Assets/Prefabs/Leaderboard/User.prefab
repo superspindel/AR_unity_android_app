@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XpText: {fileID: 114125798699551288}
-  positionText: {fileID: 114688426860710738}
-  border: {fileID: 114474918772541046}
+  PositionText: {fileID: 114688426860710738}
+  Border: {fileID: 114474918772541046}
 --- !u!114 &114300617088583790
 MonoBehaviour:
   m_ObjectHideFlags: 1
