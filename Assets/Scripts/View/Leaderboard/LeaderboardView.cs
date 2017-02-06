@@ -38,11 +38,12 @@ public class LeaderboardView : MonoBehaviour {
 
 	public void LeavePage()
 	{
-		while (this.transform.childCount > 0)
+		while (this.Group.childCount > 0)
 		{
 			GameObject toRemove = this.Group.GetChild(0).gameObject;
 			Prefab script = toRemove.GetComponent<Prefab> ();
 			script.ReturnChildren ();
+			SubjectPool.ReturnObject (toRemove);
 		}
 		this.gameObject.SetActive (false);
 	}
