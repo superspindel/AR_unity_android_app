@@ -9,9 +9,17 @@ public class ActiveTaskButton : MonoBehaviour {
 	public Button Butncmp;
 	public Button ArrowButton;
 	private int _rotate = -1; // to create toggle behaviour when rotating arrowbutton
+	private string _taskId;
+
+	private Pageswapper _pageswapper;
+
+	void Awake(){
+		_pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
+	}
 	
-	public void Setup(string aTitle, ActiveButtonGroup parent)
+	public void Setup(string id, string aTitle, ActiveButtonGroup parent)
 	{
+		this._taskId = id;
 		TextField.text = aTitle;
 		this._parent = parent;
 		Butncmp.onClick.AddListener (HandleClick);
@@ -20,8 +28,7 @@ public class ActiveTaskButton : MonoBehaviour {
 
 	public void HandleClick()
 	{
-		//GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ().gotoSpecificTaskPage ();
-		//TODO: show specific task view
+		_pageswapper.gotoSpecificTaskPage (this._taskId);
 	}
 
 	// Toggles sub menu and rotates arrowbutton

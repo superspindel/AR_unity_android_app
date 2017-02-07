@@ -20,7 +20,7 @@ public class ActiveButtonGroup : MonoBehaviour {
 		_itemsFromSubGroupPool = new List<GameObject> ();
 	}
 
-	public void Setup(List<SubTask> lstsub, string title, ActiveTasksSetup setMenu)
+	public void Setup(List<SubTask> lstsub, string id, string title, ActiveTasksSetup setMenu)
 	{
 		this.Lstsub = lstsub;
 		this.SetMenu = setMenu;
@@ -28,19 +28,19 @@ public class ActiveButtonGroup : MonoBehaviour {
 		this.MainButtonPool = setMenu.MainButtonPool;
 		this.SubButtonGroupPool = setMenu.SubButtonGroupPool;
 
-		this.AddMainButton (title);
+		this.AddMainButton (id, title);
 		this.AddSubMenuGroup ();
 		this.ToggleSubMenu ();
 	}
 
 
-	private void AddMainButton(string title)
+	private void AddMainButton(string id, string title)
 	{
 		GameObject mainButton = this.MainButtonPool.GetObject ();
 		_itemsFromMainButtonPool.Add (mainButton);
 		mainButton.transform.SetParent (this.transform);
 		ActiveTaskButton mbut = mainButton.GetComponent<ActiveTaskButton> ();
-		mbut.Setup (title, this);
+		mbut.Setup (id, title, this);
 	}
 
 	private void AddSubMenuGroup()

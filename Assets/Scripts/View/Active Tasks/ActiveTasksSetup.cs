@@ -59,7 +59,7 @@ public class ActiveTasksSetup : MonoBehaviour {
 			menuGroupPrefab.transform.SetParent (ContentPanel);
 			Task activeTask = this.ActiveTaskList [i];
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
-			btngrp.Setup (SubTaskList, activeTask.Title, this);
+			btngrp.Setup (SubTaskList, activeTask.Id, activeTask.Title, this);
 		}
 	}
 
