@@ -34,7 +34,8 @@ public class ActiveTasksGroup
 public class ActiveTasksSetup : MonoBehaviour {
 
 	private List<ActiveTasksGroup> menuGroupList;
-	private List<Task> ActiveTaskList;
+	public List<Task> ActiveTaskList;
+	public List<SubTask> SubTaskList; //For Debugging
 	public SimpleObjectPool ButtonGroupPool;
 	public SimpleObjectPool SubButtonPool;
 	public SimpleObjectPool MainButtonPool;
@@ -48,16 +49,22 @@ public class ActiveTasksSetup : MonoBehaviour {
 		{
 			//ActiveTasksGroup menuGroup = this.menuGroupList [i];
 			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
-			menuGroupPrefab.transform.SetParent (this.transform);
+			menuGroupPrefab.transform.SetParent (ContentPanel);
 			Task activeTask = this.ActiveTaskList [i];
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
-			btngrp.Setup (activeTask.SubTasks, activeTask.Title, this);
+			btngrp.Setup (SubTaskList, activeTask.Title, this);
 		}
 	}
 
 	public void RemoveMenu()
 	{
 		
+		while (ContentPanel.childCount > 0) 
+		{
+			GameObject toRemove = ContentPanel.GetChild (0).gameObject;
+			toRemove.GetComponent<ActiveButtonGroup> ().RemoveMenu ();
+			ButtonGroupPool.ReturnObject (toRemove);
+		}
 	}
 
 	public void Start()
@@ -69,10 +76,12 @@ public class ActiveTasksSetup : MonoBehaviour {
 	{
 		this.ActiveTaskList = tasklist;
 		this.ContentPanel.gameObject.SetActive (true);
+		CreateMenu ();
 	}
 
 	public void LeavePage()
 	{
+		RemoveMenu ();
 		this.ContentPanel.gameObject.SetActive (false);
 	}
 }

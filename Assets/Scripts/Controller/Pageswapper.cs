@@ -158,7 +158,7 @@ public class Pageswapper : MonoBehaviour {
 	// ActiveTasksPage
 	public void gotoActiveTasksPage(){
 		ActiveTasksSetup activetaskpage = ActiveTasksPage.GetComponent<ActiveTasksSetup> ();
-		DataStore.List<Task>(list => {
+		DataStore.List<Task>("me", list => {
 			activetaskpage.EnterPage(list as List<Task>);
 		});
 	}

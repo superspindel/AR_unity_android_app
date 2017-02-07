@@ -15,15 +15,15 @@ public class ActiveSubButtonGroup : MonoBehaviour {
 
 	public void AddSubMenus(List<SubTask> lstsub)
 	{
-		for (int i = 0; i < lstsub.Count; i++)
-		{
-			SubTask submenu = lstsub [i];
-			GameObject subButton = this._subButtonPool.GetObject ();
-			subButton.transform.SetParent (this.transform);
-			ActiveSubButton subBut = subButton.GetComponent<ActiveSubButton> ();
-			subBut.Setup (submenu, this);
-		}
+			for (int i = 0; i < lstsub.Count; i++) {
+				SubTask submenu = lstsub [i];
+				GameObject subButton = this._subButtonPool.GetObject ();
+				subButton.transform.SetParent (this.transform);
+				ActiveSubButton subBut = subButton.GetComponent<ActiveSubButton> ();
+				subBut.Setup (submenu, this);
+			}
 	}
+	
 
 	public void RemoveSubs()
 	{
