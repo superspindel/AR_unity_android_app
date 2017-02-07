@@ -12,17 +12,22 @@ public class SetupMenu : MonoBehaviour {
 	public SimpleObjectPool MainButtonPool;
 	public SimpleObjectPool SubMenuGroupPool;
 
+	private Pageswapper _pageSwapper;
+
 	public Transform group;
 
 	public List<MenuGroup> MenuData;
 
+	void Awake()
+	{
+		this._pageSwapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
+	}
 
 	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
 	public void CreateMenu(List<MenuGroup> menuGroupList)
 	{
 		foreach (MenuGroup menuGrp in menuGroupList)
 		{
-			// TODO: Check MenuGrp.Available
 			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
 			menuGroupPrefab.transform.SetParent (this.group);
 			ButtonGroupPref btngrp = menuGroupPrefab.GetComponent<ButtonGroupPref> ();
@@ -68,6 +73,10 @@ public class SetupMenu : MonoBehaviour {
 		if (Settings.application.Remote) 
 		{
 			Menus.Add (this.MenuData [2]);
+		}
+		if (Settings.application.Leaderboard) 
+		{
+			Menus.Add (this.MenuData [3]);
 		}
 		return Menus;
 	}

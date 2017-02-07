@@ -21,10 +21,13 @@ public class LeaderboardView : MonoBehaviour {
 		foreach (Leaderboard leaderboard in subjectList)
 		{
 			this.SubjectList = subjectList;
-			GameObject SubjectObject = this.SubjectPool.GetObject ();
-			SubjectObject.transform.SetParent (this.Group);
-			LeaderboardSubjectPref script = SubjectObject.GetComponent<LeaderboardSubjectPref> ();
-			script.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, leaderboard);
+			if (leaderboard.Available) 
+			{
+				GameObject SubjectObject = this.SubjectPool.GetObject ();
+				SubjectObject.transform.SetParent (this.Group);
+				LeaderboardSubjectPref script = SubjectObject.GetComponent<LeaderboardSubjectPref> ();
+				script.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, leaderboard);
+			}
 		}
 	}
 
@@ -51,7 +54,7 @@ public class LeaderboardView : MonoBehaviour {
 	public void UpdatePage(List<Leaderboard> updatedSubjectList)
 	{
 		this.LeavePage ();
-		this.EnterPage (updatedSubjectList);
+		this.EnterPage (this.SubjectList);
 	}
 
 }

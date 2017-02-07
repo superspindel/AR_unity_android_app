@@ -33,8 +33,8 @@ public class ActiveTasksGroup
 
 public class ActiveTasksSetup : MonoBehaviour {
 
-	public List<ActiveTasksGroup> menuGroupList;
-	//public List<Task> ActiveTaskList;
+	private List<ActiveTasksGroup> menuGroupList;
+	private List<Task> ActiveTaskList;
 	public SimpleObjectPool ButtonGroupPool;
 	public SimpleObjectPool SubButtonPool;
 	public SimpleObjectPool MainButtonPool;
@@ -44,13 +44,14 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public void CreateMenu()
 	{
-		for (int i = 0; i < menuGroupList.Count; i++)
+		for (int i = 0; i < ActiveTaskList.Count; i++)
 		{
-			ActiveTasksGroup menuGroup = this.menuGroupList [i];
+			//ActiveTasksGroup menuGroup = this.menuGroupList [i];
 			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
 			menuGroupPrefab.transform.SetParent (this.transform);
+			Task activeTask = this.ActiveTaskList [i];
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
-			btngrp.Setup (menuGroup.SubMenus, menuGroup.Title, this);
+			btngrp.Setup (activeTask.SubTasks, activeTask.Title, this);
 		}
 	}
 
@@ -64,8 +65,9 @@ public class ActiveTasksSetup : MonoBehaviour {
 		this.CreateMenu ();
 	}
 
-	public void EnterPage()
+	public void EnterPage(List<Task> tasklist)
 	{
+		this.ActiveTaskList = tasklist;
 		this.ContentPanel.gameObject.SetActive (true);
 	}
 

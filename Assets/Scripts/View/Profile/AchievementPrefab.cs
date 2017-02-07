@@ -35,6 +35,6 @@ public class AchievementPrefab : MonoBehaviour {
 
 	private string GetInformation()
 	{
-		return this._Achievement.Information + "\n" + this._Achievement.Completed.ToString() +" completed out of " + this._Achievement.Needed.ToString();
+		return this._Achievement.Information +" "+ this._Achievement.Completed.ToString() +" completed out of " + this._Achievement.Needed.ToString();
 	}
 }

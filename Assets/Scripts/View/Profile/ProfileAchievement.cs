@@ -30,19 +30,19 @@ public class ProfileAchievement : Prefab {
 	// Add achievement prefabs from the pool to the scene and call setup on them
 	public void AddAchievements(List<Achievement> achievementList)
 	{
-		try
+		foreach(Achievement ach in achievementList)
 		{
-			foreach(Achievement ach in achievementList)
+			GameObject newAch = this.AchievementObjectPool.GetObject ();
+			newAch.transform.SetParent (this.AchievementGroup.transform);
+			AchievementPrefab achPref = newAch.GetComponent<AchievementPrefab> ();
+			try
 			{
-				GameObject newAch = this.AchievementObjectPool.GetObject ();
-				newAch.transform.SetParent (this.AchievementGroup.transform);
-				AchievementPrefab achPref = newAch.GetComponent<AchievementPrefab> ();
 				achPref.Setup (ach, this);
 			}
-		}
-		catch(Exception e) 
-		{
-			Debug.Log (e.Message);
+			catch(Exception e) 
+			{
+				Debug.Log (e.Message);
+			}
 		}
 	}
 }

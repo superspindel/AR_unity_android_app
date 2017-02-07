@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class ActiveSubButton : MonoBehaviour {
 	public Text TextField;
-	private Transform _target;
+	private SubTask _subTask;
 	private ActiveSubButtonGroup _parentGroup;
 
-	public void Setup(string title, Transform target, ActiveSubButtonGroup parent)
+	public void Setup(SubTask subtask, ActiveSubButtonGroup parent)
 	{
-		this.TextField.text = title;
-		this._target = target;
+		this.TextField.text = subtask.Title;
+		this._subTask = subtask;
 		this._parentGroup = parent;
 	}
 }

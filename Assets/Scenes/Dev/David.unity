@@ -247,6 +247,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 855485234}
     m_Modifications:
+    - target: {fileID: 114235561179292602, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: TaskList.Array.size
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 224965545544661874, guid: 6d5893283f0fc47578c0dd9177f428e5,
         type: 2}
       propertyPath: m_LocalPosition.x
