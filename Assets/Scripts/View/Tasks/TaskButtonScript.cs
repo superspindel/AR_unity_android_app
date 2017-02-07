@@ -34,7 +34,7 @@ namespace App{
 		public void HandleClick()
 		{
 			Debug.Log ("1: Task ID: " + _task.Id);
-			//_pageswap.gotoSpecificTaskPage (_task.Id);
+			_pageswap.gotoSpecificTaskPage (_task.Id);
 			//TODO
 		}
 
