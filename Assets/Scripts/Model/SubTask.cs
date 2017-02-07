@@ -13,7 +13,7 @@ public class SubTask : NetworkDataObject {
         get { return (int)Status; }
         set { Status = (Status)value; }
     }
-    public Status 	Status { get; set; }
+	internal Status 	Status { get; set; }
 	public string 	Title { get; set; }
 	public bool 	IsBonus { get; set; }
 	public int 		Xp { get; set; }

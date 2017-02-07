@@ -40,7 +40,7 @@ public class Pageswapper : MonoBehaviour {
 
 	void Start(){
 		_previousPages 	= new Stack<GameObject>();
-		_popup 		= PopUpWindow.GetComponent<PopUp> (); 
+		_popup 		= PopUpWindow.GetComponent<PopUp> ();
 	}
 		
 	void Update() {
@@ -62,7 +62,7 @@ public class Pageswapper : MonoBehaviour {
 		if (this._activePage == SettingsPage)
 			gotoSettingsPage ();
 		if (this._activePage == SpecificTaskPage)
-			gotoSpecificTaskPage ("0"); // TODO: should not happen?
+			gotoSpecificTaskPage ();//"0"); // TODO: should not happen?
 		if (this._activePage == LeaderBoardPage)
 			GoToLeaderboardPage ();
 	}
@@ -182,12 +182,12 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	// SpecificTaskPage
-	public void gotoSpecificTaskPage(string taskId){
+	public void gotoSpecificTaskPage(){//string taskId){
 		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
 
 		// show loading page
 
-		DataStore.Get<Task> (taskId, task => {
+		DataStore.Get<Task> ("1", task => {
 			if(task.Available){
 				_activePageForward (this.SpecificTaskPage);
 				script.EnterPage(task);

@@ -15,6 +15,7 @@ public class PopUp : MonoBehaviour {
 	private Pageswapper _pageswapper;
 	private Text 		_popUpPanelText;
 	private Color		_standardColor;
+	private Color 		_warningColor;
 
 	void Awake(){
 		_pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
@@ -25,6 +26,7 @@ public class PopUp : MonoBehaviour {
 		_exitButton.onClick.AddListener (_pageswapper.LeavePopup);
 
 		_standardColor = new Color32(0x38, 0x49, 0x67, 0xFF);
+		_warningColor = new Color32 (0xB2, 0x3F, 0x46, 0xFF);
 	}
 
 	public void ClosePopup (){
@@ -39,8 +41,9 @@ public class PopUp : MonoBehaviour {
 	public void OpenSubTaskInformationPopup(SubTask subTask){
 		_setActivePopupView(SubTaskInformationPopupView);
 		_setPopupPanelTitle("Information");
-		_setPopUpPanelColor (Color.blue);
+		_setPopUpPanelColor (this._standardColor);
 		SubTaskInformationPopupView.transform.GetChild(0).GetComponent<Text> ().text = subTask.Title;
+		Debug.Log (subTask.Warning);
 		SubTaskInformationPopupView.transform.GetChild(1).GetComponent<Text> ().text = subTask.Warning;
 		SubTaskInformationPopupView.transform.GetChild(2).GetComponent<Text> ().text = subTask.Information;
 	}
@@ -49,7 +52,7 @@ public class PopUp : MonoBehaviour {
 	public void OpenGeneralPopup(string title, string content){
 		_setActivePopupView (GeneralPopupView);
 		_setPopupPanelTitle ("Notification");
-		_setPopUpPanelColor (Color.red);
+		_setPopUpPanelColor (this._standardColor);
 		GeneralPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
 		GeneralPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
 	}
@@ -57,7 +60,7 @@ public class PopUp : MonoBehaviour {
 	public void OpenErrorPopup(string title, string content){
 		_setActivePopupView (GeneralPopupView);
 		_setPopupPanelTitle ("Error");
-		_setPopUpPanelColor (Color.blue);
+		_setPopUpPanelColor (this._warningColor);
 		GeneralPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
 		GeneralPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
 	}
@@ -72,12 +75,7 @@ public class PopUp : MonoBehaviour {
 		_popUpPanelText.text = s;
 	}
 
-	private void _setPopUpPanelColor(Color color){
-		if (color == Color.blue) {
-			_popUpPanelText.gameObject.GetComponent<Image> ().color = _standardColor;
-		} else {
-			_popUpPanelText.gameObject.GetComponent<Image> ().color = color;
+	private void _setPopUpPanelColor(Color32 color){
+		PopupTopPanel.GetComponent<Image> ().color = color;
 		}
-
-	}
 }

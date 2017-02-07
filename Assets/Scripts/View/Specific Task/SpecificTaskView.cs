@@ -14,7 +14,7 @@ public class SpecificTaskView : MonoBehaviour {
 	[SerializeField] private int _lastTaskViewed = -1;
 
 	private Text 	_taskTilteText, _taskDescriptionText;
-	private Slider 	_regularSlider, _bonusSlider;
+	public Slider 	_regularSlider, _bonusSlider;
 
 	// Use this for initialization
 	void Awake () {
@@ -22,6 +22,8 @@ public class SpecificTaskView : MonoBehaviour {
 		_pool = SubTaskGroup.GetComponent<SimpleObjectPool> ();
 		_taskTilteText = transform.FindChild ("Title").GetComponent<Text> ();
 		_taskDescriptionText = transform.FindChild ("Description").GetComponent<Text> ();
+		//_regularSlider = transform.Find ("Progress Slider").GetComponent<Slider> ();
+		//_bonusSlider = transform.Find ("Bonus Slider").GetComponent<Slider> ();
 	}
 
 	// EnterPage with Task (Controller gets task via ID from API)

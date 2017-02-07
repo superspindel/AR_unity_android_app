@@ -23,6 +23,10 @@ public class SubButtonPref : MonoBehaviour {
 		if (sbMenu.Target == "Leaderboard") 
 		{
 			this._Button.onClick.AddListener (this._pageswapper.GoToLeaderboardPage);
+		} 
+		else if (sbMenu.Target == "Specific") 
+		{
+			this._Button.onClick.AddListener (this._pageswapper.gotoSpecificTaskPage);
 		}
 	}
 
