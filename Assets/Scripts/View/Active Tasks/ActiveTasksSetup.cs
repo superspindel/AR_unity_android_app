@@ -58,7 +58,6 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public void RemoveMenu()
 	{
-		
 		while (ContentPanel.childCount > 0) 
 		{
 			GameObject toRemove = ContentPanel.GetChild (0).gameObject;
@@ -69,11 +68,13 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public void Start()
 	{
-		this.CreateMenu ();
+		//this.CreateMenu (); runs twice with this first time
 	}
 
 	public void EnterPage(List<Task> tasklist)
 	{
+		this.gameObject.SetActive (true); // added / emil
+
 		this.ActiveTaskList = tasklist;
 		this.ContentPanel.gameObject.SetActive (true);
 		CreateMenu ();
@@ -83,5 +84,7 @@ public class ActiveTasksSetup : MonoBehaviour {
 	{
 		RemoveMenu ();
 		this.ContentPanel.gameObject.SetActive (false);
+
+		this.gameObject.SetActive (true); // added / emil
 	}
 }

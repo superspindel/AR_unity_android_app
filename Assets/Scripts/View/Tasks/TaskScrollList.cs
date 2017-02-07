@@ -113,14 +113,14 @@ namespace App{
 		// Script to enter the page used for initialization 
 		public void EnterPage(List<Task> taskList){
 			this.TaskList = taskList; // added back to code // EMIL
-			this.ThisPage.SetActive (true);
+			this.gameObject.SetActive (true);
 			AddTaskButtons ();
 		}
 
 		// Script to Leave Page
 		public void LeavePage(){
 			RemoveTaskButtons ();
-			this.ThisPage.SetActive (false);
+			this.gameObject.SetActive (false);
 		}
 	}
 }

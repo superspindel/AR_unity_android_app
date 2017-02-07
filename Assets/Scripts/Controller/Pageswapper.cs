@@ -152,19 +152,22 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	private void _leaveAvalibleTasksPage(){
-
+		TaskScrollList script = AvalibleTaskPage.GetComponent<TaskScrollList> ();
+		script.LeavePage ();
 	}
 
 	// ActiveTasksPage
 	public void gotoActiveTasksPage(){
-		ActiveTasksSetup activetaskpage = ActiveTasksPage.GetComponent<ActiveTasksSetup> ();
-		DataStore.List<Task>("me", list => {
-			activetaskpage.EnterPage(list as List<Task>);
+		_activePageForward (this.ActiveTasksPage);
+		ActiveTasksSetup script = ActiveTasksPage.GetComponent<ActiveTasksSetup> ();
+		DataStore.List<Task> ("me", list => { // removed "me", lists => // Emil
+			script.EnterPage(list as List<Task>);
 		});
 	}
 
 	private void _leaveActiveTasksPage(){
-
+		ActiveTasksSetup activetaskpage = ActiveTasksPage.GetComponent<ActiveTasksSetup> ();
+		activetaskpage.LeavePage ();
 	}
 
 	// SettingsPage
