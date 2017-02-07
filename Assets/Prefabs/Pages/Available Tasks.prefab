@@ -780,6 +780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollList: {fileID: 114235561179292602}
   ButtonComponent: {fileID: 114786281198480896}
+  TextComponent: {fileID: 114849900853425072}
 --- !u!222 &222186354993643884
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1059,6 +1060,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 480, y: 0}
+  m_AnchoredPosition: {x: 0, y: 740}
+  m_SizeDelta: {x: 480, y: 675}
   m_Pivot: {x: 0, y: 1}

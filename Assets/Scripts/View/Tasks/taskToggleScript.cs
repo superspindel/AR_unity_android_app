@@ -10,7 +10,7 @@ namespace App{
 		public Toggle ToggleComponent;
 				
 		public void HandleClick(bool toggled){
-			Debug.Log (toggled);
+			//Debug.Log (toggled);
 			Parent.Checkout (toggled);
 			//Debug.Log(toggleComponent.isOn);
 			//Debug.Log (Parent.taskLabel.text);

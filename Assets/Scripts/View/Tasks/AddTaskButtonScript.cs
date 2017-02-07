@@ -7,11 +7,19 @@ namespace App{
 	public class AddTaskButtonScript : MonoBehaviour {
 		public TaskScrollList ScrollList;
 		public Button ButtonComponent;
-
+		public Text TextComponent;
 
 		void Start () {
-            Debug.Log("HEJ");
 			ButtonComponent.onClick.AddListener (HandleClick);
+		}
+
+		// Changes the text of the Text component to display the number of tasks currently selected
+		public void ChangeText(int taskCount){
+			if (taskCount > 0) {
+				TextComponent.text = "Add Tasks (" + taskCount.ToString() + ")";
+			} else {
+				TextComponent.text = "Add Tasks";
+			}
 		}
 
 
