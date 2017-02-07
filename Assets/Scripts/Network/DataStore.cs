@@ -26,8 +26,6 @@ public abstract class NetworkDataObject
             try
             {
                 var value = prop.GetValue(newData, null);
-				Debug.Log(value + "value");
-				Debug.Log(prop + "prop");
                 if (value != null)
                     prop.SetValue(this, value, null);
             }
