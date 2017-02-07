@@ -26,7 +26,6 @@ public class Settings : MonoBehaviour {
 
 	public static void SaveFile()
 	{
-		application.Account = false;
 		try
 		{
 			File.WriteAllText(FilePath, SimpleJson.SimpleJson.SerializeObject(_settings));

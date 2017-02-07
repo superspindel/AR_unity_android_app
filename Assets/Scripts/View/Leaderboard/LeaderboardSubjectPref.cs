@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class LeaderboardSubjectPref : Prefab {
 
@@ -29,7 +30,6 @@ public class LeaderboardSubjectPref : Prefab {
 		GameObject newTitle = this._titleObjectPool.GetObject ();
 		newTitle.transform.SetParent (this.transform);
 		LeaderboardTitlePref ldbttl = newTitle.GetComponent<LeaderboardTitlePref> ();
-		ldbttl.Setup (this._title);
 	}
 
 	private void InsertLeaderboardUsers()
@@ -40,7 +40,14 @@ public class LeaderboardSubjectPref : Prefab {
 			GameObject newUsObj = this._userObjectPool.GetObject ();
 			newUsObj.transform.SetParent (this.transform);
 			LeaderboardUserPref ldbUser = newUsObj.GetComponent<LeaderboardUserPref> ();
-			ldbUser.Setup (user, i == _userList.Count-1);
+			try
+			{
+				ldbUser.Setup (user, i == _userList.Count - 1);
+			}
+			catch(Exception e) 
+			{
+				Debug.Log (e.Message);
+			}
 			i++;
 		}
 	}
