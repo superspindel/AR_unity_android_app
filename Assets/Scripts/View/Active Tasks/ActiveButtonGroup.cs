@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActiveButtonGroup : MonoBehaviour {
-	public List<SubTaskMenus> Lstsub { get; private set; }
+	public List<SubTask> Lstsub { get; private set; }
 	public ActiveTasksSetup SetMenu { get; private set; }
 	public SimpleObjectPool SubButtonPool { get; private set; }
 	public SimpleObjectPool MainButtonPool { get; private set; }
@@ -12,7 +12,7 @@ public class ActiveButtonGroup : MonoBehaviour {
 	public GameObject Sbtgrp { get; private set; }
 	public ActiveSubButtonGroup SubButtonGroupScript { get; private set; }
 
-	public void Setup(List<SubTaskMenus> lstsub, string title, ActiveTasksSetup setMenu)
+	public void Setup(List<SubTask> lstsub, string title, ActiveTasksSetup setMenu)
 	{
 		this.Lstsub = lstsub;
 		this.SetMenu = setMenu;
