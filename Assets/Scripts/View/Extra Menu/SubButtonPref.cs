@@ -26,8 +26,13 @@ public class SubButtonPref : MonoBehaviour {
 		} 
 		else if (sbMenu.Target == "Specific") 
 		{
-			this._Button.onClick.AddListener (this._pageswapper.gotoSpecificTaskPage);
+			this._Button.onClick.AddListener (_specificTaskListener);
 		}
+	}
+
+	// GotoSpecificTask
+	private void _specificTaskListener(){
+		this._pageswapper.gotoSpecificTaskPage ("HardCodedId");
 	}
 
 	// TODO: 	onClick event to enter the settings view of this sub button.

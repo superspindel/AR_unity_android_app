@@ -17,6 +17,8 @@ namespace App{
 
 		// Use this for initialization
 		void Start () {
+			TaskToggle = this.gameObject.transform.FindChild("Toggle").GetComponent<TaskToggleScript>();
+
 			//_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
 			//TaskButton.onClick.AddListener (HandleClick);
 		}
@@ -46,7 +48,6 @@ namespace App{
 			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
 			XpLabel.text = _task.TotalXp.ToString() + "xp";
 			_scrollList = currentScrollList;
-			TaskToggle = this.transform.FindChild("Toggle").GetComponent<TaskToggleScript>();
 			TaskToggle.Setup (this);
 		}
 	}

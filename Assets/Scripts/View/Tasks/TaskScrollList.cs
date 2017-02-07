@@ -112,7 +112,7 @@ namespace App{
 
 		// Script to enter the page used for initialization 
 		public void EnterPage(List<Task> taskList){
-			//this.TaskList = taskList;
+			this.TaskList = taskList; // added back to code // EMIL
 			this.ThisPage.SetActive (true);
 			AddTaskButtons ();
 		}
