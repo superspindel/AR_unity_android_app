@@ -42,6 +42,12 @@ public class ActiveTasksSetup : MonoBehaviour {
 	public SimpleObjectPool SubButtonGroupPool;
 	public Transform ContentPanel;
 
+	public List<GameObject> _itemsFromButtonGroupPool; // ADDED / EMIL
+
+	void Awake(){
+		_itemsFromButtonGroupPool = new List<GameObject> ();
+	}
+
 
 	public void CreateMenu()
 	{
@@ -49,6 +55,7 @@ public class ActiveTasksSetup : MonoBehaviour {
 		{
 			//ActiveTasksGroup menuGroup = this.menuGroupList [i];
 			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
+			_itemsFromButtonGroupPool.Add (menuGroupPrefab); // ADDED / EMIL
 			menuGroupPrefab.transform.SetParent (ContentPanel);
 			Task activeTask = this.ActiveTaskList [i];
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
@@ -58,12 +65,16 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public void RemoveMenu()
 	{
-		while (ContentPanel.childCount > 0) 
+		foreach (GameObject toRemove in _itemsFromButtonGroupPool) {
+			toRemove.GetComponent<ActiveButtonGroup> ().RemoveMenu ();
+			ButtonGroupPool.ReturnObject (toRemove);
+		}
+		/*while (ContentPanel.childCount > 0) 
 		{
 			GameObject toRemove = ContentPanel.GetChild (0).gameObject;
 			toRemove.GetComponent<ActiveButtonGroup> ().RemoveMenu ();
 			ButtonGroupPool.ReturnObject (toRemove);
-		}
+		}*/
 	}
 
 	public void Start()

@@ -12,6 +12,14 @@ public class ActiveButtonGroup : MonoBehaviour {
 	public GameObject Sbtgrp { get; private set; }
 	public ActiveSubButtonGroup SubButtonGroupScript { get; private set; }
 
+	private List<GameObject> _itemsFromMainButtonPool;
+	private List<GameObject> _itemsFromSubGroupPool;
+
+	void Awake(){
+		_itemsFromMainButtonPool = new List<GameObject> ();
+		_itemsFromSubGroupPool = new List<GameObject> ();
+	}
+
 	public void Setup(List<SubTask> lstsub, string title, ActiveTasksSetup setMenu)
 	{
 		this.Lstsub = lstsub;
@@ -29,6 +37,7 @@ public class ActiveButtonGroup : MonoBehaviour {
 	private void AddMainButton(string title)
 	{
 		GameObject mainButton = this.MainButtonPool.GetObject ();
+		_itemsFromMainButtonPool.Add (mainButton);
 		mainButton.transform.SetParent (this.transform);
 		ActiveTaskButton mbut = mainButton.GetComponent<ActiveTaskButton> ();
 		mbut.Setup (title, this);
@@ -37,6 +46,7 @@ public class ActiveButtonGroup : MonoBehaviour {
 	private void AddSubMenuGroup()
 	{
 		GameObject subButGrp = this.SubButtonGroupPool.GetObject ();
+		_itemsFromSubGroupPool.Add (subButGrp);
 		subButGrp.transform.SetParent (this.transform);
 		ActiveSubButtonGroup sbtg = subButGrp.GetComponent<ActiveSubButtonGroup> ();
 		sbtg.Setup (this.Lstsub, this.SubButtonPool);
@@ -47,7 +57,12 @@ public class ActiveButtonGroup : MonoBehaviour {
 	public void RemoveMenu()
 	{
 		Sbtgrp.GetComponent<ActiveSubButtonGroup> ().RemoveSubs ();
-
+		foreach (GameObject toRemove in _itemsFromSubGroupPool) {
+			SubButtonGroupPool.ReturnObject (toRemove);
+		}
+		foreach (GameObject toRemove in _itemsFromMainButtonPool) {
+			MainButtonPool.ReturnObject (toRemove);
+		}
 	}
 
 	public void ToggleSubMenu()
