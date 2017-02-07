@@ -5,11 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SpecificTaskView : MonoBehaviour {
-	[Header("Testing Variables")]
-	[Tooltip("Use for testing")]
-	public bool UseGeneratedTestList;
-	public int TestListSize;
-
 	[Header("UI Gameobjects")]
 	public GameObject SubTaskGroup;
 

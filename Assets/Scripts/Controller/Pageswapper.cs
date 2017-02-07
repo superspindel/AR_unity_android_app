@@ -4,6 +4,17 @@ using App;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: Change code be able to go back with ID
+public class Page {
+	GameObject PageObject;
+	string Id;
+
+	public Page(GameObject page, string id){
+		this.PageObject = page;
+		this.Id = id;
+	}
+
+}
 
 public class Pageswapper : MonoBehaviour {
 
@@ -169,17 +180,19 @@ public class Pageswapper : MonoBehaviour {
 
 	// SpecificTaskPage
 	public void gotoSpecificTaskPage(string taskId){
-		_activePageForward (this.SpecificTaskPage);
 		SpecificTaskView script = SpecificTaskPage.GetComponent<SpecificTaskView> ();
 
+		// show loading page
+
 		DataStore.Get<Task> (taskId, task => {
-			// if task gets updated??
-			task.Updated += i =>
-			{
-				script.UpdatePage(task);
-			};
-			script.EnterPage(task);			
-		});
+			if(task.Available){
+				_activePageForward (this.SpecificTaskPage);
+				script.EnterPage(task);
+			}else{
+				OpenPopup_Error("Data Error", "Can't find data about the specific task with id: " + task.Id);
+			}
+		})
+		;
 	}
 
 	private void _leaveSpecificTaskPage(){
@@ -197,6 +210,10 @@ public class Pageswapper : MonoBehaviour {
 
 	public void OpenPopup_General(string title, string content){
 		_popup.OpenGeneralPopup (title, content);
+	}
+
+	public void OpenPopup_Error(string title, string content){
+		_popup.OpenErrorPopup (title, content);
 	}
 
 	public void LeavePopup(){
