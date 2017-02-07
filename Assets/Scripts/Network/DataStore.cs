@@ -19,7 +19,7 @@ public abstract class NetworkDataObject
     public void Merge(object newData)
     {
         Debug.Log(newData);
-        Available = true;
+		//Available = true;
         LastModified = DateTime.UtcNow;
         foreach (var prop in this.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite))
         {
@@ -36,6 +36,7 @@ public abstract class NetworkDataObject
         }
         if (Updated != null)
             Updated(this);
+        Available = true;
     }
     public override int GetHashCode()
     {
@@ -152,7 +153,7 @@ public class DataStore
         if (CommunicationsApi.IsAvailable)
         {
             // fetch array with ids, then Get each object (allows us to fetch from local cache instead of sending buttloads of data over net by default)
-            CommunicationsApi.Socket.Emit(eventName, null, "", o =>
+            CommunicationsApi.Socket.Emit(eventName, list, "", o =>
             {
                 CommunicationsApi.RunOnMainThread(() =>
                 {
@@ -167,8 +168,8 @@ public class DataStore
                             i--;
                             if (i == 0)
                             {
-                                if (callback != null)
-                                    callback(returns);
+								if (callback != null)
+                                	callback(returns);
                             }
                         });
                     }

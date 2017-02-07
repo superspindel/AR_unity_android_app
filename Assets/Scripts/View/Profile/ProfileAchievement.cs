@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ProfileAchievement : Prefab {
 
@@ -20,21 +21,28 @@ public class ProfileAchievement : Prefab {
 	// Return the achievement prefabs to the pool
 	public override void ReturnChildren()
 	{
-		while (this.AchievementPanel.childCount > 0)
+		while (this.AchievementGroup.transform.childCount > 0)
 		{
-			GameObject toRemove = AchievementPanel.GetChild(0).gameObject;
+			GameObject toRemove = AchievementGroup.transform.GetChild(0).gameObject;
 			this.AchievementObjectPool.ReturnObject(toRemove);
 		}
 	}
 	// Add achievement prefabs from the pool to the scene and call setup on them
 	public void AddAchievements(List<Achievement> achievementList)
 	{
-		foreach( Achievement ach in achievementList)
+		try
 		{
-			GameObject newAch = this.AchievementObjectPool.GetObject ();
-			newAch.transform.SetParent (this.AchievementPanel);
-			AchievementPrefab achPref = newAch.GetComponent<AchievementPrefab> ();
-			achPref.Setup (ach, this);
+			foreach(Achievement ach in achievementList)
+			{
+				GameObject newAch = this.AchievementObjectPool.GetObject ();
+				newAch.transform.SetParent (this.AchievementGroup.transform);
+				AchievementPrefab achPref = newAch.GetComponent<AchievementPrefab> ();
+				achPref.Setup (ach, this);
+			}
+		}
+		catch(Exception e) 
+		{
+			Debug.Log (e.Message);
 		}
 	}
 }

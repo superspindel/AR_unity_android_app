@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966f5a0a9a52e4aa2b3c7ecc3c24e858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achText: {fileID: 114598442212169968}
-  buttonComponent: {fileID: 114602962922415832}
+  AchText: {fileID: 0}
+  ButtonComponent: {fileID: 0}
 --- !u!114 &114598442212169968
 MonoBehaviour:
   m_ObjectHideFlags: 1

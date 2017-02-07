@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Pageswapper : MonoBehaviour {
 
+
 	[Header("Testing")]
 	[SerializeField] private Stack<GameObject> _previousPages;
 
@@ -93,9 +94,17 @@ public class Pageswapper : MonoBehaviour {
 	// ProfilePage
 	public void GoToProfilePage()
 	{
+		_activePageForward (this.ProfilePage);
 		ProfileView Script = ProfilePage.GetComponent<ProfileView> ();
-		DataStore.Get<User> ("12345", o => {
-			Script.EnterPage(o);			
+		DataStore.Get<User> (Settings.application.UserID.ToString(), o => {
+			if(o.Available)
+			{
+				Script.EnterPage(o);
+			}
+			else
+			{
+				Script.NotAvailable();
+			}
 		});
 	}
 
@@ -107,15 +116,16 @@ public class Pageswapper : MonoBehaviour {
 
 	public void GoToLeaderboardPage()
 	{
-		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
-		DataStore.List<Leaderboard> (list => {
+		_activePageForward (this.LeaderBoardPage);
+		LeaderboardView Script = LeaderBoardPage.GetComponent<LeaderboardView> ();
+		DataStore.List<Leaderboard> (Settings.application.UserID.ToString(), list => {
 			Script.EnterPage(list as List<Leaderboard>);
 		});
 	}
 
 	private void _leaveLeaderboardPage()
 	{
-		LeaderBoardView Script = LeaderBoardPage.GetComponent<LeaderBoardView> ();
+		LeaderboardView Script = LeaderBoardPage.GetComponent<LeaderboardView> ();
 		Script.LeavePage ();
 	}
 		
@@ -123,6 +133,7 @@ public class Pageswapper : MonoBehaviour {
 
 	// AvalibleTaskPage
 	public void gotoAvalibleTasksPage(){
+		_activePageForward (this.AvalibleTaskPage);
 		TaskScrollList script = AvalibleTaskPage.GetComponent<TaskScrollList> ();
 		DataStore.List<Task> (list => {
 			script.EnterPage(list as List<Task>);
@@ -147,6 +158,7 @@ public class Pageswapper : MonoBehaviour {
 
 	// SettingsPage
 	public void gotoSettingsPage(){
+		_activePageForward (this.SettingsPage);
 		SetupMenu Script = SettingsPage.GetComponent<SetupMenu> ();
 		// Read settings file
 		Script.EnterPage();
@@ -193,4 +205,5 @@ public class Pageswapper : MonoBehaviour {
 	public void LeavePopup(){
 		PopUpWindow.GetComponent<PopUp>().ClosePopup ();
 	}
+
 }

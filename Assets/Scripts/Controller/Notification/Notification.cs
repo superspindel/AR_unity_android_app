@@ -53,15 +53,6 @@ namespace Assets.SimpleAndroidNotifications
 			// Add onClick event to handle user clicking on the PopUp to cancel new notifications being sent.
 		}
 
-		void Update()
-		{
-			if (_resend) 
-			{
-				NotificationManager.Cancel (this._parameters.Id);
-				this.Send ();
-			}
-		}
-
 
 		// Send will send the notification, and activate the PopUp on screen of the device so that the user can notify application that it has been read.
 		public void Send()
