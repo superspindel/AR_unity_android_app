@@ -44,6 +44,12 @@ public class ActiveButtonGroup : MonoBehaviour {
 		this.SubButtonGroupScript = Sbtgrp.GetComponent<ActiveSubButtonGroup> ();
 	}
 
+	public void RemoveMenu()
+	{
+		Sbtgrp.GetComponent<ActiveSubButtonGroup> ().RemoveSubs ();
+
+	}
+
 	public void ToggleSubMenu()
 	{
 		if (this.Sbtgrp.activeSelf) 
