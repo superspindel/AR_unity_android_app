@@ -963,6 +963,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1552561864}
     m_Modifications:
+    - target: {fileID: 114054110121052734, guid: f538972395a804a6e93e61bc7bae0b00,
+        type: 2}
+      propertyPath: SubTaskList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114054110121052734, guid: f538972395a804a6e93e61bc7bae0b00,
+        type: 2}
+      propertyPath: ActiveTaskList.Array.size
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 224617006181558694, guid: f538972395a804a6e93e61bc7bae0b00,
         type: 2}
       propertyPath: m_LocalPosition.x

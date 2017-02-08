@@ -10,7 +10,7 @@ public class ActiveSubButton : MonoBehaviour {
 
 	public void Setup(SubTask subtask, ActiveSubButtonGroup parent)
 	{
-		this.TextField.text = subtask.Title;
+		this.TextField.text = "SubTask"; //subtask.Title;
 		this._subTask = subtask;
 		this._parentGroup = parent;
 	}

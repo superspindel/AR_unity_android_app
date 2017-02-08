@@ -22,6 +22,7 @@ public class ActiveButtonGroup : MonoBehaviour {
 
 	public void Setup(List<SubTask> lstsub, string id, string title, ActiveTasksSetup setMenu)
 	{
+		
 		this.Lstsub = lstsub;
 		this.SetMenu = setMenu;
 		this.SubButtonPool = setMenu.SubButtonPool;
@@ -46,12 +47,14 @@ public class ActiveButtonGroup : MonoBehaviour {
 	private void AddSubMenuGroup()
 	{
 		GameObject subButGrp = this.SubButtonGroupPool.GetObject ();
-		_itemsFromSubGroupPool.Add (subButGrp);
-		subButGrp.transform.SetParent (this.transform);
-		ActiveSubButtonGroup sbtg = subButGrp.GetComponent<ActiveSubButtonGroup> ();
-		sbtg.Setup (this.Lstsub, this.SubButtonPool);
 		this.Sbtgrp = subButGrp;
+		//_itemsFromSubGroupPool.Add (subButGrp);
+		_itemsFromSubGroupPool.Add (Sbtgrp);
+		Sbtgrp.transform.SetParent (this.transform);
 		this.SubButtonGroupScript = Sbtgrp.GetComponent<ActiveSubButtonGroup> ();
+		this.SubButtonGroupScript.Setup (this.Lstsub, this.SubButtonPool);
+		Debug.Log ("sbubuttongroup active: " + subButGrp.activeSelf);
+		 
 	}
 
 	public void RemoveMenu()

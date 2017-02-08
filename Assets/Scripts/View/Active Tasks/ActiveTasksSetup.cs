@@ -59,7 +59,7 @@ public class ActiveTasksSetup : MonoBehaviour {
 			menuGroupPrefab.transform.SetParent (ContentPanel);
 			Task activeTask = this.ActiveTaskList [i];
 			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
-			btngrp.Setup (SubTaskList, activeTask.Id, activeTask.Title, this);
+			btngrp.Setup (activeTask.SubTasks, activeTask.Id, activeTask.Title, this);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public void Start()
 	{
-		//this.CreateMenu (); runs twice with this first time
+		this.CreateMenu (); //runs twice with this first time
 	}
 
 	public void EnterPage(List<Task> tasklist)

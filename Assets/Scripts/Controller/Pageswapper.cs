@@ -62,7 +62,7 @@ public class Pageswapper : MonoBehaviour {
 		if (this._activePage == SettingsPage)
 			gotoSettingsPage ();
 		if (this._activePage == SpecificTaskPage)
-			//gotoSpecificTaskPage ();//"0"); // TODO: should not happen?
+			gotoSpecificTaskPage ("0"); // TODO: should not happen?
 		if (this._activePage == LeaderBoardPage)
 			GoToLeaderboardPage ();
 	}
