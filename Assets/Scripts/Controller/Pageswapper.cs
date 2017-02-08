@@ -44,7 +44,7 @@ public class Pageswapper : MonoBehaviour {
 		_previousPages 		= new Stack<GameObject>();
 
 		_profilePage 		= MainContentPanel.transform.FindChild ("ProfilePage").gameObject;
-		_avalibleTaskPage	= MainContentPanel.transform.FindChild ("Avalible Tasks").gameObject; 
+		_avalibleTaskPage	= MainContentPanel.transform.FindChild ("Available Tasks").gameObject; 
 		_activeTasksPage	= MainContentPanel.transform.FindChild ("Active Tasks").gameObject;
 		_settingsPage		= MainContentPanel.transform.FindChild ("MenuPanel").gameObject;
 		_specificTaskPage	= MainContentPanel.transform.FindChild ("Specific Task View").gameObject;
