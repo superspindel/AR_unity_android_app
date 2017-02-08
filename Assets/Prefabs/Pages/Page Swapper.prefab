@@ -53,4 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activePage: {fileID: 0}
   MainContentPanel: {fileID: 0}
-  PopUpContentPanel: {fileID: 0}
+  PopUpGameObject: {fileID: 0}

@@ -37,7 +37,7 @@ public class Pageswapper : MonoBehaviour {
 	private GameObject 	_leaderBoardPage;
 
 	[Header("Content Panel in PopUp Scroll View")]
-	public GameObject 	PopUpContentPanel;
+	public GameObject 	PopUpGameObject;
 	private PopUp		_popupScript;
 
 	void Awake(){
@@ -51,7 +51,7 @@ public class Pageswapper : MonoBehaviour {
 		_leaderBoardPage	= MainContentPanel.transform.FindChild ("LeaderBoard").gameObject;
 
 
-		_popupScript 			= PopUpContentPanel.GetComponent<PopUp> ();
+		_popupScript 			= PopUpGameObject.GetComponent<PopUp> ();
 	}
 		
 	void Update() {
@@ -234,7 +234,7 @@ public class Pageswapper : MonoBehaviour {
 	}
 
 	public void LeavePopup(){
-		PopUpContentPanel.GetComponent<PopUp>().ClosePopup ();
+		PopUpGameObject.GetComponent<PopUp>().ClosePopup ();
 	}
 
 }

@@ -1148,10 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b113fea37edee2746a4b3f829224671a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartupRoutinePopupView: {fileID: 1152397450574604}
-  GeneralPopupView: {fileID: 1385159984481170}
-  SubTaskInformationPopupView: {fileID: 1450890577705106}
-  PopupTopPanel: {fileID: 1138135146460746}
+  PopUpContentPanel: {fileID: 1806371047961502}
 --- !u!114 &114467439005313432
 MonoBehaviour:
   m_ObjectHideFlags: 1

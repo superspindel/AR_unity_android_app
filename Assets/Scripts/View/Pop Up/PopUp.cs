@@ -8,6 +8,7 @@ public enum PopUpType{General, Startup, Tools, Reward};
 
 public class PopUp : MonoBehaviour {
 
+	[Header("PopUp Content Panel in ScrollView")]
 	public  GameObject	PopUpContentPanel; 
 	private GameObject 	_startupRoutinePopupView, 
 						_generalPopupView, 
