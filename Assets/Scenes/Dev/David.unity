@@ -424,6 +424,11 @@ Prefab:
       propertyPath: PageSwapperReference
       value: 
       objectReference: {fileID: 689133262}
+    - target: {fileID: 224738945151889504, guid: 6d5893283f0fc47578c0dd9177f428e5,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d5893283f0fc47578c0dd9177f428e5, type: 2}
   m_IsPrefabParent: 0

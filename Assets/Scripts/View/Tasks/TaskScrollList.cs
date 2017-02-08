@@ -5,19 +5,24 @@ using UnityEngine.UI;
 
 namespace App{
 	public class TaskScrollList : MonoBehaviour {
-		public GameObject ThisPage;
+		private GameObject ThisPage;
 		private List<Task> TaskList;
-		public Transform ContentPanel;
-		public SimpleObjectPool ButtonObjectPool;
-		public AddTaskButtonScript AddTaskButton;
-		public Pageswapper PageSwapperReference;
+		private Transform ContentPanel;
+		private SimpleObjectPool ButtonObjectPool;
+		private AddTaskButtonScript AddTaskButton;
+		private Pageswapper PageSwapperReference;
 		private List<Task> _checkedList = new List<Task>();
 
-		/*
-		void Start () {
-				RefreshDisplay ();
 
-		}*/
+		void Awake () {
+			Debug.Log ("im awake");
+			this.ThisPage = transform.gameObject;
+			this.ContentPanel = transform.FindChild ("Scroll View").FindChild ("Viewport").FindChild ("Content");
+			Debug.Log ("this is the contentpanel" + this.ContentPanel);
+			this.ButtonObjectPool = transform.FindChild ("ButtonObjectPool").gameObject.GetComponent<SimpleObjectPool>();
+			this.AddTaskButton = transform.FindChild ("AddTasksButton").gameObject.GetComponent<AddTaskButtonScript> ();
+			this.PageSwapperReference = GameObject.Find ("Page Swapper").gameObject.GetComponent<Pageswapper> ();
+		}
 
 		// Removes and adds buttons
 		public void RefreshDisplay()
@@ -112,6 +117,7 @@ namespace App{
 
 		// Script to enter the page used for initialization 
 		public void EnterPage(List<Task> taskList){
+			Debug.Log ("Enter Page");
 			this.TaskList = taskList; // added back to code // EMIL
 			this.gameObject.SetActive (true);
 			AddTaskButtons ();

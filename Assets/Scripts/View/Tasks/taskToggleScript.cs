@@ -6,8 +6,8 @@ using UnityEngine.UI;
 namespace App{
 	public class TaskToggleScript : MonoBehaviour {
 		
-		public TaskButtonScript Parent;
-		public Toggle ToggleComponent;
+		private TaskButtonScript Parent;
+		private Toggle ToggleComponent;
 				
 		public void HandleClick(bool toggled){
 			//Debug.Log (toggled);
@@ -17,7 +17,9 @@ namespace App{
 		}
 
 		// Use this for initialization
-		void Start () {
+		void Awake () {
+			Parent = transform.parent.gameObject.GetComponent<TaskButtonScript> ();
+			ToggleComponent = transform.gameObject.GetComponent<Toggle> ();
 			ToggleComponent.onValueChanged.AddListener (HandleClick);
 		}
 

@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 namespace App{
 	public class AddTaskButtonScript : MonoBehaviour {
-		public TaskScrollList ScrollList;
-		public Button ButtonComponent;
-		public Text TextComponent;
+		private TaskScrollList ScrollList;
+		private Button ButtonComponent;
+		private Text TextComponent;
 
-		void Start () {
+		void Awake () {
+			ScrollList = transform.parent.transform.gameObject.GetComponent<TaskScrollList> ();
+			ButtonComponent = transform.gameObject.GetComponent<Button> ();
+			TextComponent = transform.FindChild ("AddTasksButtonText").gameObject.GetComponent<Text> ();
 			ButtonComponent.onClick.AddListener (HandleClick);
 		}
 
