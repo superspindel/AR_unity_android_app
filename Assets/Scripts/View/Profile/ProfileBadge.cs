@@ -8,18 +8,16 @@ using System;
 
 public class ProfileBadge : Prefab {
 
-	public Transform BadgeGroupPanel;
-	public SimpleObjectPool BadgePool;
-
-	/*
-	public void resetDisplay()
-	{
-		this.RemoveBadges ();
-		this.addBadges ();
-	}
-	*/
+	private Transform BadgeGroupPanel;
+	private SimpleObjectPool BadgePool;
 
 	// Return object to the pool
+	void Awake()
+	{
+		this.BadgePool = transform.parent.transform.FindChild ("BadgePool").GetComponent<SimpleObjectPool> ();
+		this.BadgeGroupPanel = transform.FindChild ("BadgeGroup").transform;
+	}
+
 	public override void ReturnChildren()
 	{
 		while (this.BadgeGroupPanel.childCount > 0) 

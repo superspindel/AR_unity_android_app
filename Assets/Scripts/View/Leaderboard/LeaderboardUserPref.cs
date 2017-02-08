@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LeaderboardUserPref : MonoBehaviour {
-	public Text XpText;
-	public Text PositionText;
-	public Image Border;
+	private Text XpText;
+	private Text PositionText;
+	private Image Border;
 
 	public void Setup(LeaderboardUser ldbUser, bool last)
 	{
@@ -17,5 +17,12 @@ public class LeaderboardUserPref : MonoBehaviour {
 		{
 			Border.enabled = false;
 		}
+	}
+
+	void Awake()
+	{
+		this.XpText = transform.FindChild ("XP").GetComponent<Text> ();
+		this.PositionText = transform.FindChild ("Position").GetComponent<Text> ();
+		this.Border = transform.FindChild ("Image").GetComponent<Image> ();
 	}
 }

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class AchievementPrefab : MonoBehaviour {
 
-	public Text AchText;
-	public Button ButtonComponent;
+	private Text AchText;
+	private Button ButtonComponent;
 	private ProfileAchievement _ProfileAch;
 	private string _UserId { get; set;}
 	private Pageswapper _PageSwapper;
@@ -17,6 +17,7 @@ public class AchievementPrefab : MonoBehaviour {
 		this._PageSwapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper> ();
 		this.AchText = this.transform.FindChild ("Text").GetComponent<Text> ();
 		this.ButtonComponent = this.transform.GetComponent<Button> ();
+		this.AchText = transform.FindChild ("Text").GetComponent<Text> ();
 	}
 
 	// Setup of the prefab

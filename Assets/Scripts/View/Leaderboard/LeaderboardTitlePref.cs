@@ -4,10 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LeaderboardTitlePref : MonoBehaviour {
-	public Text TitleText;
+	private Text TitleText;
 
 	public void Setup(string title)
 	{
 		this.TitleText.text = title;
+	}
+
+	void Awake()
+	{
+		this.TitleText = transform.FindChild ("Text").GetComponent<Text> ();
 	}
 }

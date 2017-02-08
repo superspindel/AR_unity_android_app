@@ -7,10 +7,16 @@ using System;
 // Script for sub button prefab. Setup for the gameobject to set the variables.
 public class SubButtonPref : MonoBehaviour {
 
-	public Text TextField;
+	private Text TextField;
 	private SubMenuGroupPref _parentGroup;
 	private Pageswapper _pageswapper;
 	private Button _Button;
+
+	void Awake()
+	{
+		this.TextField = transform.FindChild ("Text").GetComponent<Text> ();
+	}
+
 
 	// Setup for sub button prefab. Takes a sub menu object that contains the information and the script of the parent sub menu group.
 	public void Setup(SubMenu sbMenu, SubMenuGroupPref parent)

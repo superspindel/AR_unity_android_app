@@ -683,6 +683,16 @@ Prefab:
       propertyPath: PopUpWindow
       value: 
       objectReference: {fileID: 71690360}
+    - target: {fileID: 114385978542321544, guid: da90ec7a4ce79d249b87b7c5ee735c35,
+        type: 2}
+      propertyPath: MainContentPanel
+      value: 
+      objectReference: {fileID: 382560819}
+    - target: {fileID: 114385978542321544, guid: da90ec7a4ce79d249b87b7c5ee735c35,
+        type: 2}
+      propertyPath: PopUpContentPanel
+      value: 
+      objectReference: {fileID: 71690360}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da90ec7a4ce79d249b87b7c5ee735c35, type: 2}
   m_IsPrefabParent: 0
@@ -1340,12 +1350,12 @@ Prefab:
     - target: {fileID: 224617006181558694, guid: f538972395a804a6e93e61bc7bae0b00,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224617006181558694, guid: f538972395a804a6e93e61bc7bae0b00,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f538972395a804a6e93e61bc7bae0b00, type: 2}

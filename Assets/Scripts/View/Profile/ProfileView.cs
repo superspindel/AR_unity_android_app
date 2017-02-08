@@ -8,10 +8,6 @@ using System;
 
 public class ProfileView : MonoBehaviour {
 
-	public Transform AchievementBox;
-	public Transform ProfileInfoBox;
-	public Transform BadgeBox;
-
 	private User _Profile;
 
 	private ProfileInfo _InfScript;
@@ -22,9 +18,9 @@ public class ProfileView : MonoBehaviour {
 
 	// Awake will get the scripts for the transforms that was specified in the Unity control panel
 	void Awake() {
-		this._AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
-		this._BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
-		this._InfScript = ProfileInfoBox.GetComponent<ProfileInfo> ();
+		this._AchScript = transform.FindChild("AchievementBox").GetComponent<ProfileAchievement> ();
+		this._BadgeScript = transform.FindChild("BadgeBox").GetComponent<ProfileBadge> ();
+		this._InfScript = transform.FindChild("ProfileInfo").GetComponent<ProfileInfo> ();
 	}
 
 	private void _onProfileUpdated(NetworkDataObject i) {

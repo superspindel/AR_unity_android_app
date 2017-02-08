@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class BadgePrefab : MonoBehaviour {
 
-	public Image BadgeIcon;
-	public Button ButtonComponent;
+	private Image BadgeIcon;
+	private Button ButtonComponent;
 
 	private ProfileBadge _Parent;
 	private Badge _Badge;
 	private Pageswapper _PageSwapper;
 
-	public BadgeDict BadgeDictionary;
-
 	void Awake()
 	{
 		this._PageSwapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper> ();
+		this.ButtonComponent = transform.GetComponent<Button> ();
+		this.BadgeIcon = transform.GetComponent<Image> ();
 	}
 
 	// Setup of the prefab
@@ -43,7 +43,7 @@ public class BadgePrefab : MonoBehaviour {
 		else
 		{
 			Information += "\n You have completed " + this._Badge.Completed.ToString () + " out of " + this._Badge.Maximum.ToString () + ".";
-			}
+		}
 		return Information;
 	}
 }

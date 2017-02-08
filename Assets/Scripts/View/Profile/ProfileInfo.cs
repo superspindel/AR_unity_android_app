@@ -6,17 +6,20 @@ using UnityEngine.UI;
 
 public class ProfileInfo : MonoBehaviour {
 
-	public Image ProfileImage;
-	public Text NameField;
-	public Text DailyScoreField;
-	public Text TotalScoreField;
-	public Transform Slider;
+	private Image ProfileImage;
+	private Text NameField;
+	private Text DailyScoreField;
+	private Text TotalScoreField;
 	private SliderScript _Slscrpt{ get; set; }
 
 	// initialize by getting the script from the slider game object
 	void Awake()
 	{
-		this._Slscrpt = Slider.GetComponent<SliderScript> ();
+		this._Slscrpt = transform.FindChild ("ProfileText").FindChild ("Level").FindChild ("Slider").GetComponent<SliderScript> ();
+		this.ProfileImage = transform.FindChild ("ProfilePicture").FindChild ("PictureSquare").FindChild ("Image").GetComponent<Image> ();
+		this.NameField = transform.FindChild ("ProfileText").FindChild ("Name").GetComponent<Text> ();
+		this.DailyScoreField = transform.FindChild ("ProfileText").FindChild ("DailyScore").GetComponent<Text> ();
+		this.TotalScoreField = transform.FindChild ("ProfileText").FindChild ("TotalScore").GetComponent<Text> ();
 	}
 
 	// Set the profile view up with the information from the User object passed in
