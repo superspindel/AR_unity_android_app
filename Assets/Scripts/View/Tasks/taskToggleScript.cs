@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace App{
-	public class TaskToggleScript : MonoBehaviour {
+	public class taskToggleScript : MonoBehaviour {
 		
 		private TaskButtonScript Parent;
 		private Toggle ToggleComponent;

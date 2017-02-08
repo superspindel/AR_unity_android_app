@@ -8,7 +8,7 @@ namespace App{
 
 		private Text TaskLabel;
 		private Text XpLabel;
-		private TaskToggleScript TaskToggle;
+		private taskToggleScript TaskToggle;
 		private Button TaskButton;
 		private Pageswapper _pageswap;
 
@@ -17,7 +17,7 @@ namespace App{
 
 		// Use this for initialization
 		void Awake () {
-			TaskToggle = this.gameObject.transform.FindChild("Toggle").GetComponent<TaskToggleScript>();
+			TaskToggle = this.gameObject.transform.FindChild("Toggle").GetComponent<taskToggleScript>();
 			XpLabel = transform.FindChild ("XP").gameObject.GetComponent<Text> ();
 			TaskLabel = transform.FindChild ("title").gameObject.GetComponent<Text> ();
 			TaskButton = transform.gameObject.GetComponent<Button> ();

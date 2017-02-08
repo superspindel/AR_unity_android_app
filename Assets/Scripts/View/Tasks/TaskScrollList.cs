@@ -17,7 +17,7 @@ namespace App{
 		void Awake () {
 			Debug.Log ("im awake");
 			this.ThisPage = transform.gameObject;
-			this.ContentPanel = transform.FindChild ("Scroll View").FindChild ("Viewport").FindChild ("Content");
+			this.ContentPanel = transform.FindChild ("Scroll View").FindChild ("Viewport").FindChild ("Content").transform;
 			Debug.Log ("this is the contentpanel" + this.ContentPanel);
 			this.ButtonObjectPool = transform.FindChild ("ButtonObjectPool").gameObject.GetComponent<SimpleObjectPool>();
 			this.AddTaskButton = transform.FindChild ("AddTasksButton").gameObject.GetComponent<AddTaskButtonScript> ();
