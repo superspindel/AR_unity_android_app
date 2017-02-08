@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 using System;
-using UnityEditor;
 
 
 // Dictionary to contain the sprites for the badges

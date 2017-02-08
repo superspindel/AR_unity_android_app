@@ -98,8 +98,8 @@ public class SetupMenu : MonoBehaviour {
 		list1.Add (two);
 		this.MenuData.Add (new MenuGroup ("Support", BadgeDict.GetSprite (4), list1));
 
-		SubMenu three = new SubMenu ("Remote", null);
-		SubMenu four = new SubMenu ("AR", null);
+		SubMenu three = new SubMenu ("Login", null);
+		SubMenu four = new SubMenu ("Notification", "Notification");
 		List<SubMenu> list2 = new List<SubMenu> ();
 		list2.Add (three);
 		list2.Add (four);
