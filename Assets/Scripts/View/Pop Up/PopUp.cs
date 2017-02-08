@@ -14,7 +14,7 @@ public class PopUp : MonoBehaviour {
 						_generalPopupView, 
 						_subTaskInformationPopupView, 
 						_popupTopPanel;
-	//private GameObject 	_activePopupView; 
+	private GameObject 	_activePopupView; 
 
 	private Button 		_exitButton;
 	private Pageswapper _pageswapper;
@@ -61,7 +61,7 @@ public class PopUp : MonoBehaviour {
 	// Use for notification
 	public void OpenGeneralPopup(string title, string content){
 		_setActivePopupView (_generalPopupView);
-		_setPopupPanelTitle ("Notification");
+		_setPopupPanelTitle ("");
 		_setPopUpPanelColor (this._standardColor);
 		_generalPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
 		_generalPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
@@ -76,8 +76,11 @@ public class PopUp : MonoBehaviour {
 	}
 
 	private void _setActivePopupView(GameObject popup){
-		//_activePopupView.SetActive(false); no need to?
-		popup.SetActive(true);
+		if (_activePopupView != null) { // not first time
+			_activePopupView.SetActive(false);
+		}
+		_activePopupView = popup;
+		_activePopupView.SetActive(true);
 		this.gameObject.SetActive (true);
 	}
 

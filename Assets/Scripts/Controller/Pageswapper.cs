@@ -52,6 +52,9 @@ public class Pageswapper : MonoBehaviour {
 
 
 		_popupScript 			= PopUpGameObject.GetComponent<PopUp> ();
+
+		PopUpGameObject.SetActive (true);
+		PopUpGameObject.SetActive (false);
 	}
 		
 	void Update() {

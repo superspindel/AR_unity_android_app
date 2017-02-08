@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 222418416743315182}
   - component: {fileID: 114604572077174684}
   m_Layer: 5
-  m_Name: Backround
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2014,7 +2014,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 65.2}
+  m_SizeDelta: {x: 100, y: 449.2}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224234485678296226
 RectTransform:
@@ -2172,7 +2172,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -49.2}
-  m_SizeDelta: {x: 160, y: 16}
+  m_SizeDelta: {x: 340, y: 400}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224476387011274932
 RectTransform:

@@ -18,7 +18,7 @@ public abstract class NetworkDataObject
 
     public void Merge(object newData)
     {
-        Debug.Log(newData);
+        //Debug.Log(newData);
 		//Available = true;
         LastModified = DateTime.UtcNow;
         foreach (var prop in this.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite))

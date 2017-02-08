@@ -15,10 +15,10 @@ namespace App{
 
 
 		void Awake () {
-			Debug.Log ("im awake");
+			//Debug.Log ("im awake");
 			this.ThisPage = transform.gameObject;
 			this.ContentPanel = transform.FindChild ("Scroll View").FindChild ("Viewport").FindChild ("Content").transform;
-			Debug.Log ("this is the contentpanel" + this.ContentPanel);
+			//Debug.Log ("this is the contentpanel" + this.ContentPanel);
 			this.ButtonObjectPool = transform.FindChild ("ButtonObjectPool").gameObject.GetComponent<SimpleObjectPool>();
 			this.AddTaskButton = transform.FindChild ("AddTasksButton").gameObject.GetComponent<AddTaskButtonScript> ();
 			this.PageSwapperReference = GameObject.Find ("Page Swapper").gameObject.GetComponent<Pageswapper> ();
@@ -117,7 +117,7 @@ namespace App{
 
 		// Script to enter the page used for initialization 
 		public void EnterPage(List<Task> taskList){
-			Debug.Log ("Enter Page");
+			//Debug.Log ("Enter Page");
 			this.TaskList = taskList; // added back to code // EMIL
 			this.gameObject.SetActive (true);
 			AddTaskButtons ();
