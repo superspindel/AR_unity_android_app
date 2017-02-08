@@ -51,15 +51,14 @@ public class ActiveTasksSetup : MonoBehaviour {
 
 	public void CreateMenu()
 	{
-		for (int i = 0; i < ActiveTaskList.Count; i++)
-		{
-			//ActiveTasksGroup menuGroup = this.menuGroupList [i];
-			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
-			_itemsFromButtonGroupPool.Add (menuGroupPrefab); // ADDED / EMIL
-			menuGroupPrefab.transform.SetParent (ContentPanel);
-			Task activeTask = this.ActiveTaskList [i];
-			ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
-			btngrp.Setup (activeTask.SubTasks, activeTask.Id, activeTask.Title, this);
+		foreach( var activeTask in ActiveTaskList){
+			if (activeTask.UserId != null) {
+				GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
+				_itemsFromButtonGroupPool.Add (menuGroupPrefab); // ADDED / EMIL
+				menuGroupPrefab.transform.SetParent (ContentPanel);
+				ActiveButtonGroup btngrp = menuGroupPrefab.GetComponent<ActiveButtonGroup> ();
+				btngrp.Setup (activeTask.SubTasks, activeTask.Id, activeTask.Title, this);
+			}
 		}
 	}
 
