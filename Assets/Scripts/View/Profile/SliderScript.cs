@@ -39,8 +39,8 @@ public class SliderScript : MonoBehaviour {
 	// needed to get to the next level. Then it sets the values in the object.
 	private void SetData(int level, int totalXp)
 	{
-		int bottom = (10 * ((int)Mathf.Pow ((float)1.2, (float)(level)))); // The xp needed to reach the current level of the user
-		int top = (10 * ((int)Mathf.Pow ((float)1.2, (float)level+1))); // The xp need to reach the next level
+		int bottom = (int)(10 * (Mathf.Pow ((float)1.2, (float)(level)))); // The xp needed to reach the current level of the user
+		int top = (int)(10 * (Mathf.Pow ((float)1.2, (float)(level+1)))); // The xp need to reach the next level
 		this.MaxXp = top - bottom; // MaxXp of the slider should be the xp difference between the next level and the current level
 		this.Xp = totalXp - bottom; // The current xp for the user on this level should be the total xp - the xp needed to get to the current level
 		this.UserLevel = level;
