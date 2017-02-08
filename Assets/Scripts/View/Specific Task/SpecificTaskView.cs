@@ -5,12 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SpecificTaskView : MonoBehaviour {
-	[Header("UI Gameobjects")]
-	public GameObject SubTaskGroup;
-
-	[Header("Private Variable Debug")]
+	private GameObject _subTaskGroup; // reference to area for spawning subtasks
 	private List<GameObject> _subTaskList;
 	private SimpleObjectPool _pool;
+	[Header("Private Variable Debug")]
 	[SerializeField] private int _lastTaskViewed = -1;
 
 	private Text 	_taskTilteText, _taskDescriptionText;
@@ -18,12 +16,13 @@ public class SpecificTaskView : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		_subTaskList = new List<GameObject> ();
-		_pool = SubTaskGroup.GetComponent<SimpleObjectPool> ();
-		_taskTilteText = transform.FindChild ("Title").GetComponent<Text> ();
-		_taskDescriptionText = transform.FindChild ("Description").GetComponent<Text> ();
-		_regularSlider = transform.FindChild("Title Bar").transform.FindChild("Progress Slider").GetComponent<Slider> ();
-		_bonusSlider = transform.FindChild("Title Bar").transform.FindChild ("Bonus Slider").GetComponent<Slider> ();
+		_subTaskGroup 			= transform.FindChild ("Sub Task Group").gameObject; 
+		_subTaskList 			= new List<GameObject> ();
+		_pool 					= _subTaskGroup.GetComponent<SimpleObjectPool> ();
+		_taskTilteText 			= transform.FindChild ("Title").GetComponent<Text> ();
+		_taskDescriptionText 	= transform.FindChild ("Description").GetComponent<Text> ();
+		_regularSlider 			= transform.FindChild("Title Bar").transform.FindChild("Progress Slider").GetComponent<Slider> ();
+		_bonusSlider 			= transform.FindChild("Title Bar").transform.FindChild ("Bonus Slider").GetComponent<Slider> ();
 	}
 
 	// EnterPage with Task (Controller gets task via ID from API)
@@ -116,7 +115,7 @@ public class SpecificTaskView : MonoBehaviour {
 		GameObject subTaskGameObject = _pool.GetObject ();
 
 		// attach to subTaskGroup LayoutGroup
-		subTaskGameObject.transform.SetParent(SubTaskGroup.transform);
+		subTaskGameObject.transform.SetParent(_subTaskGroup.transform);
 
 		// Set parameters
 		SubTaskItem subTaskItem = subTaskGameObject.GetComponent<SubTaskItem>();

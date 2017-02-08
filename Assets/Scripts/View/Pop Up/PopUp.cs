@@ -7,8 +7,12 @@ using UnityEngine.UI;
 public enum PopUpType{General, Startup, Tools, Reward};
 
 public class PopUp : MonoBehaviour {
-	
-	public GameObject 	StartupRoutinePopupView, GeneralPopupView, SubTaskInformationPopupView, PopupTopPanel;
+
+	public  GameObject	PopUpContentPanel; 
+	private GameObject 	_startupRoutinePopupView, 
+						_generalPopupView, 
+						_subTaskInformationPopupView, 
+						_popupTopPanel;
 	//private GameObject 	_activePopupView; 
 
 	private Button 		_exitButton;
@@ -18,11 +22,16 @@ public class PopUp : MonoBehaviour {
 	private Color 		_warningColor;
 
 	void Awake(){
+		_startupRoutinePopupView 		= PopUpContentPanel.transform.FindChild("StartupPopupView").gameObject; 
+		_generalPopupView 				= PopUpContentPanel.transform.FindChild("GeneralPopupView").gameObject;
+		_subTaskInformationPopupView	= PopUpContentPanel.transform.FindChild("SubTaskInformationPopupView").gameObject;
+		_popupTopPanel					= transform.FindChild("Background").FindChild("Top Panel").gameObject;
+
 		_pageswapper = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
-		this._popUpPanelText = PopupTopPanel.transform.FindChild ("Title").GetComponent<Text> ();
+		this._popUpPanelText = _popupTopPanel.transform.FindChild ("Title").GetComponent<Text> ();
 
 		// exit button
-		this._exitButton = PopupTopPanel.transform.FindChild("ExitButton").GetComponent<Button> ();
+		this._exitButton = _popupTopPanel.transform.FindChild("ExitButton").GetComponent<Button> ();
 		_exitButton.onClick.AddListener (_pageswapper.LeavePopup);
 
 		_standardColor = new Color32(0x38, 0x49, 0x67, 0xFF);
@@ -39,30 +48,30 @@ public class PopUp : MonoBehaviour {
 	}
 
 	public void OpenSubTaskInformationPopup(SubTask subTask){
-		_setActivePopupView(SubTaskInformationPopupView);
+		_setActivePopupView(_subTaskInformationPopupView);
 		_setPopupPanelTitle("Information");
 		_setPopUpPanelColor (this._standardColor);
-		SubTaskInformationPopupView.transform.GetChild(0).GetComponent<Text> ().text = subTask.Title;
+		_subTaskInformationPopupView.transform.GetChild(0).GetComponent<Text> ().text = subTask.Title;
 		Debug.Log (subTask.Warning);
-		SubTaskInformationPopupView.transform.GetChild(1).GetComponent<Text> ().text = subTask.Warning;
-		SubTaskInformationPopupView.transform.GetChild(2).GetComponent<Text> ().text = subTask.Information;
+		_subTaskInformationPopupView.transform.GetChild(1).GetComponent<Text> ().text = subTask.Warning;
+		_subTaskInformationPopupView.transform.GetChild(2).GetComponent<Text> ().text = subTask.Information;
 	}
 
 	// Use for notification
 	public void OpenGeneralPopup(string title, string content){
-		_setActivePopupView (GeneralPopupView);
+		_setActivePopupView (_generalPopupView);
 		_setPopupPanelTitle ("Notification");
 		_setPopUpPanelColor (this._standardColor);
-		GeneralPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
-		GeneralPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
+		_generalPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
+		_generalPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
 	}
 
 	public void OpenErrorPopup(string title, string content){
-		_setActivePopupView (GeneralPopupView);
+		_setActivePopupView (_generalPopupView);
 		_setPopupPanelTitle ("Error");
 		_setPopUpPanelColor (this._warningColor);
-		GeneralPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
-		GeneralPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
+		_generalPopupView.transform.FindChild ("Title").GetComponent<Text> ().text = title;
+		_generalPopupView.transform.FindChild ("Content").GetComponent<Text> ().text = content;
 	}
 
 	private void _setActivePopupView(GameObject popup){
@@ -76,6 +85,6 @@ public class PopUp : MonoBehaviour {
 	}
 
 	private void _setPopUpPanelColor(Color32 color){
-		PopupTopPanel.GetComponent<Image> ().color = color;
+		_popupTopPanel.GetComponent<Image> ().color = color;
 		}
 }
