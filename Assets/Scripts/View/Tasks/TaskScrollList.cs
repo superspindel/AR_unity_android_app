@@ -34,14 +34,16 @@ namespace App{
 		// Adds the button gameobjects and assigns taskbuttonscripts
 		private void AddTaskButtons()
 		{
-			for (int i = 0; i < this.TaskList.Count; i++)
+			if (this.TaskList != null)
 			{
-				if (TaskList [i].UserId == null) { // TODO: check if no one "has task"
-					Task task = TaskList [i];
-					GameObject newButton = ButtonObjectPool.GetObject ();
-					newButton.transform.SetParent (ContentPanel);
-					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
-					taskButton.Setup (task, this, this.PageSwapperReference);
+				for (int i = 0; i < this.TaskList.Count; i++) {
+					if (TaskList [i].UserId == null) { // TODO: check if no one "has task"
+						Task task = TaskList [i];
+						GameObject newButton = ButtonObjectPool.GetObject ();
+						newButton.transform.SetParent (ContentPanel);
+						TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
+						taskButton.Setup (task, this, this.PageSwapperReference);
+					}
 				}
 			}
 		}

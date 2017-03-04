@@ -18,15 +18,15 @@ public class LeaderboardView : MonoBehaviour {
 	public void EnterPage(List<Leaderboard> subjectList)
 	{
 		this.gameObject.SetActive (true);
-		foreach (Leaderboard leaderboard in subjectList)
-		{
-			this.SubjectList = subjectList;
-			if (leaderboard.Available) 
-			{
-				GameObject SubjectObject = this.SubjectPool.GetObject ();
-				SubjectObject.transform.SetParent (this.Group);
-				LeaderboardSubjectPref script = SubjectObject.GetComponent<LeaderboardSubjectPref> ();
-				script.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, leaderboard);
+		if (subjectList != null && subjectList.Count > 0) {
+			foreach (Leaderboard leaderboard in subjectList) {
+				this.SubjectList = subjectList;
+				if (leaderboard.Available) {
+					GameObject SubjectObject = this.SubjectPool.GetObject ();
+					SubjectObject.transform.SetParent (this.Group);
+					LeaderboardSubjectPref script = SubjectObject.GetComponent<LeaderboardSubjectPref> ();
+					script.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, leaderboard);
+				}
 			}
 		}
 	}

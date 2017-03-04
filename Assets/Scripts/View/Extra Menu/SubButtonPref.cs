@@ -26,29 +26,12 @@ public class SubButtonPref : MonoBehaviour {
 		this._pageswapper 		= GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
 		this._Button = transform.GetComponent<Button> ();
 		this._Button.onClick.RemoveAllListeners ();
-		if (sbMenu.Target == "Leaderboard") 
+		if (sbMenu.Target != null) 
 		{
-			this._Button.onClick.AddListener (this._pageswapper.GoToLeaderboardPage);
-		} 
-		else if (sbMenu.Target == "Specific") 
-		{
-			this._Button.onClick.AddListener (_specificTaskListener);
-		}
-		else if (sbMenu.Target == "Notification") 
-		{
-			this._Button.onClick.AddListener (_notificationTest);
+			sbMenu.setButton (this._Button);
 		}
 	}
-
-	// GotoSpecificTask
-	private void _specificTaskListener(){
-		this._pageswapper.gotoSpecificTaskPage ("HardCodedId");
-	}
-
-	private void _notificationTest()
-	{
-		Assets.SimpleAndroidNotifications.Notification notification = new Assets.SimpleAndroidNotifications.Notification (NotificationType.FireAlarm, "WARNING FIRE IN THE AREA");
-	}
+		
 
 	// TODO: 	onClick event to enter the settings view of this sub button.
 
