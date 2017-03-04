@@ -9,45 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1972855875664584}
+  m_RootGameObject: {fileID: 1036841451017404}
   m_IsPrefabParent: 1
---- !u!1 &1972855875664584
+--- !u!1 &1036841451017404
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4132131913822046}
-  - component: {fileID: 114815962539837720}
-  - component: {fileID: 96458644727950842}
+  - component: {fileID: 4065182233556082}
+  - component: {fileID: 114588946636879966}
+  - component: {fileID: 96356603352601558}
   m_Layer: 0
-  m_Name: SwipeTrail
+  m_Name: Paint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4132131913822046
+--- !u!4 &4065182233556082
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1972855875664584}
+  m_GameObject: {fileID: 1036841451017404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.921}
+  m_LocalPosition: {x: 0, y: 0, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &96458644727950842
+--- !u!96 &96356603352601558
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1972855875664584}
+  m_GameObject: {fileID: 1036841451017404}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -76,7 +76,7 @@ TrailRenderer:
   m_Time: 1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.05
+    widthMultiplier: 0.005
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -137,16 +137,18 @@ TrailRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
-  m_MinVertexDistance: 0.005
+  m_MinVertexDistance: 0.001
   m_Autodestruct: 0
---- !u!114 &114815962539837720
+--- !u!114 &114588946636879966
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1972855875664584}
+  m_GameObject: {fileID: 1036841451017404}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fcfd79ba9d16ec48aaa58a3cbe88127, type: 3}
+  m_Script: {fileID: 11500000, guid: e63d248b02bb2864e8c4b7d58c358528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
+  Model: {fileID: 1354502587139994, guid: 15ba9f82ca17c614a96e97431ccee9d8, type: 2}
