@@ -151,4 +151,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
+  useMouseInput: 1
   Model: {fileID: 1354502587139994, guid: 15ba9f82ca17c614a96e97431ccee9d8, type: 2}

@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PaintMode{Trail, Arrows}
-
 public class Paint : MonoBehaviour {
 
+	public class InputContainer {
+		public Vector3 pos;
+		public bool clicked;
+	}
+
+	public enum PaintMode{Trail, Arrows}
+
 	public PaintMode mode;
+	public bool useMouseInput;
 
 	// arrows
 	public GameObject Model;
@@ -19,19 +25,22 @@ public class Paint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		InputContainer input = _getInput ();
+
 		if (mode == PaintMode.Trail) 
 		{
 			transform.GetComponent<TrailRenderer> ().enabled = true;
-			_updateTrail ();
+			_updateTrail (input);
 		}
 		if (mode == PaintMode.Arrows) 
 		{
 			transform.GetComponent<TrailRenderer> ().enabled = false;
-			_updateArrows ();
+			_updateArrows (input);
 		}
 
 	}
-
+		
 	public void SetModeTrail(){
 		mode = PaintMode.Trail;
 	}
@@ -46,10 +55,26 @@ public class Paint : MonoBehaviour {
 		}
 	}
 
-	private void _updateTrail(){
-		if (((Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) || Input.GetMouseButton (0))) {
 
-			Ray mRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+	private InputContainer _getInput(){
+		InputContainer returnContainer = new InputContainer ();
+		if (useMouseInput) {
+			if (((Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) || Input.GetMouseButton (0))) {
+				returnContainer.pos = Input.mousePosition;
+				returnContainer.clicked = true;
+			}
+		}
+		// Get from server
+		// X * Screen.width;
+		// Y * Screen.height;
+
+		return returnContainer;
+	}
+
+	private void _updateTrail(InputContainer inputContainer){
+		if (inputContainer.clicked) {
+
+			Ray mRay = Camera.main.ScreenPointToRay (inputContainer.pos);
 			RaycastHit hit;
 			if (Physics.Raycast (mRay, out hit, 100.0f)) { // if hit
 				Debug.Log ("You selected the " + hit.transform.name);
@@ -65,10 +90,10 @@ public class Paint : MonoBehaviour {
 		}
 	}
 
-	private void _updateArrows(){
-		if (((Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) || Input.GetMouseButtonDown (0))) {
+	private void _updateArrows(InputContainer inputContainer){
+		if (inputContainer.clicked) {
 			RaycastHit hit; 
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition); 
+			Ray ray = Camera.main.ScreenPointToRay (inputContainer.pos); 
 			if (Physics.Raycast (ray, out hit, 100.0f)) { // if hit
 				Debug.Log ("You selected the " + hit.transform.name);
 
