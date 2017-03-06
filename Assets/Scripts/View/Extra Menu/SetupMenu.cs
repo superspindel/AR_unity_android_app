@@ -91,8 +91,12 @@ public class SetupMenu : MonoBehaviour {
 
 	private void CreateStandardMenus()
 	{
-		SubMenu one = new SubMenu ("Remote", null);
-		SubMenu two = new SubMenu ("AR", null);
+		SubMenu one = new SubMenu ("Remote", () => {
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Paint");	
+		});
+		SubMenu two = new SubMenu ("MAP", () => {
+			UnityEngine.SceneManagement.SceneManager.LoadScene("map");
+		});
 		List<SubMenu> list1 = new List<SubMenu> ();
 		list1.Add (one);
 		list1.Add (two);
