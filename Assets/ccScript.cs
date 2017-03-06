@@ -10,7 +10,7 @@ public class ccScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.cameraswitch = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<cameraSwitch> ();
+		this.cameraswitch = GameObject.FindGameObjectWithTag ("Respawn").GetComponent<cameraSwitch> ();
 		this.ccButton = gameObject.GetComponent<Button> ();
 		this.ccButton.onClick.AddListener (cameraswitch.toggle);
 	}

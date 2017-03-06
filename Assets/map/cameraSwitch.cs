@@ -35,7 +35,7 @@ public class cameraSwitch : MonoBehaviour {
 //variabel top control the switching
     private KeyCode camSap = KeyCode.Tab;
     private bool camSapBool = true;
-    private int camNr = 0;
+    private int camNr = 6;
 
     private KeyCode seanSelect = KeyCode.F;
     private bool seanSelectBoll = true;
@@ -89,8 +89,8 @@ public class cameraSwitch : MonoBehaviour {
 				Vector3 cameraPosition = new Vector3 (0, 20, 0);
 				cam6.gameObject.transform.localPosition = cameraPosition;
 				cam6.gameObject.transform.localRotation = Quaternion.Euler(90, 0, 0);
-				toggel(KeyCode.F);
 				initialized = true;
+				toggel(KeyCode.F);
 			} catch {
 			}
 		}
