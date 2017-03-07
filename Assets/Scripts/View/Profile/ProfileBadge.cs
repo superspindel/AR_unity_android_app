@@ -30,6 +30,8 @@ public class ProfileBadge : Prefab {
 	// Add objects from pool to the scene and call setup on them
 	public void AddBadges(List<Badge> badgeList)
 	{
+	    if (badgeList == null)
+	        return;
 		foreach (Badge bdg in badgeList)
 		{
 			GameObject newBadge = this.BadgePool.GetObject ();

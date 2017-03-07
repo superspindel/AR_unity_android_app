@@ -29,6 +29,8 @@ public class ProfileAchievement : Prefab {
 	// Add achievement prefabs from the pool to the scene and call setup on them
 	public void AddAchievements(List<Achievement> achievementList)
 	{
+	    if (achievementList == null)
+	        return;
 		foreach(Achievement ach in achievementList)
 		{
 			GameObject newAch = this.AchievementObjectPool.GetObject ();

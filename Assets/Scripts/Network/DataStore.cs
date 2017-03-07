@@ -90,7 +90,7 @@ public class DataStore
         int hash = GetHashCode(typeof(T), id);
         // if object was last modified less than a minute ago, return instantly and queue an update
         bool fast = false;
-        if (ObjectTracker.ContainsKey(hash) && ObjectTracker[hash].LastModified > DateTime.UtcNow - TimeSpan.FromMinutes(1))
+        if (ObjectTracker.ContainsKey(hash) && ObjectTracker[hash].LastModified > (DateTime.UtcNow - TimeSpan.FromMinutes(1)))
         {
             if (callback != null)
                 callback(ObjectTracker[hash] as T);
@@ -123,6 +123,7 @@ public class DataStore
             {
                 if (callback != null)
                     callback(ObjectTracker[hash] as T);
+                return;
             }
             // Attempt to fetch sync from Offline Cache
             var cache = OfflineCache.Fetch<T>(hash);
@@ -131,6 +132,7 @@ public class DataStore
                 ObjectTracker[hash] = cache;
                 if (callback != null)
                     callback(cache);
+                return;
             }
             else
             {
