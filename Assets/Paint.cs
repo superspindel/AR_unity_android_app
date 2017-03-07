@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class inpCont {
+	public Vector3 pos;
+	public bool clicked;
+}
+
 public class Paint : MonoBehaviour {
 
-	public class InputContainer {
-		public Vector3 pos;
-		public bool clicked;
-	}
 
 	public enum PaintMode{Trail, Arrows}
 
@@ -26,7 +28,7 @@ public class Paint : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		InputContainer input = _getInput ();
+		inpCont input = _getInput ();
 
 		if (mode == PaintMode.Trail) 
 		{
@@ -56,8 +58,8 @@ public class Paint : MonoBehaviour {
 	}
 
 
-	private InputContainer _getInput(){
-		InputContainer returnContainer = new InputContainer ();
+	private inpCont _getInput(){
+		inpCont returnContainer = new inpCont ();
 		if (useMouseInput) {
 			if (((Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) || Input.GetMouseButton (0))) {
 				returnContainer.pos = Input.mousePosition;
@@ -71,7 +73,7 @@ public class Paint : MonoBehaviour {
 		return returnContainer;
 	}
 
-	private void _updateTrail(InputContainer inputContainer){
+	private void _updateTrail(inpCont inputContainer){
 		if (inputContainer.clicked) {
 
 			Ray mRay = Camera.main.ScreenPointToRay (inputContainer.pos);
@@ -90,7 +92,7 @@ public class Paint : MonoBehaviour {
 		}
 	}
 
-	private void _updateArrows(InputContainer inputContainer){
+	public void _updateArrows(inpCont inputContainer){
 		if (inputContainer.clicked) {
 			RaycastHit hit; 
 			Ray ray = Camera.main.ScreenPointToRay (inputContainer.pos); 
