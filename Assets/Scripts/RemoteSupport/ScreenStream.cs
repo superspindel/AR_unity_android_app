@@ -11,18 +11,27 @@ public class ScreenStream : MonoBehaviour
 
     public bool PublishStream;
 
-    private readonly ImageStream _stream = new ImageStream { Id = "stream1" };
+    private readonly RemoteSupportStream _stream = new RemoteSupportStream { Id = "stream1" };
+    public RemoteSupportMouse RemoteMouse { get; set; }
 
 
 	// Use this for initialization
 	void Start () {
-		
 	}
-	
+
+    private bool _netSetup = false;
 	// Update is called once per frame
 	void Update ()
 	{
-	    
+	    if (!_netSetup && CommunicationsApi.IsAvailable)
+	    {
+	        _netSetup = true;
+            DataStore.RegisterAutoUpdate<RemoteSupportMouse>();
+            DataStore.Get<RemoteSupportMouse>("mouse1", x =>
+            {
+                RemoteMouse = x;
+            });
+        }
 
     }
 
@@ -41,7 +50,6 @@ public class ScreenStream : MonoBehaviour
         }
         if(PublishStream)
             takePhoto = true;
-        
     }
 
     void OnPostRender()
@@ -53,7 +61,7 @@ public class ScreenStream : MonoBehaviour
     {
         if (!CommunicationsApi.IsAvailable || !takePhoto)
             return;
-
+        new WaitForEndOfFrame();
         takePhoto = false;
         try
         {
