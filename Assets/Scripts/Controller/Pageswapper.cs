@@ -35,6 +35,7 @@ public class Pageswapper : MonoBehaviour {
 	private GameObject 	_settingsPage;
 	private GameObject 	_specificTaskPage;
 	private GameObject 	_leaderBoardPage;
+	private GameObject _augmentedRealityPage;
 
 	[Header("Content Panel in PopUp Scroll View")]
 	public GameObject 	PopUpGameObject;
@@ -113,6 +114,20 @@ public class Pageswapper : MonoBehaviour {
 
 	private void _showLoadScreen(){
 		
+	}
+
+	public void GoToAugmentedRealityPage()
+	{
+		_activePageForward (this._augmentedRealityPage);
+		AugmentedRealityView ARscript = this._augmentedRealityPage.GetComponent<AugmentedRealityView> ();
+		ARscript.enterPage ();
+
+	}
+
+	private void _leaveAugmentedRealityPage()
+	{
+		AugmentedRealityView ARscript = this._augmentedRealityPage.GetComponent<AugmentedRealityView> ();
+		ARscript.leavePage ();
 	}
 
 // Main View

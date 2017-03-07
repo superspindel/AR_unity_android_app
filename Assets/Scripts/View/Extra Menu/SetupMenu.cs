@@ -91,29 +91,35 @@ public class SetupMenu : MonoBehaviour {
 
 	private void CreateStandardMenus()
 	{
-		SubMenu one = new SubMenu ("Remote", null);
-		SubMenu two = new SubMenu ("AR", null);
+		SubMenu one = new SubMenu ("Remote", () => {
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Paint");	
+		});
+		SubMenu two = new SubMenu ("MAP", () => {
+			UnityEngine.SceneManagement.SceneManager.LoadScene("map");
+		});
 		List<SubMenu> list1 = new List<SubMenu> ();
 		list1.Add (one);
 		list1.Add (two);
 		this.MenuData.Add (new MenuGroup ("Support", BadgeDict.GetSprite (4), list1));
 
 		SubMenu three = new SubMenu ("Login", null);
-		SubMenu four = new SubMenu ("Notification", "Notification");
+		SubMenu four = new SubMenu ("Notification", () => {
+			Assets.SimpleAndroidNotifications.Notification notification = new Assets.SimpleAndroidNotifications.Notification (NotificationType.FireAlarm, "WARNING FIRE IN THE AREA");
+		});
 		List<SubMenu> list2 = new List<SubMenu> ();
 		list2.Add (three);
 		list2.Add (four);
 		this.MenuData.Add (new MenuGroup ("Account", BadgeDict.GetSprite (3), list2));
 
-		SubMenu five = new SubMenu ("Account", null);
+		SubMenu five = new SubMenu ("Account", () => _pageSwapper.gotoSpecificTaskPage ("HardCodedId"));
 		SubMenu six = new SubMenu ("Application", null);
 		List<SubMenu> list3 = new List<SubMenu> ();
 		list3.Add (five);
 		list3.Add (six);
 		this.MenuData.Add (new MenuGroup ("Help", BadgeDict.GetSprite (6), list3));
 
-		SubMenu seven = new SubMenu ("Check", "Leaderboard");
-		SubMenu eight = new SubMenu ("Review", "Leaderboard");
+		SubMenu seven = new SubMenu ("Check", () => _pageSwapper.GoToLeaderboardPage());
+		SubMenu eight = new SubMenu ("Review", () => _pageSwapper.GoToLeaderboardPage());
 		List<SubMenu> list4 = new List<SubMenu> ();
 		list4.Add (seven);
 		list4.Add (eight);
