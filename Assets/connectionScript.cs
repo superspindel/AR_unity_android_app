@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,17 +22,23 @@ public class connectionScript : MonoBehaviour {
 			if (this.remoteStream.PublishStream)
 			{
 				this.buttonText.text = "Disconnect";
-				remoteStream.RemoteMouse.Updated += o => { HandleInput(o as Assets.Scripts.Model.RemoteSupportMouse); };
+                remoteStream.RemoteMouse.Updated += RemoteMouse_Updated; 
 
 			}
 			else
 			{
 				this.buttonText.text = "Connect";
+			    remoteStream.RemoteMouse.Updated -= RemoteMouse_Updated;
 			}
 		});
 
 	}
 
+    private void RemoteMouse_Updated(NetworkDataObject obj)
+    {
+        HandleInput(obj as RemoteSupportMouse);
+    }
+    
 	public void HandleInput(Assets.Scripts.Model.RemoteSupportMouse inputMouse)
 	{
 		if (inputMouse.Down) {

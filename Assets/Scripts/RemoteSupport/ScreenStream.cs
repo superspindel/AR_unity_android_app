@@ -21,8 +21,12 @@ public class ScreenStream : MonoBehaviour
 	}
 
     private bool _netSetup = false;
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+
+    
+    private float rate = 1 / 24.0f;
+    private float elapsed = 0;
+    void Update ()
 	{
 	    if (!_netSetup && CommunicationsApi.IsAvailable)
 	    {
@@ -33,49 +37,34 @@ public class ScreenStream : MonoBehaviour
 					this.RemoteMouse = x;
             });
         }
-
-    }
-
-    void LateUpdate()
-    {
-        
-    }
-
-    private bool takePhoto = false;
-
-    void FixedUpdate()
-    {
+        elapsed += Time.fixedDeltaTime;
         if (_stream.Streaming != PublishStream)
         {
             _stream.Streaming = PublishStream;
             DataStore.Update(_stream, null);
         }
-        if(PublishStream)
-            takePhoto = true;
+        if (elapsed > fps && PublishStream && CommunicationsApi.IsAvailable)
+        {
+            elapsed = 0;
+
+            StartCoroutine(SendFrame());
+        }
+
     }
 
-    void OnPostRender()
+    IEnumerator SendFrame()
     {
-        Debug.Log("render");
-    }
-	int frame = 0;
-    void OnGUI()
-    {
-		if (frame > 80) {
-			if (!CommunicationsApi.IsAvailable || !takePhoto)
-				return;
-			new WaitForEndOfFrame ();
-			takePhoto = false;
-			try {
-				string d = Convert.ToBase64String (FetchScreen ());
-				_stream.Image = d;
-				DataStore.Update (_stream, null);
-			} catch (Exception) {
-	        
-			}
-			frame = 0;
-		} else
-			frame++;
+        yield return new WaitForEndOfFrame();
+        try
+        {
+            string d = Convert.ToBase64String(FetchScreen());
+            _stream.Image = d;
+            DataStore.Update(_stream, null);
+        }
+        catch (Exception)
+        {
+
+        }
     }
     
     byte[] FetchScreen()
