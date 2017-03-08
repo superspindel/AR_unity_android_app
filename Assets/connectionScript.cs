@@ -8,6 +8,7 @@ public class connectionScript : MonoBehaviour {
 	private Text buttonText;
 	private ScreenStream remoteStream;
 	private Paint paintScript;
+	private bool ButtonInitialized = false;
 
 	// Use this for initialization
 	void Start () {
@@ -20,27 +21,19 @@ public class connectionScript : MonoBehaviour {
 			if (this.remoteStream.PublishStream)
 			{
 				this.buttonText.text = "Disconnect";
-				this.remoteStream.RemoteMouse.Updated += o => { HandleInput(o as Assets.Scripts.Model.RemoteSupportMouse); };
+				remoteStream.RemoteMouse.Updated += o => { HandleInput(o as Assets.Scripts.Model.RemoteSupportMouse); };
+
 			}
 			else
 			{
 				this.buttonText.text = "Connect";
-				this.remoteStream.RemoteMouse.Updated -= o => { HandleInput(o as Assets.Scripts.Model.RemoteSupportMouse); };
 			}
 		});
 
 	}
-	/*
-	 * 	public class InputContainer {
-		public Vector3 pos;
-		public bool clicked;
-	}
-	 * 
-	 */
 
 	public void HandleInput(Assets.Scripts.Model.RemoteSupportMouse inputMouse)
 	{
-		//Debug.Log ("mouseMovement");
 		if (inputMouse.Down) {
 			Vector3 mousePos = new Vector3 (inputMouse.Position.X, 800-inputMouse.Position.Y, inputMouse.Position.Z);
 			inpCont newInput = new inpCont ();
@@ -52,17 +45,7 @@ public class connectionScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		
 	}
-
-	/*
-	 * 					RemoteMouse.Updated += o => {
-						if (RemoteMouse.Down)
-						{
-							Debug.Log(RemoteMouse.Position.X);
-							Debug.Log(RemoteMouse.Position.Y);
-							Debug.Log(RemoteMouse.Position.Z);
-							Debug.Log("SWAG");
-						}
-					};
-	*/
+		
 }

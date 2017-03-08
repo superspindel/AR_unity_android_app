@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Model;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -13,7 +14,6 @@ public class ScreenStream : MonoBehaviour
 
     private readonly RemoteSupportStream _stream = new RemoteSupportStream { Id = "stream1" };
     public RemoteSupportMouse RemoteMouse { get; set; }
-	int frame = 0;
 
 
 	// Use this for initialization
@@ -30,7 +30,7 @@ public class ScreenStream : MonoBehaviour
             DataStore.RegisterAutoUpdate<RemoteSupportMouse>();
             DataStore.Get<RemoteSupportMouse>("mouse1", x =>
             {
-					RemoteMouse = x;
+					this.RemoteMouse = x;
             });
         }
 
@@ -42,6 +42,7 @@ public class ScreenStream : MonoBehaviour
     }
 
     private bool takePhoto = false;
+
     void FixedUpdate()
     {
         if (_stream.Streaming != PublishStream)
@@ -57,21 +58,26 @@ public class ScreenStream : MonoBehaviour
     {
         Debug.Log("render");
     }
-		
+	int frame = 0;
     void OnGUI()
     {
-		if (!CommunicationsApi.IsAvailable || !takePhoto)
-			return;
-		new WaitForEndOfFrame ();
-		takePhoto = false;
-		try {
-			string d = Convert.ToBase64String (FetchScreen ());
-			_stream.Image = d;
-			DataStore.Update (_stream, null);
-		} catch (Exception) {
-        
-		}
+		if (frame > 80) {
+			if (!CommunicationsApi.IsAvailable || !takePhoto)
+				return;
+			new WaitForEndOfFrame ();
+			takePhoto = false;
+			try {
+				string d = Convert.ToBase64String (FetchScreen ());
+				_stream.Image = d;
+				DataStore.Update (_stream, null);
+			} catch (Exception) {
+	        
+			}
+			frame = 0;
+		} else
+			frame++;
     }
+    
     byte[] FetchScreen()
     {
         int width = Screen.width;
@@ -80,7 +86,7 @@ public class ScreenStream : MonoBehaviour
         tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         tex.Apply();
         byte[] bytes = tex.EncodeToPNG();
-        Destroy(tex);
+		Destroy(tex);
 
         return bytes;
     }

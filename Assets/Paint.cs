@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class inpCont {
 	public Vector3 pos;
@@ -9,7 +9,6 @@ public class inpCont {
 }
 
 public class Paint : MonoBehaviour {
-
 
 	public enum PaintMode{Trail, Arrows}
 
@@ -73,12 +72,12 @@ public class Paint : MonoBehaviour {
 		return returnContainer;
 	}
 
-	private void _updateTrail(inpCont inputContainer){
-		if (inputContainer.clicked) {
+	private void _updateTrail(inpCont inputCont){
+		if (inputCont.clicked) {
 
-			Ray mRay = Camera.main.ScreenPointToRay (inputContainer.pos);
+			Ray mRay = Camera.main.ScreenPointToRay (inputCont.pos);
 			RaycastHit hit;
-			if (Physics.Raycast (mRay, out hit, 100.0f)) { // if hit
+			if (Physics.Raycast (mRay, out hit, 1000.0f)) { // if hit
 				Debug.Log ("You selected the " + hit.transform.name);
 
 				gameObject.GetComponent<TrailRenderer> ().time = 1;
@@ -92,11 +91,11 @@ public class Paint : MonoBehaviour {
 		}
 	}
 
-	public void _updateArrows(inpCont inputContainer){
-		if (inputContainer.clicked) {
+	public void _updateArrows(inpCont inputCont){
+		if (inputCont.clicked) {
 			RaycastHit hit; 
-			Ray ray = Camera.main.ScreenPointToRay (inputContainer.pos); 
-			if (Physics.Raycast (ray, out hit, 100.0f)) { // if hit
+			Ray ray = Camera.main.ScreenPointToRay (inputCont.pos); 
+			if (Physics.Raycast (ray, out hit, 1000.0f)) { // if hit
 				Debug.Log ("You selected the " + hit.transform.name);
 
 				// Spawn the arrow

@@ -34,6 +34,7 @@ public class CommunicationsApi : MonoBehaviour
         Socket.Connect();
 	}
 
+
     void OnDestroy()
     {
         if (Socket != null)
