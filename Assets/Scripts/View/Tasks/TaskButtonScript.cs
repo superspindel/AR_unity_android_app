@@ -3,35 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class TaskButtonScript : MonoBehaviour {
 
-		public Text taskLabel;
-		public Text xpLabel;
-		public taskToggleScript taskToggle;
-		public Button taskButton;
+		public Text TaskLabel;
+		public Text XpLabel;
+		public TaskToggleScript TaskToggle;
+		public Button TaskButton;
+		private Pageswapper _pageswap;
 
-		private Task task;
-		private TaskScrollList scrollList;
+		private Task _task;
+		private TaskScrollList _scrollList;
 
 		// Use this for initialization
 		void Start () {
-			
+			//_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
+			//TaskButton.onClick.AddListener (HandleClick);
 		}
 			
-		public void checkout(bool togglecheck){
-			// TODO: Task.check = togglecheck; 
-			scrollList.showAddButton (togglecheck);
+		public void Checkout(bool togglecheck)
+		{
+			if (togglecheck) {
+				_scrollList.SelectTask (_task);
+			} else {
+				_scrollList.RemoveSelectedTask (_task);
+			}
+			//scrollList.showAddButton (togglecheck);
 		}
 
-		public void Setup(Task currentTask, TaskScrollList currentScrollList)
+		public void HandleClick()
 		{
-			task = currentTask;
-			taskLabel.text = task.Title;
-			xpLabel.text = task.TotalXp.ToString() + "xp";
-			scrollList = currentScrollList;
-			taskToggle = this.GetComponentInChildren<taskToggleScript>();
-			// TODO: Check taskToggle.Setup (this, currentTask.check);
+			Debug.Log ("1: Task ID: " + _task.Id);
+			//_pageswap.gotoSpecificTaskPage (_task.Id);
+			//TODO
+		}
+
+		public void Setup(Task currentTask, TaskScrollList currentScrollList, Pageswapper pageswapper)
+		{
+			TaskButton.onClick.AddListener (HandleClick);
+			_pageswap = pageswapper;
+			_task = currentTask;
+			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
+			XpLabel.text = _task.TotalXp.ToString() + "xp";
+			_scrollList = currentScrollList;
+			TaskToggle = this.transform.FindChild("Toggle").GetComponent<TaskToggleScript>();
+			TaskToggle.Setup (this);
 		}
 	}
 }

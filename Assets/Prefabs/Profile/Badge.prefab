@@ -127,10 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7439b71d89e84e219db790952fe4339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  badgeIcon: {fileID: 114142334955455678}
-  buttonComponent: {fileID: 114306952740154638}
-  badges: {fileID: 0}
-  id: 0
+  BadgeIcon: {fileID: 114142334955455678}
+  ButtonComponent: {fileID: 114306952740154638}
+  BadgeDictionary: {fileID: 114989901200425430, guid: 47b876e75fae1419cb80eaf28e8ea789,
+    type: 2}
 --- !u!222 &222407227292467704
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
+// profile panel script. Runs the profile view and sets up the components within the profile panel.
 
 public class ProfileView : MonoBehaviour {
 
@@ -9,28 +12,54 @@ public class ProfileView : MonoBehaviour {
 	public Transform ProfileInfoBox;
 	public Transform BadgeBox;
 
-	private ProfileAchievement AchScript;
-	private ProfileBadge BadgeScript;
+	private User _Profile;
 
-	public List<Achievement> AchievementList;
-	public List<Badge> BadgeList;
+	private ProfileInfo _InfScript;
+	private ProfileAchievement _AchScript;
+	private ProfileBadge _BadgeScript;
 
-	// Use this for initialization
-	void Start () {
-		this.AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
-		this.BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
-		this.addAchievement ();
-		this.addBadges ();
+	private bool _Initialized = false;
+
+	// Awake will get the scripts for the transforms that was specified in the Unity control panel
+	void Awake() {
+		this._AchScript = AchievementBox.GetComponent<ProfileAchievement> ();
+		this._BadgeScript = BadgeBox.GetComponent<ProfileBadge> ();
+		this._InfScript = ProfileInfoBox.GetComponent<ProfileInfo> ();
 	}
 
-	public void addAchievement()
+	private void _onProfileUpdated(NetworkDataObject i) {
+		this.UpdatePage (i as User);
+	}
+	public void LeavePage()
 	{
-		this.AchScript.AddAchievements (AchievementList);
+		if (this._Initialized) {
+			this._Profile.Updated -= _onProfileUpdated;
+			this._Initialized = false;
+		}
+		this._AchScript.ReturnChildren ();
+		this._BadgeScript.ReturnChildren ();
+		this.gameObject.SetActive (false);
 	}
 
-	public void addBadges()
+	public void EnterPage(User Profile)
 	{
-		this.BadgeScript.AddBadges (BadgeList);
+		// TODO: Check Profile.Available
+		this.gameObject.SetActive (true);
+		if (!this._Initialized) 
+		{
+			Profile.Updated += _onProfileUpdated;
+			this._Initialized = true;
+		}
+		this._InfScript.SetProfileInfo (Profile);
+		this._AchScript.AddAchievements (Profile.Achievements);
+		this._BadgeScript.AddBadges (Profile.Badges);
+		this._Profile = Profile;
+	}
+
+	public void UpdatePage(User newInfo)
+	{
+		this.LeavePage ();
+		this.EnterPage (newInfo);
 	}
 
 }

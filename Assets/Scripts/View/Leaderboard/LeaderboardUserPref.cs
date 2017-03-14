@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class LeaderboardUserPref : MonoBehaviour {
 	public Text XpText;
-	public Text positionText;
-	public Image border;
+	public Text PositionText;
+	public Image Border;
 
 	public void Setup(LeaderboardUser ldbUser, bool last)
 	{
 		this.XpText.text = ldbUser.Xp.ToString ();
-		this.positionText.text = ldbUser.Position.ToString ();
+		this.PositionText.text = ldbUser.Position.ToString ();
 
 		if (last) 
 		{
-			border.enabled = false;
+			Border.enabled = false;
 		}
 	}
 }

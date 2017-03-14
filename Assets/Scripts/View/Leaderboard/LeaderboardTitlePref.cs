@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class leaderboardTitle : MonoBehaviour {
-	public Text titleText;
+public class LeaderboardTitlePref : MonoBehaviour {
+	public Text TitleText;
 
 	public void Setup(string title)
 	{
-		this.titleText.text = title;
+		this.TitleText.text = title;
 	}
 }

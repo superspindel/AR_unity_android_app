@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// User server
+// TODO: REMOVE CLASS USE API
 
 public class DataContainer : MonoBehaviour {
 
@@ -10,18 +10,18 @@ public class DataContainer : MonoBehaviour {
 	public int UserId;
 
 	// Personal Tasks
-	public List<Task> activeTasks;
-	public List<Task> avalibleTasks;
+	public List<Task> ActiveTasks;
+	public List<Task> AvalibleTasks;
 
-	// Global Achivement / Badge
-	public List<Achievement> achievementList;
-	public List<Badge> badgeList;
+	// Global achievement / Badge
+	public List<Achievement> AchievementList;
+	public List<Badge> BadgeList;
 
 	// Personal Profile
-	public Profile activeProfile;
+	public User ActiveUser;
 
 	// Personal Settings
-	public ArrayList settingsArray;
+	public ArrayList SettingsArray;
 
 
 // Functions for testing

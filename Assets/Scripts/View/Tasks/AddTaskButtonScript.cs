@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Application{
+namespace App{
 	public class AddTaskButtonScript : MonoBehaviour {
-		public TaskScrollList scrollList;
+		public TaskScrollList ScrollList;
 		public Button ButtonComponent;
-		// Use this for initialization
+
+
 		void Start () {
 			ButtonComponent.onClick.AddListener (HandleClick);
 		}
 
 
 		public void HandleClick(){
-			scrollList.addCheckedTasks ();
+			ScrollList.AddCheckedTasks ();
 		}
-		// Update is called once per frame
+
 		void Update () {
 			
 		}

@@ -8,8 +8,7 @@ public class SubTask : NetworkDataObject {
 	//public bool Available { get; set; }
 	//public string Id { get; set; }
 	//public DateTime LastModified { get; private set; }
-
-	public int		Id { get; set; }
+    
 	public Status 	Status { get; set; }
 	public string 	Title { get; set; }
 	public bool 	IsBonus { get; set; }
