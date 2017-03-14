@@ -43,7 +43,7 @@ public class ScreenStream : MonoBehaviour
             _stream.Streaming = PublishStream;
             DataStore.Update(_stream, null);
         }
-        if (elapsed > fps && PublishStream && CommunicationsApi.IsAvailable)
+        if (elapsed > rate && PublishStream && CommunicationsApi.IsAvailable)
         {
             elapsed = 0;
 
