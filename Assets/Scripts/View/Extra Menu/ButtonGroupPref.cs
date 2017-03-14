@@ -29,7 +29,7 @@ public class ButtonGroupPref : Prefab {
 		this.AddSubMenuGroup ();
 		this.ToggleSubMenu ();
 	}
-		
+
 	// Creates the Main button
 	// Input is the Title of the button aswell as the icon for the button.
 	private void AddMainButton(string title, Sprite icon)

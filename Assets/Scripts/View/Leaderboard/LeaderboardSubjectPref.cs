@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class LeaderboardSubjectPref : Prefab {
 
@@ -11,7 +12,6 @@ public class LeaderboardSubjectPref : Prefab {
 	private SimpleObjectPool _titleObjectPool;
 	private SimpleObjectPool _userObjectPool;
 
-	private bool _initialized = false;
 
 	// Creates the subject gameobject and sets the title and adds the users in the leaderboard.
 	public void Setup(SimpleObjectPool titleObjectPool, SimpleObjectPool userObjectPool, Leaderboard ldbSubObj)
@@ -30,7 +30,6 @@ public class LeaderboardSubjectPref : Prefab {
 		GameObject newTitle = this._titleObjectPool.GetObject ();
 		newTitle.transform.SetParent (this.transform);
 		LeaderboardTitlePref ldbttl = newTitle.GetComponent<LeaderboardTitlePref> ();
-		ldbttl.Setup (this._title);
 	}
 
 	private void InsertLeaderboardUsers()
@@ -38,19 +37,19 @@ public class LeaderboardSubjectPref : Prefab {
 		int i = 0;
 		foreach (LeaderboardUser user in _userList)
 		{
-			if (!this._initialized) 
-			{
-				user.Updated += obj => {
-					this.UpdateSubject();
-				};
-			}
 			GameObject newUsObj = this._userObjectPool.GetObject ();
 			newUsObj.transform.SetParent (this.transform);
 			LeaderboardUserPref ldbUser = newUsObj.GetComponent<LeaderboardUserPref> ();
-			ldbUser.Setup (user, i == _userList.Count-1);
+			try
+			{
+				ldbUser.Setup (user, i == _userList.Count - 1);
+			}
+			catch(Exception e) 
+			{
+				Debug.Log (e.Message);
+			}
 			i++;
 		}
-		this._initialized = true;
 	}
 
 	public override void ReturnChildren()

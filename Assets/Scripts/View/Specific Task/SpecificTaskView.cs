@@ -5,17 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SpecificTaskView : MonoBehaviour {
-	[Header("Testing Variables")]
-	[Tooltip("Use for testing")]
-	public bool UseGeneratedTestList;
-	public int TestListSize;
-
-	[Header("UI Gameobjects")]
-	public GameObject SubTaskGroup;
-
+	private GameObject _subTaskGroup; // reference to area for spawning subtasks
+	private List<GameObject> _subTaskList;
+	private SimpleObjectPool _pool;
 	[Header("Private Variable Debug")]
-	[SerializeField] private List<GameObject> _subTaskList;
-	[SerializeField] private SimpleObjectPool _pool;
 	[SerializeField] private int _lastTaskViewed = -1;
 
 	private Text 	_taskTilteText, _taskDescriptionText;
@@ -23,10 +16,13 @@ public class SpecificTaskView : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		_subTaskList = new List<GameObject> ();
-		_pool = SubTaskGroup.GetComponent<SimpleObjectPool> ();
-		_taskTilteText = transform.FindChild ("Title").GetComponent<Text> ();
-		_taskDescriptionText = transform.FindChild ("Description").GetComponent<Text> ();
+		_subTaskGroup 			= transform.FindChild ("Sub Task Group").gameObject; 
+		_subTaskList 			= new List<GameObject> ();
+		_pool 					= _subTaskGroup.GetComponent<SimpleObjectPool> ();
+		_taskTilteText 			= transform.FindChild ("Title").GetComponent<Text> ();
+		_taskDescriptionText 	= transform.FindChild ("Description").GetComponent<Text> ();
+		_regularSlider 			= transform.FindChild("Title Bar").transform.FindChild("Progress Slider").GetComponent<Slider> ();
+		_bonusSlider 			= transform.FindChild("Title Bar").transform.FindChild ("Bonus Slider").GetComponent<Slider> ();
 	}
 
 	// EnterPage with Task (Controller gets task via ID from API)
@@ -48,12 +44,10 @@ public class SpecificTaskView : MonoBehaviour {
 		_taskTilteText.text = task.Title;
 		_taskDescriptionText.text = task.Description;
 
-		// Update Progress Sliders
-		_refreshProgress();
-
 		// Create subtasks items
 		foreach (SubTask subTask in task.SubTasks) {
-			_addSubTask (subTask);
+			_addSubTask (subTask); 
+			// ^ this also updates progress slider
 		}
 	}
 
@@ -64,6 +58,11 @@ public class SpecificTaskView : MonoBehaviour {
 
 		// Deactivate Page
 		this.gameObject.SetActive (false);
+	}
+
+	// TODO: setReadOnly, remove toogles etc.
+	public void setReadOnly(){
+
 	}
 
 	private void _clearPage(){
@@ -77,14 +76,14 @@ public class SpecificTaskView : MonoBehaviour {
 	}
 
 	// refreshes sliders
-	private void _refreshProgress (){
+	public void RefreshProgress (){
 		// counting variables
 		float regularTotal, regularCompleted, bonusTotal, bonusCompleted; 
 		regularTotal = regularCompleted = bonusTotal = bonusCompleted = 0f;
 
-		// get data [0-100] %
+		// get data [0-100] % TODO: Might need to change to check acutal model when data is persistent on server
 		foreach (GameObject g in _subTaskList) {
-			SubTask subTask = g.GetComponent<SubTask> ();
+			SubTaskItem subTask = g.GetComponent<SubTaskItem> ();
 			if (!subTask.IsBonus) {
 				if (subTask.Status == Status.Completed)
 					regularCompleted++;
@@ -96,9 +95,19 @@ public class SpecificTaskView : MonoBehaviour {
 			}
 		}
 
-		// fill sliders
-		_regularSlider.value 	= (regularCompleted / regularTotal);
-		_bonusSlider.value  	= (bonusCompleted / bonusTotal);
+		// fill sliders TODO: Better handlning if no subtasks of type?
+		if (regularTotal == 0) {
+			_regularSlider.gameObject.SetActive (false);
+		} else {
+			_regularSlider.gameObject.SetActive (true);
+			_regularSlider.value = (regularCompleted / regularTotal);
+		}
+		if (bonusTotal == 0) {
+			_bonusSlider.gameObject.SetActive (false);
+		} else {
+			_bonusSlider.gameObject.SetActive (true);
+			_bonusSlider.value = (bonusCompleted / bonusTotal);
+		}
 	}
 
 	private void _addSubTask(SubTask subTask){
@@ -106,7 +115,7 @@ public class SpecificTaskView : MonoBehaviour {
 		GameObject subTaskGameObject = _pool.GetObject ();
 
 		// attach to subTaskGroup LayoutGroup
-		subTaskGameObject.transform.SetParent(SubTaskGroup.transform);
+		subTaskGameObject.transform.SetParent(_subTaskGroup.transform);
 
 		// Set parameters
 		SubTaskItem subTaskItem = subTaskGameObject.GetComponent<SubTaskItem>();
@@ -114,11 +123,12 @@ public class SpecificTaskView : MonoBehaviour {
 		subTaskItem.SetText (subTask.Title + "[" + subTask.Id + "]");
 		subTaskItem.SetBonus (subTask.IsBonus);
 		subTaskItem.SetStatus (subTask.Status);
+		subTaskItem.SetPrechecked (subTask.Status);
 
 		// Set buttons and data (Help should always be avalible)
 		subTaskItem.SetAvalibeButtons ((subTask.Warning != null), (subTask.Tools != null), (subTask.Information != null), true);
 		if (subTask.Tools != null)
-			subTaskItem.Tools = subTaskItem.Tools;
+			subTaskItem.Tools = subTask.Tools;
 		if (subTask.Warning != null)
 			subTaskItem.Warning = subTask.Warning;
 		if (subTask.Information != null)

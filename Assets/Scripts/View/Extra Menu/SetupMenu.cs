@@ -2,24 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // Script for the Extra menu panel, creates the menu when swapping to the panel. 
 public class SetupMenu : MonoBehaviour {
 
-	public SimpleObjectPool ButtonGroupPool;
-	public SimpleObjectPool SubButtonPool;
-	public SimpleObjectPool MainButtonPool;
-	public SimpleObjectPool SubMenuGroupPool;
+	public SimpleObjectPool ButtonGroupPool { get; set; }
+	public SimpleObjectPool SubButtonPool { get; set; }
+	public SimpleObjectPool MainButtonPool { get; set; }
+	public SimpleObjectPool SubMenuGroupPool { get; set; }
 
+	private Pageswapper _pageSwapper;
+
+	private List<MenuGroup> MenuData = new List<MenuGroup> ();
+
+	private Transform group;
+
+
+	void Awake()
+	{
+		this._pageSwapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
+		this.ButtonGroupPool = transform.FindChild ("ButtonGroupPool").GetComponent<SimpleObjectPool> ();
+		this.MainButtonPool = transform.FindChild ("MainButtonPool").GetComponent<SimpleObjectPool> ();
+		this.SubButtonPool = transform.FindChild ("SubButtonPool").GetComponent<SimpleObjectPool> ();
+		this.SubMenuGroupPool = transform.FindChild ("SubMenuGroupPool").GetComponent<SimpleObjectPool> ();
+		this.group = transform.FindChild ("Group").transform;
+		CreateStandardMenus ();
+
+	}
 
 	// Creates a menu with the menu groups in the list. Also calls setup on all groups to instantiate their buttons and sub buttons.
 	public void CreateMenu(List<MenuGroup> menuGroupList)
 	{
 		foreach (MenuGroup menuGrp in menuGroupList)
 		{
-			// TODO: Check MenuGrp.Available
 			GameObject menuGroupPrefab = this.ButtonGroupPool.GetObject ();
-			menuGroupPrefab.transform.SetParent (this.transform);
+			menuGroupPrefab.transform.SetParent (this.group);
 			ButtonGroupPref btngrp = menuGroupPrefab.GetComponent<ButtonGroupPref> ();
 			btngrp.Setup (menuGrp, this);
 		}
@@ -27,23 +45,85 @@ public class SetupMenu : MonoBehaviour {
 
 	public void EnterPage()
 	{
-		// read settings page
+		this.gameObject.SetActive (true);
+		CreateMenu (this.GetMenu ());
 	}
 
 	public void LeavePage()
 	{
-		while (this.transform.childCount > 0) 
+		while (this.group.childCount > 0) 
 		{
-			GameObject toRemove = this.transform.GetChild (0).gameObject;
-			toRemove.GetComponent<ButtonGroupPref> ().ReturnChildren ();
+			GameObject toRemove = this.group.GetChild (0).gameObject;
+			ButtonGroupPref test = toRemove.transform.GetComponent<ButtonGroupPref> ();
+			test.ReturnChildren ();
+			ButtonGroupPool.ReturnObject (toRemove);
 		}
+		this.gameObject.SetActive (false);
 	}
 
 	public void UpdatePage()
 	{
-		
+		this.LeavePage ();
+		this.EnterPage ();
 	}
 
-	// TODO: 	Function for leavePage, go through each object and return them to the pool.
-	// 			Also, Get data from some settings or create a base MenuGroup to show always.
+	private List<MenuGroup> GetMenu()
+	{
+		List<MenuGroup> Menus = new List<MenuGroup> ();
+		if (Settings.application.Account) 
+		{
+			Menus.Add (this.MenuData [0]);
+		}
+		if (Settings.application.Help) 
+		{
+			Menus.Add (this.MenuData [1]);
+		}
+		if (Settings.application.Remote) 
+		{
+			Menus.Add (this.MenuData [2]);
+		}
+		if (Settings.application.Leaderboard) 
+		{
+			Menus.Add (this.MenuData [3]);
+		}
+		return Menus;
+	}
+
+	private void CreateStandardMenus()
+	{
+		SubMenu one = new SubMenu ("Remote", () => {
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Paint");	
+		});
+		SubMenu two = new SubMenu ("MAP", () => {
+			UnityEngine.SceneManagement.SceneManager.LoadScene("map");
+		});
+		List<SubMenu> list1 = new List<SubMenu> ();
+		list1.Add (one);
+		list1.Add (two);
+		this.MenuData.Add (new MenuGroup ("Support", BadgeDict.GetSprite (4), list1));
+
+		SubMenu three = new SubMenu ("Login", null);
+		SubMenu four = new SubMenu ("Notification", () => {
+			Assets.SimpleAndroidNotifications.Notification notification = new Assets.SimpleAndroidNotifications.Notification (NotificationType.FireAlarm, "WARNING FIRE IN THE AREA");
+		});
+		List<SubMenu> list2 = new List<SubMenu> ();
+		list2.Add (three);
+		list2.Add (four);
+		this.MenuData.Add (new MenuGroup ("Account", BadgeDict.GetSprite (3), list2));
+
+		SubMenu five = new SubMenu ("Account", () => _pageSwapper.gotoSpecificTaskPage ("HardCodedId"));
+		SubMenu six = new SubMenu ("Application", null);
+		List<SubMenu> list3 = new List<SubMenu> ();
+		list3.Add (five);
+		list3.Add (six);
+		this.MenuData.Add (new MenuGroup ("Help", BadgeDict.GetSprite (6), list3));
+
+		SubMenu seven = new SubMenu ("Check", () => _pageSwapper.GoToLeaderboardPage());
+		SubMenu eight = new SubMenu ("Review", () => _pageSwapper.GoToLeaderboardPage());
+		List<SubMenu> list4 = new List<SubMenu> ();
+		list4.Add (seven);
+		list4.Add (eight);
+		this.MenuData.Add (new MenuGroup ("Leaderboard", BadgeDict.GetSprite (10), list4));
+
+	}
 }

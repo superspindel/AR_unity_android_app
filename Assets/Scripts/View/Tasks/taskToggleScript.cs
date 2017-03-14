@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace App{
-	public class TaskToggleScript : MonoBehaviour {
+	public class taskToggleScript : MonoBehaviour {
 		
-		public TaskButtonScript Parent;
-		public Toggle ToggleComponent;
+		private TaskButtonScript Parent;
+		private Toggle ToggleComponent;
 				
 		public void HandleClick(bool toggled){
-			Debug.Log (toggled);
+			//Debug.Log (toggled);
 			Parent.Checkout (toggled);
 			//Debug.Log(toggleComponent.isOn);
 			//Debug.Log (Parent.taskLabel.text);
 		}
 
 		// Use this for initialization
-		void Start () {
+		void Awake () {
+			Parent = transform.parent.gameObject.GetComponent<TaskButtonScript> ();
+			ToggleComponent = transform.gameObject.GetComponent<Toggle> ();
 			ToggleComponent.onValueChanged.AddListener (HandleClick);
 		}
 

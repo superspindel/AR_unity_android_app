@@ -7,6 +7,8 @@ using SocketIOClient;
 public class CommunicationsApi : MonoBehaviour
 {
 
+    private static bool _successfulFirstConnect = false;
+    private static bool _attemptingToConnect = false;
     public string ServerUrl;
 
     public static bool IsAvailable
@@ -28,8 +30,10 @@ public class CommunicationsApi : MonoBehaviour
         Socket.SocketConnectionClosed += ClientOnSocketConnectionClosed;
         Socket.Error += ClientOnError;
         Socket.RetryConnectionAttempts = 100000;
+	    _attemptingToConnect = true;
         Socket.Connect();
 	}
+
 
     void OnDestroy()
     {
@@ -42,6 +46,7 @@ public class CommunicationsApi : MonoBehaviour
 
     private static void ClientOnError(object sender, ErrorEventArgs errorEventArgs)
     {
+        _attemptingToConnect = false;
         Debug.Log("Error");
         Debug.Log(errorEventArgs.Message);
     }
@@ -65,6 +70,8 @@ public class CommunicationsApi : MonoBehaviour
 
     private static void ClientOnOpened(object sender, EventArgs eventArgs)
     {
+        _successfulFirstConnect = true;
+        _attemptingToConnect = false;
         Debug.Log("Opened connection!");
     }
 
@@ -78,6 +85,11 @@ public class CommunicationsApi : MonoBehaviour
     }
     // Update is called once per frame
 	void Update () {
+	    if (Socket != null && !_successfulFirstConnect && !_attemptingToConnect)
+	    {
+	        _attemptingToConnect = true;
+	        //Socket.Connect();
+	    }
 	    lock (_queuedTasks)
 	    {
 	        var tasks = _queuedTasks.ToArray();

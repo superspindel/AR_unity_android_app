@@ -52,10 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activePage: {fileID: 0}
-  ProfilePage: {fileID: 0}
-  AvalibleTaskPage: {fileID: 0}
-  ActiveTasksPage: {fileID: 0}
-  SettingsPage: {fileID: 0}
-  SpecificTaskPage: {fileID: 0}
-  LeaderBoardPage: {fileID: 0}
-  PopUpWindow: {fileID: 0}
+  MainContentPanel: {fileID: 0}
+  PopUpGameObject: {fileID: 0}

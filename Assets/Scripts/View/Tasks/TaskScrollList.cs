@@ -5,18 +5,24 @@ using UnityEngine.UI;
 
 namespace App{
 	public class TaskScrollList : MonoBehaviour {
-		public GameObject ThisPage;
+		private GameObject ThisPage;
 		private List<Task> TaskList;
-		public Transform ContentPanel;
-		public SimpleObjectPool ButtonObjectPool;
-		public AddTaskButtonScript AddTaskButton;
-		public Pageswapper PageSwapperReference;
-		private List<Task> CheckedList = new List<Task>();
+		private Transform ContentPanel;
+		private SimpleObjectPool ButtonObjectPool;
+		private AddTaskButtonScript AddTaskButton;
+		private Pageswapper PageSwapperReference;
+		private List<Task> _checkedList = new List<Task>();
 
-		/*void Start () {
-				RefreshDisplay ();
 
-		}*/
+		void Awake () {
+			//Debug.Log ("im awake");
+			this.ThisPage = transform.gameObject;
+			this.ContentPanel = transform.FindChild ("Scroll View").FindChild ("Viewport").FindChild ("Content").transform;
+			//Debug.Log ("this is the contentpanel" + this.ContentPanel);
+			this.ButtonObjectPool = transform.FindChild ("ButtonObjectPool").gameObject.GetComponent<SimpleObjectPool>();
+			this.AddTaskButton = transform.FindChild ("AddTasksButton").gameObject.GetComponent<AddTaskButtonScript> ();
+			this.PageSwapperReference = GameObject.Find ("Page Swapper").gameObject.GetComponent<Pageswapper> ();
+		}
 
 		// Removes and adds buttons
 		public void RefreshDisplay()
@@ -25,18 +31,14 @@ namespace App{
 			AddTaskButtons ();
 		}
 
-		public void GetTaskList()
-		{
-			
-		}
-
+		// Adds the button gameobjects and assigns taskbuttonscripts
 		private void AddTaskButtons()
 		{
-			for (int i = 0; i < TaskList.Count; i++)
+		    if (TaskList == null)
+		        return;
+			foreach(var task in TaskList)
 			{
-				if (TaskList [i].UserId == null) { // TODO: check if no one "has task"
-					Task task = TaskList [i];
-					task.Id = i.ToString (); //TODO REMOVE
+				if (task.UserId == null) { // TODO: check if no one "has task"
 					GameObject newButton = ButtonObjectPool.GetObject ();
 					newButton.transform.SetParent (ContentPanel);
 					TaskButtonScript taskButton = newButton.GetComponent<TaskButtonScript> ();
@@ -71,16 +73,18 @@ namespace App{
 					this.TaskList.RemoveAt(i);
 				}
 			}
+			ShowAddButtonNumber();
 		}
 
+		// Adds a selected task to _checkedList and updates addTaskButton counter
 		public void SelectTask(Task taskToAdd)
 		{
 			Debug.Log ("added: " + taskToAdd.Id + " To list");
 			_checkedList.Add (taskToAdd);
-
+			ShowAddButtonNumber ();
 		}
 
-
+		// Removes a selected task from _checkedList and updates addTaskButton counter
 		public void RemoveSelectedTask(Task taskToRemove)
 		{
 			for (int i = this._checkedList.Count - 1; i >= 0; i--) 
@@ -90,33 +94,40 @@ namespace App{
 					this._checkedList.RemoveAt(i);
 				}
 			}
+			ShowAddButtonNumber ();
 			Debug.Log ("Removed : " + taskToRemove.Id + " from list");
 		}
 
 
 		// Adds checked tasks
 		public void AddCheckedTasks(){
-			foreach (Task taskToAdd in _checkedList) {
+			while (_checkedList.Count > 0) {
+				Task taskToAdd = _checkedList [0];
 				Debug.Log ("Added task: " + taskToAdd.Id + " to your active tasks");
 				taskToAdd.UserId = "123"; // TODO: get the real userID
+				_checkedList.Remove(taskToAdd);
 			}
 			RefreshDisplay ();
+			ShowAddButtonNumber ();
 		}
 
-
-		public void ShowAddButton(bool toggle){
-						
+		// Updates the text of the AddTasksButton to display the number of tasks currently selected
+		public void ShowAddButtonNumber(){
+			AddTaskButton.ChangeText (_checkedList.Count);
 		}
 
+		// Script to enter the page used for initialization 
 		public void EnterPage(List<Task> taskList){
-			this.TaskList = taskList;
-			this.ThisPage.SetActive (true);
+			//Debug.Log ("Enter Page");
+			this.TaskList = taskList; // added back to code // EMIL
+			this.gameObject.SetActive (true);
 			AddTaskButtons ();
 		}
 
+		// Script to Leave Page
 		public void LeavePage(){
 			RemoveTaskButtons ();
-			this.ThisPage.SetActive (false);
+			this.gameObject.SetActive (false);
 		}
 	}
 }

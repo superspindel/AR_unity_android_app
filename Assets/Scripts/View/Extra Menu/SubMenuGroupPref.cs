@@ -6,7 +6,7 @@ using UnityEngine.UI;
 // Sub menu group prefab script, for setup of the group by adding the sub menus 
 // and possibly removing the sub menus by returning them to the pool.
 public class SubMenuGroupPref : Prefab {
-	
+
 	private SimpleObjectPool _subButtonPool;
 
 	// Setup, takes a list of sub menus and a pool to get the button objects from.

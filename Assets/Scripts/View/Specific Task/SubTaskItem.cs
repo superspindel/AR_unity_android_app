@@ -9,10 +9,11 @@ public class SubTaskItem : MonoBehaviour {
 	public string Warning, Info;
 	public List<Tool> Tools;
 
-	private string			_id;
-	private Status 		_status;
+	private string		_id;
+	public Status 		Status;
+
+	public  bool 		IsBonus;
 	private bool 		_hasTool, _hasHelp, _hasInfo, _hasWarning;
-	private bool 		_isBonus;
 	private GameObject 	_buttonGroup;
 	private Text 		_textField;
 	private Toggle 		_regularToggle;
@@ -61,9 +62,9 @@ public class SubTaskItem : MonoBehaviour {
 
 	// Set isBonus and activate the right toggle
 	public void SetBonus(bool b){
-		this._isBonus = b;
-		this._regularToggle.gameObject.SetActive(!_isBonus);
-		this._bonusToggle.gameObject.SetActive	( _isBonus);
+		this.IsBonus = b;
+		this._regularToggle.gameObject.SetActive(!IsBonus);
+		this._bonusToggle.gameObject.SetActive	( IsBonus);
 	}
 
 	// Sets SubTask Text
@@ -73,12 +74,24 @@ public class SubTaskItem : MonoBehaviour {
 
 	// Set Status and text color
 	public void SetStatus(Status s){
-		this._status = s;
+		this.Status = s;
 		this._textField.color = _getTextColorByStatus();
+		this._page.RefreshProgress ();
 	}
 
 	public void SetId(string id){
 		this._id = id;
+	}
+
+	public void SetPrechecked(Status status){
+		if (status == Status.Completed) {
+			this._regularToggle.isOn = true;
+			this._bonusToggle.isOn = true;
+		} else if (status == Status.InProgress) {
+			this._regularToggle.isOn = false;
+			this._bonusToggle.isOn = false;
+		}
+
 	}
 
 	// Listeners
@@ -96,11 +109,11 @@ public class SubTaskItem : MonoBehaviour {
 
 	// Returns a color depending on subtask status, Magenta = No status
 	private Color _getTextColorByStatus(){
-		if (_status == Status.InProgress)
+		if (Status == Status.InProgress)
 			 return Color.black;
-		if (_status == Status.Completed)
+		if (Status == Status.Completed)
 			return Color.green;
-		if (_status == Status.Aborted)
+		if (Status == Status.Aborted)
 			return Color.red;
 		return Color.magenta;
 	}

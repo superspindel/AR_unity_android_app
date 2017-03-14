@@ -18,8 +18,8 @@ public abstract class NetworkDataObject
 
     public void Merge(object newData)
     {
-        Debug.Log(newData);
-        Available = true;
+        //Debug.Log(newData);
+		//Available = true;
         LastModified = DateTime.UtcNow;
         foreach (var prop in this.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite))
         {
@@ -36,6 +36,7 @@ public abstract class NetworkDataObject
         }
         if (Updated != null)
             Updated(this);
+        Available = true;
     }
     public override int GetHashCode()
     {
@@ -89,7 +90,7 @@ public class DataStore
         int hash = GetHashCode(typeof(T), id);
         // if object was last modified less than a minute ago, return instantly and queue an update
         bool fast = false;
-        if (ObjectTracker.ContainsKey(hash) && ObjectTracker[hash].LastModified > DateTime.UtcNow - TimeSpan.FromMinutes(1))
+        if (ObjectTracker.ContainsKey(hash) && ObjectTracker[hash].LastModified > (DateTime.UtcNow - TimeSpan.FromMinutes(1)))
         {
             if (callback != null)
                 callback(ObjectTracker[hash] as T);
@@ -122,6 +123,7 @@ public class DataStore
             {
                 if (callback != null)
                     callback(ObjectTracker[hash] as T);
+                return;
             }
             // Attempt to fetch sync from Offline Cache
             var cache = OfflineCache.Fetch<T>(hash);
@@ -130,6 +132,7 @@ public class DataStore
                 ObjectTracker[hash] = cache;
                 if (callback != null)
                     callback(cache);
+                return;
             }
             else
             {
@@ -143,15 +146,16 @@ public class DataStore
     /// Gets a list of objects corresponding to the relevancy of the request. Is async with callback in most cases.
     /// </summary>
     /// <typeparam name="T">The type of objects to list</typeparam>
+    /// <param name="list">The list to fetch</param>
     /// <param name="callback">A callback to handle the requested data. Can be null to just queue update from server or heat up data from disk cache.</param>
-    public static void List<T>(Action<IEnumerable<T>> callback) where T: NetworkDataObject, new()
+    public static void List<T>(string list, Action<IEnumerable<T>> callback) where T: NetworkDataObject, new()
     {
         string eventName = typeof(T).Name + ".list";
         int hash = eventName.GetHashCode();
         if (CommunicationsApi.IsAvailable)
         {
             // fetch array with ids, then Get each object (allows us to fetch from local cache instead of sending buttloads of data over net by default)
-            CommunicationsApi.Socket.Emit(eventName, null, "", o =>
+            CommunicationsApi.Socket.Emit(eventName, list, "", o =>
             {
                 CommunicationsApi.RunOnMainThread(() =>
                 {
@@ -166,8 +170,8 @@ public class DataStore
                             i--;
                             if (i == 0)
                             {
-                                if (callback != null)
-                                    callback(returns);
+								if (callback != null)
+                                	callback(returns);
                             }
                         });
                     }
@@ -202,6 +206,11 @@ public class DataStore
                     callback(new T[0]);
             }
         }
+    }
+
+    public static void List<T>(Action<IEnumerable<T>> callback) where T : NetworkDataObject, new()
+    {
+        List<T>("all", callback);
     }
 
     /// <summary>

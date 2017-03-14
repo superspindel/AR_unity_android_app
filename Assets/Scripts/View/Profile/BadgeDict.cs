@@ -1,28 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System.Linq;
 using System.IO;
+using System;
 
 
 // Dictionary to contain the sprites for the badges
 // To be binded to a gameobject that the profileview can get the sprites from when adding the badges to the profile view
 [System.Serializable]
-public class BadgeDict : MonoBehaviour{
+public class BadgeDict {
 
-	private int _test = 10;
-	private int _dictTest = 0;
-
-	public Sprite NotFound;	// Sprite set if the id should not get found in the dictionary
-	public Dictionary<int, string> Dict = new Dictionary<int, string>();
+	public static Sprite NotFound{ get; set; }	// Sprite set if the id should not get found in the dictionary
+	public static Dictionary<int, Sprite> Dict = new Dictionary<int, Sprite>();
+	private static bool _Initialized = false;
 
 	// Returns the sprite requested or the NotFound sprite if there is no key in the dictionary equal to input SpriteId
-	public Sprite GetSprite(int spriteId)
+	public static Sprite GetSprite(int spriteId)
 	{
+		if (!_Initialized) 
+		{
+			InitializeDictionary (Resources.LoadAll<Sprite> ("Badges/"));
+			BadgeDict.NotFound = Resources.Load <Sprite>("Badges/trash");
+			_Initialized = true;
+		}
 		try
 		{
-			return (Sprite)AssetDatabase.LoadAssetAtPath(Dict [spriteId], typeof(Sprite));
+			return Dict [spriteId];
 		}
 		catch(KeyNotFoundException) 
 		{
@@ -32,20 +36,17 @@ public class BadgeDict : MonoBehaviour{
 	// Fill Dictionary with sprites from folder
 	void Awake()
 	{
-		this.InitializeDictionary ();
-
+		InitializeDictionary (Resources.LoadAll<Sprite> ("Badges/"));
+		BadgeDict.NotFound = Resources.Load <Sprite>("Badges/trash");
 	}
 
-	private void InitializeDictionary()
+	private static void InitializeDictionary(Sprite[] Sprites)
 	{
-		string spritePath = "Assets/Icons/Badges/";
-		string spriteType = "*.png";
-		string[] pdfFiles = Directory.GetFiles(spritePath, spriteType).Select(Path.GetFileName).ToArray();
-		for (int i = 0; i < pdfFiles.Length; i++) 
+		for (int i = 0; i < Sprites.Length; i++) 
 		{
-			string totalpath = (spritePath+pdfFiles [i]);
-			Dict [i] = totalpath;
+			Dict.Add (i, Sprites [i]);
 		}
+
 	}
 
 

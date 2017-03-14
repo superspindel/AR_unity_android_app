@@ -7,10 +7,10 @@ using UnityEngine.UI;
 // SliderScript will setup the slider aswell as handle the Level and XP for the current user.
 public class SliderScript : MonoBehaviour {
 
-	public Slider LevelSlider;
-	public Text XpNow;
-	public Text XpLevel;
-	public Text LevelText;
+	private Slider LevelSlider;
+	private Text XpNow;
+	private Text XpLevel;
+	private Text LevelText;
 
 	public int Xp { get; private set; }
 	public int MaxXp { get; private set; }
@@ -18,6 +18,16 @@ public class SliderScript : MonoBehaviour {
 
 	// Setslider takes a User object that contains the TotalLevel and TotalScore of the player
 	// and sets the components of the view to match the user information and updates the display.
+
+	void Awake()
+	{
+		this.LevelSlider = transform.GetComponent<Slider> ();
+		this.XpNow = transform.FindChild ("currentXP").GetComponent<Text> ();
+		this.XpLevel = transform.FindChild ("nextLevelXP").GetComponent<Text> ();
+		this.LevelText = transform.parent.transform.GetComponent<Text> ();
+	}
+
+
 	public void SetSlider(User playerProf)
 	{
 		this.SetData (playerProf.TotalLevel, playerProf.TotalScore);
@@ -29,13 +39,13 @@ public class SliderScript : MonoBehaviour {
 	// needed to get to the next level. Then it sets the values in the object.
 	private void SetData(int level, int totalXp)
 	{
-		int bottom = (10 * ((int)Mathf.Pow ((float)1.2, (float)(level)))); // The xp needed to reach the current level of the user
-		int top = (10 * ((int)Mathf.Pow ((float)1.2, (float)level+1))); // The xp need to reach the next level
+		int bottom = (int)(10 * (Mathf.Pow ((float)1.2, (float)(level)))); // The xp needed to reach the current level of the user
+		int top = (int)(10 * (Mathf.Pow ((float)1.2, (float)(level+1)))); // The xp need to reach the next level
 		this.MaxXp = top - bottom; // MaxXp of the slider should be the xp difference between the next level and the current level
 		this.Xp = totalXp - bottom; // The current xp for the user on this level should be the total xp - the xp needed to get to the current level
 		this.UserLevel = level;
 	}
-		
+
 
 	private void UpdateDisplay()
 	{
@@ -64,5 +74,5 @@ public class SliderScript : MonoBehaviour {
 	{
 		this.UserLevel += 1;
 	}
-		
+
 }

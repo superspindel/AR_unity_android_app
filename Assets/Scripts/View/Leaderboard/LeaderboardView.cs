@@ -3,50 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Script for the leaderboard panel, sets up the view of the leaderboards.
-public class LeaderBoardView : MonoBehaviour {
+public class LeaderboardView : MonoBehaviour {
 
-	public SimpleObjectPool SubjectPool;
-	public SimpleObjectPool LeaderboardTitlePool;
-	public SimpleObjectPool LeaderboardUserPool;
+	private SimpleObjectPool SubjectPool;
+	private SimpleObjectPool LeaderboardTitlePool;
+	private SimpleObjectPool LeaderboardUserPool;
 
-	public List<Leaderboard> SubjectList;
+	private Transform Group;
 
-	private bool _initialized = false;
+	private List<Leaderboard> SubjectList;
+
 
 	// TODO: Have setup get information from the cache
 	public void EnterPage(List<Leaderboard> subjectList)
 	{
-		this.SubjectList = subjectList;
-		foreach (Leaderboard ldb in this.SubjectList)
-		{
-			// TODO: Check Ldb.Available
-			if (!this._initialized) 
-			{
-				ldb.Updated += obj => {
-					this.UpdatePage(subjectList);
-				};
+		this.gameObject.SetActive (true);
+		if (subjectList != null && subjectList.Count > 0) {
+			foreach (Leaderboard leaderboard in subjectList) {
+				this.SubjectList = subjectList;
+				if (leaderboard.Available) {
+					GameObject SubjectObject = this.SubjectPool.GetObject ();
+					SubjectObject.transform.SetParent (this.Group);
+					LeaderboardSubjectPref script = SubjectObject.GetComponent<LeaderboardSubjectPref> ();
+					script.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, leaderboard);
+				}
 			}
-			GameObject newSubj = this.SubjectPool.GetObject ();
-			newSubj.transform.SetParent (this.transform);
-			LeaderboardSubjectPref ldbSubjScript = newSubj.GetComponent<LeaderboardSubjectPref> ();
-			ldbSubjScript.Setup (this.LeaderboardTitlePool, this.LeaderboardUserPool, ldb);
 		}
-		this._initialized = true;
+	}
+
+	void Awake()
+	{
+		this.Group = transform.FindChild ("Group").gameObject.transform;
+		this.SubjectPool = transform.FindChild ("SubjectPool").GetComponent<SimpleObjectPool> ();
+		this.LeaderboardTitlePool = transform.FindChild ("leaderboardTitlePool").GetComponent<SimpleObjectPool> ();
+		this.LeaderboardUserPool = transform.FindChild ("leaderboardUserPool").GetComponent<SimpleObjectPool> ();
 	}
 
 	public void LeavePage()
 	{
-		while (this.transform.childCount > 0)
+		while (this.Group.childCount > 0)
 		{
-			GameObject toRemove = this.transform.GetChild(0).gameObject;
+			GameObject toRemove = this.Group.GetChild(0).gameObject;
 			Prefab script = toRemove.GetComponent<Prefab> ();
 			script.ReturnChildren ();
+			SubjectPool.ReturnObject (toRemove);
 		}
+		this.gameObject.SetActive (false);
 	}
 
 	public void UpdatePage(List<Leaderboard> updatedSubjectList)
 	{
 		this.LeavePage ();
-		this.EnterPage (updatedSubjectList);
+		this.EnterPage (this.SubjectList);
 	}
+
 }

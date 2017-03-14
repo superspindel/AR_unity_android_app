@@ -6,17 +6,21 @@ using UnityEngine.UI;
 namespace App{
 	public class TaskButtonScript : MonoBehaviour {
 
-		public Text TaskLabel;
-		public Text XpLabel;
-		public TaskToggleScript TaskToggle;
-		public Button TaskButton;
+		private Text TaskLabel;
+		private Text XpLabel;
+		private taskToggleScript TaskToggle;
+		private Button TaskButton;
 		private Pageswapper _pageswap;
 
 		private Task _task;
 		private TaskScrollList _scrollList;
 
 		// Use this for initialization
-		void Start () {
+		void Awake () {
+			TaskToggle = this.gameObject.transform.FindChild("Toggle").GetComponent<taskToggleScript>();
+			XpLabel = transform.FindChild ("XP").gameObject.GetComponent<Text> ();
+			TaskLabel = transform.FindChild ("title").gameObject.GetComponent<Text> ();
+			TaskButton = transform.gameObject.GetComponent<Button> ();
 			//_pageswap = GameObject.Find ("Page Swapper").GetComponent<Pageswapper> ();
 			//TaskButton.onClick.AddListener (HandleClick);
 		}
@@ -34,7 +38,7 @@ namespace App{
 		public void HandleClick()
 		{
 			Debug.Log ("1: Task ID: " + _task.Id);
-			//_pageswap.gotoSpecificTaskPage (_task.Id);
+			_pageswap.gotoSpecificTaskPage (_task.Id);
 			//TODO
 		}
 
@@ -46,7 +50,6 @@ namespace App{
 			TaskLabel.text = _task.Title + " [" +_task.Id + "]";
 			XpLabel.text = _task.TotalXp.ToString() + "xp";
 			_scrollList = currentScrollList;
-			TaskToggle = this.transform.FindChild("Toggle").GetComponent<TaskToggleScript>();
 			TaskToggle.Setup (this);
 		}
 	}

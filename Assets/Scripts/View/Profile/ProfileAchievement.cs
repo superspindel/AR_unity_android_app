@@ -2,39 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ProfileAchievement : Prefab {
 
-	public Transform AchievementPanel;
-	public GameObject AchievementGroup;
-	public SimpleObjectPool AchievementObjectPool;
+	private Transform AchievementPanel;
+	private GameObject AchievementGroup;
+	private SimpleObjectPool AchievementObjectPool;
 
-	/*
-	public void resetDisplay()
+	void Awake()
 	{
-		this.RemoveAchievements ();
-		this.AddAchievements ();
+		this.AchievementPanel = this.transform;
+		this.AchievementGroup = transform.FindChild ("AchievementGroup").gameObject;
+		this.AchievementObjectPool = transform.parent.transform.FindChild ("AchievementPool").GetComponent<SimpleObjectPool> ();
 	}
-	*/
 
 	// Return the achievement prefabs to the pool
 	public override void ReturnChildren()
 	{
-		while (this.AchievementPanel.childCount > 0)
+		while (this.AchievementGroup.transform.childCount > 0)
 		{
-			GameObject toRemove = AchievementPanel.GetChild(0).gameObject;
+			GameObject toRemove = AchievementGroup.transform.GetChild(0).gameObject;
 			this.AchievementObjectPool.ReturnObject(toRemove);
 		}
 	}
 	// Add achievement prefabs from the pool to the scene and call setup on them
 	public void AddAchievements(List<Achievement> achievementList)
 	{
-		foreach( Achievement ach in achievementList)
+	    if (achievementList == null)
+	        return;
+		foreach(Achievement ach in achievementList)
 		{
 			GameObject newAch = this.AchievementObjectPool.GetObject ();
-			newAch.transform.SetParent (this.AchievementPanel);
+			newAch.transform.SetParent (this.AchievementGroup.transform);
 			AchievementPrefab achPref = newAch.GetComponent<AchievementPrefab> ();
-			achPref.Setup (ach, this);
+			try
+			{
+				achPref.Setup (ach, this);
+			}
+			catch(Exception e) 
+			{
+				Debug.Log (e.Message);
+			}
 		}
 	}
 }

@@ -8,11 +8,9 @@ namespace Assets.SimpleAndroidNotifications
 {	// Notification class to handle sending of notifications
 	// Takes a Notification type and the message to be displayed to the user
 	// Will depending on the severity repeat sending of notification until the user has notified the application that it has been read
-	public class Notification : MonoBehaviour {
+	public class Notification {
 
 		public string[] Titles = new String[]{"FIRE", "DETONATION", "GAS", "GEAR", "AREA", "LUNCH", "BREAK", "BADGE", "ACHIEVEMENT", "TASK", "SUBTASK"};
-		public SimpleObjectPool PopUpPool;
-		public Transform Content;
 
 		private bool _resend;
 
@@ -20,13 +18,10 @@ namespace Assets.SimpleAndroidNotifications
 
 		private Pageswapper _pageswapper;
 
-		// MonoBehav. Init
-		void Awake(){
-			_pageswapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
-		}
-
 		public Notification(NotificationType notiType, string message)
 		{
+			_pageswapper = GameObject.FindWithTag ("Pageswapper").GetComponent<Pageswapper>();
+
 			if ((int) notiType < 5) // First 5 notification types are alarms, the rest are ordinary notifications
 			{
 				AlarmParams (Titles [(int) notiType], message); 
@@ -35,31 +30,15 @@ namespace Assets.SimpleAndroidNotifications
 			{
 				NotificationParams (Titles [(int) notiType], message);
 			}
+			this.Send ();
+			CreatePopUp (message, notiType);
 		}
 
-		private void CreatePopUp(string message, string title, NotificationType notiType)
+		private void CreatePopUp(string message, NotificationType notiType)
 		{
-			/* Changed by Emil */
-			//GameObject NewPopUpObject = this.PopUpPool.GetObject ();
-			//NewPopUpObject.transform.SetParent (this.Content);
-			//PopUp PopUpScript = NewPopUpObject.GetComponent<PopUp> ();
-			//PopUpScript.enterPopup ();
-			//PopUpScript.setPanelTitle (NotiType.ToString ());
-			//PopUpScript.setContentTitle (Title);
-			//PopUpScript.setContentText (Message);
-
-			_pageswapper.OpenPopup_General (title, message);
+			_pageswapper.OpenPopup_General (Titles [(int) notiType], message);
 
 			// Add onClick event to handle user clicking on the PopUp to cancel new notifications being sent.
-		}
-
-		void Update()
-		{
-			if (_resend) 
-			{
-				NotificationManager.Cancel (this._parameters.Id);
-				this.Send ();
-			}
 		}
 
 
@@ -81,7 +60,7 @@ namespace Assets.SimpleAndroidNotifications
 				Sound = true,
 				Vibrate = true,
 				Light = true,
-				SmallIcon = NotificationIcon.Warning,
+				SmallIcon = NotificationIcon.Event,
 				SmallIconColor = new Color(1, 0, 0),
 				LargeIcon = "app_icon"
 			};
